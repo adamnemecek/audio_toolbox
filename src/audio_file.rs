@@ -274,7 +274,15 @@ impl AudioFileTypeID {
 // 	UInt32 mSubFrameSampleOffset;
 // };
 // typedef struct AudioFile_SMPTE_Time AudioFile_SMPTE_Time;
-
+#[repr(C)]
+#[derive(Clone, Copy, PartialEq, Eq)]
+pub struct AudioFile_SMPTE_Time {
+    pub m_hours: i8,
+    pub m_minutes: u8,
+    pub m_seconds: u8,
+    pub m_frames: u8,
+    pub m_sub_frame_sample_offset: u32,
+}
 // /*!
 //     enum		AudioFileMarkerType
 //     @abstract   constants for types of markers within a file. Used in the mType field of AudioFileMarker.
@@ -310,6 +318,15 @@ impl AudioFileTypeID {
 // 	UInt16					mChannel;
 // };
 // typedef struct AudioFileMarker AudioFileMarker;
+pub struct AudioFileMarker {
+    pub m_frame_position: f64,
+    // pub m_name: CFStringRef	__nullable	,
+    pub m_marker_id: i32,
+    pub m_smpte_time: AudioFile_SMPTE_Time,
+    pub m_type: u32,
+    pub m_reserved: u16,
+    pub m_channel: u16,
+}
 
 // /*!
 //     @struct		AudioFileMarkerList

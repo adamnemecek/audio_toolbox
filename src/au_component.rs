@@ -844,6 +844,13 @@
 // 						the input or output audio format)
 // */
 // typedef UInt32							AudioUnitPropertyID;
+pub struct AudioUnitPropertyID(u32);
+
+impl AudioUnitPropertyID {
+    pub const fn new(inner: u32) -> Self {
+        Self(inner)
+    }
+}
 // /*!
 // 	@typedef			AudioUnitScope
 // 	@discussion			Type used for audio unit scopes. Apple reserves the 0 < 1024 range for

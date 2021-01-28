@@ -105,6 +105,18 @@
 // 	kAudioUnitScope_Layer		= 6,
 // 	kAudioUnitScope_LayerItem	= 7
 // };
+#[repr(u32)]
+#[derive(Clone, Copy, PartialEq, Eq)]
+enum AudioUnitScope {
+    Global = 0,
+    Input = 1,
+    Output = 2,
+    Group = 3,
+    Part = 4,
+    Note = 5,
+    Layer = 6,
+    LayerItem = 7,
+}
 
 // //=====================================================================================================================
 // #pragma mark Audio Unit Properties
@@ -829,6 +841,64 @@
 // 	kAudioUnitProperty_MIDIOutputCallbackInfo       = 47,
 // 	kAudioUnitProperty_MIDIOutputCallback           = 48,
 // };
+
+impl crate::AudioUnitPropertyID {
+    pub const ClassInfo: Self = Self::new(0);
+    pub const MakeConnection: Self = Self::new(1);
+    pub const SampleRate: Self = Self::new(2);
+    pub const ParameterList: Self = Self::new(3);
+    pub const ParameterInfo: Self = Self::new(4);
+    pub const CPULoad: Self = Self::new(6);
+    pub const StreamFormat: Self = Self::new(8);
+    pub const ElementCount: Self = Self::new(11);
+    pub const Latency: Self = Self::new(12);
+    pub const SupportedNumChannels: Self = Self::new(13);
+    pub const MaximumFramesPerSlice: Self = Self::new(14);
+    pub const ParameterValueStrings: Self = Self::new(16);
+    pub const AudioChannelLayout: Self = Self::new(19);
+    pub const TailTime: Self = Self::new(20);
+    pub const BypassEffect: Self = Self::new(21);
+    pub const LastRenderError: Self = Self::new(22);
+    pub const SetRenderCallback: Self = Self::new(23);
+    pub const FactoryPresets: Self = Self::new(24);
+    pub const RenderQuality: Self = Self::new(26);
+    pub const HostCallbacks: Self = Self::new(27);
+    pub const InPlaceProcessing: Self = Self::new(29);
+    pub const ElementName: Self = Self::new(30);
+    pub const SupportedChannelLayoutTags: Self = Self::new(32);
+    pub const PresentPreset: Self = Self::new(36);
+    pub const DependentParameters: Self = Self::new(45);
+    pub const InputSamplesInOutput: Self = Self::new(49);
+    pub const ShouldAllocateBuffer: Self = Self::new(51);
+    pub const FrequencyResponse: Self = Self::new(52);
+    pub const ParameterHistoryInfo: Self = Self::new(53);
+    pub const NickName: Self = Self::new(54);
+    pub const OfflineRender: Self = Self::new(37);
+    pub const ParameterIDName: Self = Self::new(34);
+    pub const ParameterStringFromValue: Self = Self::new(33);
+    pub const ParameterClumpName: Self = Self::new(35);
+    pub const ParameterValueFromString: Self = Self::new(38);
+    pub const ContextName: Self = Self::new(25);
+    pub const PresentationLatency: Self = Self::new(40);
+    pub const ClassInfoFromDocument: Self = Self::new(50);
+    pub const RequestViewController: Self = Self::new(56);
+    pub const ParametersForOverview: Self = Self::new(57);
+    pub const SupportsMPE: Self = Self::new(58);
+    pub const RenderContextObserver: Self = Self::new(60);
+    // __SWIFT_UNAVAILABLE_MSG("Swift is not supported for use with audio realtime threads")
+    // = 60,
+    //  #if !TARGET_OS_IPHONE
+    pub const FastDispatch: Self = Self::new(5);
+    pub const SetExternalBuffer: Self = Self::new(15);
+    pub const GetUIComponentList: Self = Self::new(18);
+    pub const CocoaUI: Self = Self::new(31);
+    pub const IconLocation: Self = Self::new(39);
+    pub const AUHostIdentifier: Self = Self::new(46);
+    //  #endif
+
+    pub const MIDIOutputCallbackInfo: Self = Self::new(47);
+    pub const MIDIOutputCallback: Self = Self::new(48);
+}
 
 // #if AU_SUPPORT_INTERAPP_AUDIO
 // /*
