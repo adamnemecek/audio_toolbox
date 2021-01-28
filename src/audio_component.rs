@@ -650,7 +650,7 @@ pub enum AudioComponentValidationResult {
     Failed,
     TimedOut,
     UnauthorizedError_Open,
-    UnauthorizedError_Init
+    UnauthorizedError_Init,
 }
 
 // /*!

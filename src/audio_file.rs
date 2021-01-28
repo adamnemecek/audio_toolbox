@@ -1,3 +1,5 @@
+use cc4::four_cc;
+
 // #if (defined(__USE_PUBLIC_HEADERS__) && __USE_PUBLIC_HEADERS__) || (defined(USE_AUDIOTOOLBOX_PUBLIC_HEADERS) && USE_AUDIOTOOLBOX_PUBLIC_HEADERS) || !__has_include(<AudioToolboxCore/AudioFile.h>)
 // /*!
 // 	@file		AudioFile.h
@@ -28,6 +30,13 @@
 // 	@abstract	Identifier for an audio file type.
 // */
 // typedef UInt32 AudioFileTypeID;
+pub struct AudioFileTypeID(u32);
+
+impl AudioFileTypeID {
+    pub const fn new(cc: &[u8; 4]) -> Self {
+        Self(four_cc(cc))
+    }
+}
 
 // /*!
 //     Audio File Types
@@ -98,6 +107,30 @@
 // 		kAudioFileFLACType				= 'flac',
 // 		kAudioFileLATMInLOASType		= 'loas'
 // };
+impl AudioFileTypeID {
+    pub const AIFF: Self = Self::new(b"AIFF");
+    pub const AIFC: Self = Self::new(b"AIFC");
+    pub const WAVE: Self = Self::new(b"WAVE");
+    pub const RF64: Self = Self::new(b"RF64");
+    pub const BW64: Self = Self::new(b"BW64");
+    pub const Wave64: Self = Self::new(b"W64f");
+    pub const SoundDesigner2: Self = Self::new(b"Sd2f");
+    pub const Next: Self = Self::new(b"NeXT");
+    pub const MP3: Self = Self::new(b"MPG3"); // mpeg layer 3
+    pub const MP2: Self = Self::new(b"MPG2"); // mpeg layer 2
+    pub const MP1: Self = Self::new(b"MPG1"); // mpeg layer 1
+    pub const AC3: Self = Self::new(b"ac-3");
+    pub const AAC_ADTS: Self = Self::new(b"adts");
+    pub const MPEG4: Self = Self::new(b"mp4f");
+    pub const M4A: Self = Self::new(b"m4af");
+    pub const M4B: Self = Self::new(b"m4bf");
+    pub const CAF: Self = Self::new(b"caff");
+    pub const _3GP: Self = Self::new(b"3gpp");
+    pub const _3GP2: Self = Self::new(b"3gp2");
+    pub const AMR: Self = Self::new(b"amrf");
+    pub const FLAC: Self = Self::new(b"flac");
+    pub const LATMInLOAS: Self = Self::new(b"loas");
+}
 
 // /*!
 //     AudioFile error codes
