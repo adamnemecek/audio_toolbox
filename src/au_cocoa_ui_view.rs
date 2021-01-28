@@ -5,10 +5,9 @@
 //  	@copyright	(c) 2003-2015 Apple, Inc. All rights reserved.
 // 	@abstract	Protocol for Cocoa-based audio unit views.
 // 	@discussion
-	
+
 // 	Audio unit hosts can call these methods to retrieve views for audio units.
 // */
-
 // #ifndef AudioToolbox_AUCocoaUIView_h
 // #define AudioToolbox_AUCocoaUIView_h
 
@@ -31,7 +30,7 @@
 // 				NOTE: Developers are strongly encouraged to override -(NSString *)description to return the name
 // 				of the cocoa view. This name is displayed by host applications and should be returned as a copy
 // 				instead of a static string.
-				
+
 // 				For example, you could define the description method like this:
 // 					- (NSString *) description {
 // 						return [NSString withString: @"Filter View"];
@@ -47,7 +46,7 @@
 // 	@param		inPreferredSize
 // 					The preferred size of the view to be returned.
 // 	@result		An NSView.
-	
+
 // 	@discussion
 // 				This method is a factory function: each call to it must return a unique view.
 // 				Each view must be returned with a retain count of 1 and autoreleased.

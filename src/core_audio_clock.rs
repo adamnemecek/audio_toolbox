@@ -5,7 +5,6 @@
 // 	@abstract	Services for audio and MIDI-related synchronization and
 // 				time unit conversions.
 // */
-
 // #ifndef AudioToolbox_CoreAudioClock_h
 // #define AudioToolbox_CoreAudioClock_h
 
@@ -23,7 +22,7 @@
 
 // /*!
 // 	@enum		CAClockPropertyID
-	
+
 // 	@abstract	The properties of a CoreAudioClock, accessible via CAClockGetProperty and
 // 				CAClockSetProperty.
 
@@ -38,7 +37,7 @@
 // 					Type: CAClockSyncMode. Selects between internal synchronization and multiple
 // 					external synchronization modes such as MIDI Time Code and MIDI beat clock.
 // 	@constant	kCAClockProperty_SyncSource
-// 					Type: according to the sync mode. For kCAClockSyncMode_MIDIClockTransport or 
+// 					Type: according to the sync mode. For kCAClockSyncMode_MIDIClockTransport or
 // 					kCAClockSyncMode_MTCTransport, the value is a MIDIEndpointRef.
 // 	@constant	kCAClockProperty_SMPTEFormat
 // 					Type: CAClockSMPTEFormat. Specifies the SMPTE format (fps, drop or non-drop)
@@ -65,7 +64,7 @@
 // 					defining the relationship between timeline positions in seconds and musical
 // 					beats. Defaults to a constant tempo of 120 bpm.
 // 	@constant	kCAClockProperty_MeterTrack
-// 					Type: array of CAMeterTrackEntry. Specifies the positions of musical time 
+// 					Type: array of CAMeterTrackEntry. Specifies the positions of musical time
 // 					signature changes in the timeline. Used only for converting between beats
 // 					and CABarBeatTime's (a display representation of a beat time).
 // 	@constant	kCAClockProperty_Name
@@ -96,9 +95,9 @@
 
 // /*!
 // 	@enum		CAClockTimebase
-	
+
 // 	@abstract	The available internal hardware time references for a clock.
-	
+
 // 	@constant	kCAClockTimebase_HostTime
 // 					The clock's reference time is host time (as returned
 // 					by <code>mach_absolute_time()</code> or
@@ -118,9 +117,9 @@
 
 // /*!
 // 	@enum		CAClockSyncMode
-	
+
 // 	@abstract	Specifies internal synchronization, or an external sync source type.
-	
+
 // 	@constant	kCAClockSyncMode_Internal
 // 					The clock is not driven by an external sync source.
 // 	@constant	kCAClockSyncMode_MIDIClockTransport
@@ -136,7 +135,6 @@
 // 	kCAClockSyncMode_MTCTransport		= 'mmtc'	// sync to MIDI Time Code, external transport
 // };
 
-
 // /* From CoreAudioTypes.h:
 // 	enum {
 // 		kSMPTETimeType24		= 0,
@@ -147,7 +145,6 @@
 // 		kSMPTETimeType2997Drop	= 5
 // 	};
 // */
-
 // // we can remove this after the SDK's have the real declaration.
 // #if !defined(COREAUDIOTYPES_VERSION) || COREAUDIOTYPES_VERSION <= 1051
 // #define SMPTETimeType UInt32
@@ -168,7 +165,7 @@
 // 	@enum		CAClockMessage
 // 	@abstract	The messages sent to a CAClockListenerProc to notify the client of
 // 				changes to the clock's state.
-	
+
 // 	@constant	kCAClockMessage_StartTimeSet
 // 					A new start time was set or received from an external sync source.
 // 	@constant	kCAClockMessage_Started
@@ -195,11 +192,10 @@
 // 	kCAClockMessage_WrongSMPTEFormat	= '?smp'
 // };
 
-
 // /*!
 // 	@enum		CAClockTimeFormat
 // 	@abstract	The various units in which a clock can represent and report time.
-	
+
 // 	@constant	kCAClockTimeFormat_HostTime
 // 					Absolute host time, as returned by <code>mach_absolute_time()</code>.
 // 	@constant	kCAClockTimeFormat_Samples
@@ -237,7 +233,7 @@
 // 	kCAClock_InvalidTimebaseSourceError = -66810,
 // 	kCAClock_InvalidSMPTEFormatError	= -66809,
 // 	kCAClock_InvalidSMPTEOffsetError	= -66808,
-// 	kCAClock_InvalidUnitError			= -66807,	// e.g. asking for audio samples when sync source 
+// 	kCAClock_InvalidUnitError			= -66807,	// e.g. asking for audio samples when sync source
 // 													// not associated with an audio device
 // 	kCAClock_InvalidPlayRateError		= -66806,
 // 	kCAClock_CannotSetTimeError			= -66805	// can't SetCurrentTime unless stopped
@@ -278,9 +274,9 @@
 
 // /*!
 // 	@typedef	CAClockListenerProc
-	
+
 // 	@abstract	A client-supplied function called when the clock's state changes.
-	
+
 // 	@param	userData
 // 				The value passed to CAClockAddListener when the callback function
 // 				was installed.
@@ -293,9 +289,9 @@
 
 // /*!
 // 	@struct 	CAClockTime
-	
+
 // 	@abstract	Represents a time value using one of several possible units.
-	
+
 // 	@var  	format
 // 				Specifies the time's format and units.
 // 	@var  	reserved
@@ -320,7 +316,7 @@
 // /*!
 // 	@struct 	CATempoMapEntry
 // 	@abstract	A tempo change event.
-	
+
 // 	The clock's tempo map defines the correspondence between seconds and musical
 // 	beats, and is used in conversions between the two.
 
@@ -338,7 +334,7 @@
 // /*!
 // 	@struct		CAMeterTrackEntry
 // 	@abstract	A time signature change event.
-	
+
 // 	The meter track is used for converting between beats as floating-point
 // 	numbers (CAClockBeats) and their display representations (CABarBeatTime).
 
@@ -366,15 +362,15 @@
 // //  -----------------------------------------------------------------------------
 // /*!
 // 	@function		CAClockNew
-	
+
 // 	@abstract		Create a new clock object.
-	
+
 // 	@param			inReservedFlags
 // 						Must be 0.
-	
+
 // 	@param			outCAClock
 // 						Must be non-null. On successful return, the new clock object.
-	
+
 // 	@result			An OSStatus error code.
 // */
 // extern OSStatus
@@ -384,12 +380,12 @@
 // //  -----------------------------------------------------------------------------
 // /*!
 // 	@function		CAClockDispose
-	
+
 // 	@abstract		Dispose a clock object.
-		
+
 // 	@param			inCAClock
 // 						The clock object to be disposed.
-	
+
 // 	@result			An OSStatus error code.
 // */
 // extern OSStatus
@@ -398,15 +394,15 @@
 // //  -----------------------------------------------------------------------------
 // /*!
 // 	@function		CAClockGetPropertyInfo
-	
+
 // 	@abstract		Gets information about a clock's property.
-		
+
 // 	@param			inCAClock
 // 						The clock object.
-	
+
 // 	@param			inPropertyID
 // 						The property being queried.
-	
+
 // 	@param			outSize
 // 						If non-null, on exit, this is set to the size of the
 // 						property's value.
@@ -414,7 +410,7 @@
 // 	@param			outWritable
 // 						If non-null, on exit, this indicates whether the
 // 						property value is settable.
-	
+
 // 	@result			An OSStatus error code.
 // */
 // extern OSStatus
@@ -426,27 +422,26 @@
 // //  -----------------------------------------------------------------------------
 // /*!
 // 	@function		CAClockGetProperty
-	
+
 // 	@abstract		Gets the current value of a clock's property.
-	
+
 // 	@param			inCAClock
 // 						The clock object.
-	
+
 // 	@param			inPropertyID
 // 						The property being fetched.
-	
+
 // 	@param			ioPropertyDataSize
 // 						On entry, the size (in bytes) of the memory pointed to
 // 						by outPropertyData. On exit, the actual size of the
 // 						property data returned.
-	
+
 // 	@param			outPropertyData
 // 						The value of the property is copied to the memory
 // 						this points to.
-	
+
 // 	@result			An OSStatus error code.
 // */
-
 // extern OSStatus
 // CAClockGetProperty(			CAClockRef			inCAClock,
 // 							CAClockPropertyID	inPropertyID,
@@ -456,18 +451,18 @@
 // //  -----------------------------------------------------------------------------
 // /*!
 // 	@function		CAClockSetProperty
-	
+
 // 	@abstract		Changes the value of a clock's property.
-	
+
 // 	@param			inCAClock
 // 						The clock object.
-	
+
 // 	@param			inPropertyID
 // 						The property being set.
-	
+
 // 	@param			inPropertyDataSize
 // 						The size of the property data, in bytes.
-	
+
 // 	@param			inPropertyData
 // 						Points to the property's new value.
 
@@ -488,42 +483,42 @@
 
 // 					Note: The CAClockListenerProc may be called on a realtime thread internal to
 // 					the clock object.
-						
+
 // 	@param			inCAClock
 // 						The clock object.
-	
+
 // 	@param			inListenerProc
 // 						The callback function.
-	
+
 // 	@param			inUserData
 // 						This value is passed to the callback function, in the userData
 // 						parameter.
-	
+
 // 	@result			An OSStatus error code.
 // */
 // extern OSStatus
 // CAClockAddListener(			CAClockRef			inCAClock,
 // 							CAClockListenerProc inListenerProc,
 // 							void *				inUserData)					API_AVAILABLE(macos(10.4)) API_UNAVAILABLE(ios, watchos, tvos);
-	
+
 // //  -----------------------------------------------------------------------------
 // /*!
 // 	@function		CAClockRemoveListener
-	
+
 // 	@abstract		Removes a listener callback function.
-	
+
 // 	@param			inCAClock
 // 						The clock object.
-	
+
 // 	@param			inListenerProc
 // 						The callback function.
-	
+
 // 	@param			inUserData
 // 						The same value as was passed for inUserData when this
 // 						function was registered with CAClockAddListener. (This
 // 						allows a single callback function to be registered more
 // 						than once, with different userData arguments.)
-	
+
 // 	@result			An OSStatus error code.
 // */
 // extern OSStatus
@@ -539,14 +534,14 @@
 
 // 	Call this to specify where on the media timeline playback will begin. The
 // 	supplied time must be in seconds, beats, or SMPTE (not host time or audio
-// 	samples). Must only be called when stopped.					
-	
+// 	samples). Must only be called when stopped.
+
 // 	@param			inCAClock
 // 						The clock object.
-	
+
 // 	@param			inTime
 // 						The new time position.
-	
+
 // 	@result			An OSStatus error code.
 // */
 // extern OSStatus
@@ -558,16 +553,16 @@
 // 	@function		CAClockGetCurrentTime
 
 // 	@abstract		Obtain the clock's current position on the media timeline.
-	
+
 // 	@param			inCAClock
 // 						The clock object.
-	
+
 // 	@param			inTimeFormat
 // 						Specifies the desired format for outTime.
-	
+
 // 	@param			outTime
 // 						On exit, the clock's current time position.
-	
+
 // 	@result			An OSStatus error code.
 // */
 // extern OSStatus
@@ -578,19 +573,19 @@
 // //  -----------------------------------------------------------------------------
 // /*!
 // 	@function		CAClockGetStartTime
-	
+
 // 	@abstract		Obtain the position on the media timeline where playback will start,
 // 					or has already started.
-	
+
 // 	@param			inCAClock
 // 						The clock object.
 
 // 	@param			inTimeFormat
 // 						Specifies the desired format for outTime.
-	
+
 // 	@param			outTime
 // 						On exit, the clock's start time position.
-	
+
 // 	@result			An OSStatus error code.
 // */
 // extern OSStatus
@@ -601,22 +596,22 @@
 // //  -----------------------------------------------------------------------------
 // /*!
 // 	@function		CAClockTranslateTime
-	
+
 // 	@abstract		Convert between time units.
-	
+
 // 	@param			inCAClock
 // 						The clock object.
-	
+
 // 	@param			inTime
 // 						The time to be converted.
-	
+
 // 	@param			inOutputTimeFormat
 // 						Specifies the desired format for outTime
-	
+
 // 	@param			outTime
 // 						On exit, a time corresponding to inTime, converted to the desired
 // 						time format.
-	
+
 // 	@result			An OSStatus error code.
 // */
 // extern OSStatus
@@ -628,12 +623,12 @@
 // //  -----------------------------------------------------------------------------
 // /*!
 // 	@function		CAClockStart
-	
+
 // 	@abstract		Begin advancing the clock on its media timeline.
-	
+
 // 	@param			inCAClock
 // 						The clock object.
-	
+
 // 	@result			An OSStatus error code.
 // */
 // extern OSStatus
@@ -642,12 +637,12 @@
 // //  -----------------------------------------------------------------------------
 // /*!
 // 	@function		CAClockStop
-	
+
 // 	@abstract		Stop advancing the clock on its media timeline.
-	
+
 // 	@param			inCAClock
 // 						The clock object.
-	
+
 // 	@result			An OSStatus error code.
 // */
 // extern OSStatus
@@ -665,10 +660,10 @@
 
 // 	The external time source will set the clock's start position and start
 // 	the clock.
-						
+
 // 	@param			inCAClock
 // 						The clock object.
-	
+
 // 	@result			An OSStatus error code.
 // */
 // extern OSStatus
@@ -677,12 +672,12 @@
 // //  -----------------------------------------------------------------------------
 // /*!
 // 	@function		CAClockDisarm
-	
+
 // 	@abstract		Disallow received sync messages from starting the clock.
-	
+
 // 	@param			inCAClock
 // 						The clock object.
-	
+
 // 	@result			An OSStatus error code.
 // */
 // extern OSStatus
@@ -694,15 +689,15 @@
 
 // 	@abstract		Alter the clock's playback rate.
 
-// 	Adjusts the ratio between the timebase and media time; e.g. at 0.5, the 
+// 	Adjusts the ratio between the timebase and media time; e.g. at 0.5, the
 // 	media time will move half as quickly as timebase time.
-						
+
 // 	@param			inCAClock
 // 						The clock object.
-	
+
 // 	@param			inPlayRate
 // 						The clock's desired play rate.
-	
+
 // 	@result			An OSStatus error code.
 // */
 // extern OSStatus
@@ -720,13 +715,13 @@
 // 	externally synced, it will be the rate of the external sync source, where
 // 	1.0 means that it is running at exactly the same rate as the clock's
 // 	timebase. (2.0 means twice as fast).
-	
+
 // 	@param			inCAClock
 // 						The clock object.
-	
+
 // 	@param			outPlayRate
 // 						On exit, the clock's playback rate.
-	
+
 // 	@result			An OSStatus error code.
 // */
 // extern OSStatus
@@ -736,7 +731,7 @@
 // //  -----------------------------------------------------------------------------
 // /*!
 // 	@function		CAClockGetCurrentTempo
-	
+
 // 	@abstract		Obtain the clock's current musical tempo.
 
 // 	Returns the current instantaneous tempo and a timestamp indicating where on the
@@ -746,16 +741,16 @@
 // 	effective tempo; this routine always reflects the client-specified tempo. To
 // 	obtain the effective tempo, multiply the current tempo by the current play
 // 	rate.
-	
+
 // 	@param			inCAClock
 // 						The clock object.
-	
+
 // 	@param			outTempo
 // 						On exit, the current tempo.
-	
+
 // 	@param			outTimestamp
 // 						If non-null, on exit, the time at which the tempo last changed.
-	
+
 // 	@result			An OSStatus error code.
 // */
 // extern OSStatus
@@ -766,22 +761,22 @@
 // //  -----------------------------------------------------------------------------
 // /*!
 // 	@function		CAClockSetCurrentTempo
-	
+
 // 	@abstract		Manually override the clock's musical tempo during playback.
 
 // 	Effects a manual override of the tempo map while running. After stopping and
 // 	restarting, the original tempo map will be used again.
-						
+
 // 	@param			inCAClock
 // 						The clock object.
-	
+
 // 	@param			inTempo
 // 						The new desired tempo.
-	
+
 // 	@param			inTimestamp
 // 						Specifies a precise point on the timeline where the tempo change is to
 // 						take effect. If null, the tempo change takes effect immediately.
-	
+
 // 	@result
 // 					An OSStatus error code. If this call is made while stopped,
 // 					kCAClock_CannotSetTimeError is returned.
@@ -794,7 +789,7 @@
 // //  -----------------------------------------------------------------------------
 // /*!
 // 	@function		CAClockSecondsToSMPTETime
-	
+
 // 	@abstract		Converts seconds to a SMPTE time representation.
 
 // 	Converts seconds on the media timeline to a SMPTE time. The clock's current
@@ -802,16 +797,16 @@
 
 // 	@param			inCAClock
 // 						The clock object.
-	
+
 // 	@param			inSeconds
 // 						The number of seconds to be converted (e.g. 3600 = 1 hour).
-	
+
 // 	@param			inSubframeDivisor
 // 						The number of subframes per frame desired in outSMPTETime.
-	
+
 // 	@param			outSMPTETime
 // 						On exit, the SMPTE time corresponding to inSeconds.
-	
+
 // 	@result			An OSStatus error code.
 // */
 // extern OSStatus
@@ -823,7 +818,7 @@
 // //  -----------------------------------------------------------------------------
 // /*!
 // 	@function		CAClockSMPTETimeToSeconds
-	
+
 // 	@abstract		Converts a SMPTE time representation to seconds.
 
 // 	Converts SMPTE time to seconds on the media timeline. The clock's current
@@ -831,13 +826,13 @@
 
 // 	@param			inCAClock
 // 						The clock object.
-	
+
 // 	@param			inSMPTETime
 // 						The SMPTE time to be converted to seconds.
-	
+
 // 	@param			outSeconds
 // 						On exit, the number of seconds corresponding to inSMPTETime.
-	
+
 // 	@result			An OSStatus error code.
 // */
 // extern OSStatus
@@ -848,7 +843,7 @@
 // //  -----------------------------------------------------------------------------
 // /*!
 // 	@function		CAClockBeatsToBarBeatTime
-	
+
 // 	@abstract		Converts a number of beats to a CABarBeatTime structure.
 
 // 	Converts a beat position on the media timeline to a CABarBeatTime, using the
@@ -863,16 +858,16 @@
 
 // 	@param			inCAClock
 // 						The clock object.
-	
+
 // 	@param			inBeats
 // 						The absolute beat count to be converted.
-	
+
 // 	@param			inSubbeatDivisor
 // 						The number of units per beat.
-	
+
 // 	@param			outBarBeatTime
 // 						On exit, the bar/beat/subbeat time corresponding to inBeats.
-	
+
 // 	@result			An OSStatus error code.
 // */
 // extern OSStatus
@@ -884,21 +879,21 @@
 // //  -----------------------------------------------------------------------------
 // /*!
 // 	@function		CAClockBarBeatTimeToBeats
-	
+
 // 	@abstract		Converts a CABarBeatTime structure to a number of beats.
 
 // 	Converts a CABarBeatTime structure (bars/beats/subbeats) to a beat
 // 	position, using the clock's meter track.
-	
+
 // 	@param			inCAClock
 // 						The clock object.
-	
+
 // 	@param			inBarBeatTime
 // 						The bar/beat/subunit time to be converted to beats.
-	
+
 // 	@param			outBeats
 // 						On exit, the number of absolute beats corresponding to inBarBeatTime.
-	
+
 // 	@result			An OSStatus error code.
 // */
 // extern OSStatus
@@ -909,20 +904,20 @@
 // //  -----------------------------------------------------------------------------
 // /*!
 // 	@function		CAClockParseMIDI
-	
+
 // 	@abstract		Provides MIDI messages to a clock without using CoreMIDI
 
 // 	In some situations, a client may wish to drive a clock using MIDI Time Code or
 // 	beat clock obtained from a source other than Core MIDI. To do so,
 // 	construct MIDIPacketLists containing the timecode or beat clock messages,
 // 	and pass them to this function.
-	
+
 // 	@param			inCAClock
 // 						The clock object.
-	
+
 // 	@param			inMIDIPacketList
 // 						The MIDI events to be parsed.
-	
+
 // 	@result			An OSStatus error code.
 // */
 // extern OSStatus

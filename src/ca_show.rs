@@ -5,7 +5,6 @@
 // 	@copyright	(c) 2002-2018 by Apple, Inc., all rights reserved.
 // 	@abstract	Interfaces to log the internal state of various AudioToolbox objects.
 // */
-
 // #ifndef AudioToolbox_CAShow_h
 // #define AudioToolbox_CAShow_h
 
@@ -21,7 +20,7 @@
 // #endif
 
 // /// Print the internal state of an object to os_log.
-// OS_EXPORT void CAShow(void *inObject) 
+// OS_EXPORT void CAShow(void *inObject)
 // 											API_AVAILABLE(macos(10.2), ios(2.0), watchos(2.0), tvos(9.0));
 
 // /// Print the internal state of an object to the supplied FILE*.

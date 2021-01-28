@@ -4,7 +4,6 @@
 // 	@copyright	(c) 2000-2015 by Apple, Inc., all rights reserved.
 // 	@deprecated	Contains deprecated API's.
 // */
-
 // #ifndef AudioToolbox_DefaultAudioOutput_h
 // #define AudioToolbox_DefaultAudioOutput_h
 

@@ -5,15 +5,12 @@
 // 	@copyright	(c) 2004-2015 by Apple, Inc., all rights reserved.
 // 	@abstract	The data structures contained within a CAF (Core Audio Format) file.
 // */
-
 // #ifndef AudioToolbox_CAFFile_h
 // #define AudioToolbox_CAFFile_h
 
 // #include <CoreAudioTypes/CoreAudioTypes.h>
 
-
 // #define ATTRIBUTE_PACKED __attribute__((__packed__))
-
 
 // // In a CAF File all of these types' byte order is big endian.
 // // When reading or writing these values the program will need to flip byte order to native endian
@@ -24,7 +21,7 @@
 // 	kCAF_FileVersion_Initial	= 1
 // };
 
-// // CAF Chunk Types	
+// // CAF Chunk Types
 // CF_ENUM(UInt32) {
 // 	kCAF_StreamDescriptionChunkID   = 'desc',
 // 	kCAF_AudioDataChunkID			= 'data',
@@ -47,7 +44,6 @@
 // 	kCAF_iXMLChunkID				= 'iXML'
 // };
 
-
 // struct CAFFileHeader
 // {
 //         UInt32          mFileType;			// 'caff'
@@ -56,12 +52,11 @@
 // } ATTRIBUTE_PACKED;
 // typedef struct CAFFileHeader CAFFileHeader;
 
-
 // struct CAFChunkHeader
 // {
 //         UInt32          mChunkType; // four char code
 //         SInt64          mChunkSize;  // size in bytes of the chunk data (not including this header).
-// 									// mChunkSize is SInt64 not UInt64 because negative values for 
+// 									// mChunkSize is SInt64 not UInt64 because negative values for
 // 									// the data size can have a special meaning
 // } ATTRIBUTE_PACKED;
 
@@ -74,9 +69,8 @@
 // } ATTRIBUTE_PACKED;
 // typedef struct CAF_UUID_ChunkHeader CAF_UUID_ChunkHeader;
 
-
 // // these are the flags if the format ID is 'lpcm'
-// // <CoreAudioTypes/CoreAudioTypes.h> declares some of the format constants 
+// // <CoreAudioTypes/CoreAudioTypes.h> declares some of the format constants
 // // that can be used as Data Formats in a CAF file
 // typedef CF_OPTIONS(UInt32, CAFFormatFlags)
 // {
@@ -97,10 +91,9 @@
 // } ATTRIBUTE_PACKED;
 // typedef struct CAFAudioDescription  CAFAudioDescription;
 
-
 // // 'ldsc'  format list chunk.
 // // for data formats like AAC SBR which can be decompressed to multiple formats, this chunk contains a list of
-// // CAFAudioFormatListItem describing those formats. The list is ordered from best to worst by number of channels 
+// // CAFAudioFormatListItem describing those formats. The list is ordered from best to worst by number of channels
 // // and sample rate in that order. mChannelLayoutTag is an AudioChannelLayoutTag as defined in CoreAudioTypes.h
 
 // struct CAFAudioFormatListItem
@@ -121,17 +114,17 @@
 // // 'data'    Every file MUST have this chunk.
 // // actual audio data can be any format as described by the 'asbd' chunk.
 
-// // if mChunkSize is < 0 then this is the last chunk in the file and the actual length 
-// // should be determined from the file size. 
-// // The motivation for this is to allow writing the files without seeking to update size fields after every 
+// // if mChunkSize is < 0 then this is the last chunk in the file and the actual length
+// // should be determined from the file size.
+// // The motivation for this is to allow writing the files without seeking to update size fields after every
 // // write in order to keep the file legal.
-// // The program can put a -1 in the mChunkSize field and 
-// // update it only once at the end of recording. 
+// // The program can put a -1 in the mChunkSize field and
+// // update it only once at the end of recording.
 // // If the program were to crash during recording then the file is still well defined.
 
 // // 'pakt' Required if either/or mBytesPerPacket or mFramesPerPacket in the Format Description are zero
-// // For formats that are packetized and have variable sized packets. 
-// // The table is stored as an array of one or two variable length integers. 
+// // For formats that are packetized and have variable sized packets.
+// // The table is stored as an array of one or two variable length integers.
 // // (a) size in bytes of the data of a given packet.
 // // (b) number of frames in a given packet.
 // // These sizes are encoded as variable length integers
@@ -143,7 +136,7 @@
 // // (desc.mFramesPerPacket != 0) then the packet table contains single entries representing the bytes in a given packet
 // // (2)
 // // If the format is a constant bit rate (desc.mBytesPerPacket != 0) but variable frames per packet
-// // (desc.mFramesPerPacket == 0) then the packet table entries contains single entries 
+// // (desc.mFramesPerPacket == 0) then the packet table entries contains single entries
 // // representing the number of frames in a given packet
 // // (3)
 // // If the format has variable frames per packet (asbd.mFramesPerPacket == 0) and variable bytes per packet
@@ -156,7 +149,7 @@
 //         SInt64  mNumberValidFrames;
 //         SInt32  mPrimingFrames;
 //         SInt32  mRemainderFrames;
-		
+
 // 		UInt8   mPacketDescriptions[1]; // this is a variable length array of mNumberPackets elements
 // } ATTRIBUTE_PACKED;
 // typedef struct CAFPacketTableHeader CAFPacketTableHeader;
@@ -250,7 +243,7 @@
 
 // struct CAFRegion
 // {
-//         UInt32          mRegionID;               
+//         UInt32          mRegionID;
 //         CAFRegionFlags  mFlags;
 //         UInt32          mNumberMarkers;
 //         CAFMarker       mMarkers[1]; // this is a variable length array of mNumberMarkers elements
@@ -260,7 +253,6 @@
 // /* because AudioFileRegions are variable length, you cannot access them as an array. Use NextAudioFileRegion to walk the list. */
 // #define NextCAFRegion(inCAFRegionPtr) \
 //         ((CAFRegion*)((char*)(inCAFRegionPtr) + offsetof(CAFRegion, mMarkers) + ((inCAFRegionPtr)->mNumberMarkers)*sizeof(CAFMarker)))
-
 
 // struct CAFRegionChunk
 // {
@@ -280,14 +272,12 @@
 //         UInt8           mMIDILowVelocity;
 //         UInt8           mMIDIHighVelocity;
 //         Float32         mdBGain;
-//         UInt32          mStartRegionID;               
-//         UInt32          mSustainRegionID;               
-//         UInt32          mReleaseRegionID;               
+//         UInt32          mStartRegionID;
+//         UInt32          mSustainRegionID;
+//         UInt32          mReleaseRegionID;
 //         UInt32          mInstrumentID;
 // } ATTRIBUTE_PACKED;
 // typedef struct CAFInstrumentChunk CAFInstrumentChunk;
-
-
 
 // struct CAFStringID {
 //         UInt32         mStringID;
@@ -304,7 +294,6 @@
 // } ATTRIBUTE_PACKED;
 // typedef struct CAFStrings CAFStrings;
 
-
 // struct CAFInfoStrings
 // {
 //         UInt32		mNumEntries;
@@ -316,7 +305,6 @@
 // //      } mStrings[ variable num elements ];
 // } ATTRIBUTE_PACKED;
 // typedef struct CAFInfoStrings CAFInfoStrings;
-
 
 // struct CAFPositionPeak
 // {
@@ -331,7 +319,6 @@
 // 	CAFPositionPeak mPeaks[1]; // this is a variable length array of peak elements (calculated from the size of the chunk)
 // } ATTRIBUTE_PACKED;
 // typedef struct CAFPeakChunk CAFPeakChunk;
-
 
 // struct CAFOverviewSample
 // {
@@ -353,7 +340,6 @@
 // 	UInt8 mBytes[64];
 // } ATTRIBUTE_PACKED;
 // typedef struct CAFUMIDChunk CAFUMIDChunk;
-
 
 // ////////////////////////////////////////////////////////////////////////////////////////////////
 

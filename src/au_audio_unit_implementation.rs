@@ -6,8 +6,6 @@
 
 // 	@brief		Additional AUAudioUnit interfaces specific to subclass implementations.
 // */
-
-
 // /*!
 // @page AUExtensionPackaging Audio Unit Extension Packaging
 // @discussion
@@ -77,11 +75,11 @@
 
 // AudioComponentBundle
 // :	Optional. A version 3 audio unit can be loaded into a separate extension process and
-// 	this is the default behavior. To be able to load in-process on macOS (see 
-// 	kAudioComponentInstantiation_LoadInProcess) the audio unit has to be packaged 
-// 	separately. The AudioComponentBundle entry supports loading in-process by designating 
-// 	the identifier of a bundle in the .appex or its enclosing app container in which the 
-// 	factory function and/or principal class are implemented. 
+// 	this is the default behavior. To be able to load in-process on macOS (see
+// 	kAudioComponentInstantiation_LoadInProcess) the audio unit has to be packaged
+// 	separately. The AudioComponentBundle entry supports loading in-process by designating
+// 	the identifier of a bundle in the .appex or its enclosing app container in which the
+// 	factory function and/or principal class are implemented.
 
 // AudioComponents
 // :	Registration info for each audio component type/subtype/manufacturer
@@ -93,10 +91,9 @@
 // (bundle-based) and version 3 (extension) implementations of the same audio unit. When two components
 // are registered with the same type/subtype/manufacturer and version, normally the first one found
 // is used. But if one is an audio unit extension and the other is not, then the audio unit extension's
-// registration "wins", though if an app attempts to open it synchronously, with 
+// registration "wins", though if an app attempts to open it synchronously, with
 // AudioComponentInstanceNew, then the system will fall back to the version 2 implementation.
 // */
-
 // #ifndef AudioToolbox_AUAudioUnitImplementation_h
 // #define AudioToolbox_AUAudioUnitImplementation_h
 // #ifdef __OBJC2__
@@ -135,7 +132,7 @@
 // 	AURenderEventType		eventType;			//!< AURenderEventParameter or AURenderEventParameterRamp.
 // 	uint8_t					reserved[3];		//!< Must be 0.
 // 	AUAudioFrameCount		rampDurationSampleFrames;
-// 												//!< If greater than 0, the event is a parameter ramp; 
+// 												//!< If greater than 0, the event is a parameter ramp;
 // 												/// 	 should be 0 for a non-ramped event.
 // 	AUParameterAddress		parameterAddress;	//!< The parameter to change.
 // 	AUValue					value;				//!< If ramped, the parameter value at the
@@ -198,7 +195,7 @@
 // 	@discussion
 // 		This method dynamically registers the supplied AUAudioUnit subclass with the Audio Component
 // 		system, in the context of the current process (only). After registering the subclass, it can
-// 		be instantiated via AudioComponentInstanceNew, 
+// 		be instantiated via AudioComponentInstanceNew,
 // 		-[AUAudioUnit initWithComponentDescription:options:error:], and via any other API's which
 // 		instantiate audio units via their component descriptions (e.g. <AudioToolbox/AUGraph.h>, or
 // 		<AVFoundation/AVAudioUnitEffect.h>).
@@ -210,7 +207,7 @@
 
 // /*!	@property	renderContextObserver
 // 	@brief		Block called by the OS when the rendering context changes.
-	
+
 // 	Audio Units which create auxiliary realtime rendering threads should implement this property to
 // 	return a block which will be called by the OS when the render context changes. Audio Unit hosts
 // 	must not attempt to interact with the AudioUnit through this block; it is for the exclusive use
@@ -294,7 +291,6 @@
 
 // @end
 
-
 // // =================================================================================================
 
 // /// Aspects of AUAudioUnitBusArray of interest only to subclassers.
@@ -309,7 +305,7 @@
 
 // /*!	Factory methods for building parameters, parameter groups, and parameter trees.
 
-// 	@note In non-ARC code, "create" methods return unretained objects (unlike "create" 
+// 	@note In non-ARC code, "create" methods return unretained objects (unlike "create"
 // 	C functions); the caller should generally retain them.
 // */
 // @interface AUParameterTree (Factory)
@@ -421,7 +417,7 @@
 // 	@discussion
 // 		The principal class of a non-UI v3 audio unit extension will generally derive from NSObject
 // 		and implement this protocol.
-		
+
 // 		The principal class of a UI v3 audio unit extension must derive from AUViewController and
 // 		implement this protocol.
 // */
@@ -430,16 +426,15 @@
 // /*!	@brief	Create an instance of an extension's AUAudioUnit.
 // 	@discussion
 // 		This method should create and return an instance of its audio unit.
-		
+
 // 		This method will be called only once per instance of the factory.
-		
-// 		Note that in non-ARC code, "create" methods return unretained objects (unlike "create" 
+
+// 		Note that in non-ARC code, "create" methods return unretained objects (unlike "create"
 // 		C functions); the implementor should return an object with reference count 1 but
 // 		autoreleased.
 // */
 // - (nullable AUAudioUnit *)createAudioUnitWithComponentDescription:(AudioComponentDescription)desc error:(NSError **)error;
 // @end
-
 
 // NS_ASSUME_NONNULL_END
 

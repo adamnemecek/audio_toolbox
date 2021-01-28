@@ -6,7 +6,6 @@
 
 // 	@brief		Former umbrella header for AudioUnit framework; now part of AudioToolbox.
 // */
-
 // #ifndef _AudioToolbox_AudioUnit_h
 // #define _AudioToolbox_AudioUnit_h
 

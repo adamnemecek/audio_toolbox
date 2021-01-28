@@ -5,7 +5,6 @@
 //  	@copyright	(c) 2000-2015 Apple, Inc. All rights reserved.
 // 	@brief		Additional Audio Unit API for audio input/output units.
 // */
-
 // #ifndef AudioUnit_AudioOutputUnit_h
 // #define AudioUnit_AudioOutputUnit_h
 
@@ -42,7 +41,6 @@
 // /*!
 // */
 // typedef OSStatus	(*AudioOutputUnitStopProc) (void *self);
-
 
 // #ifdef __cplusplus
 // }

@@ -4,7 +4,7 @@
 // 	@copyright	(c) 2000-2015 by Apple, Inc., all rights reserved.
 
 // 	@abstract	API's for Music sequencing and playing services
-	
+
 // 	@discussion
 // 		The objects in this API set include:
 
@@ -12,18 +12,18 @@
 // 			- Music Track: a time ordered list of events
 // 			- Music Track Iterator: an object to iterate over events in a track
 // 			- Music Player: an object used to play a sequence
-		
+
 // 		A MusicSequence contains an arbitrary number of tracks (MusicTrack) each of which contains
 // 		time-stamped (in units of beats) events in time-increasing order. There are various types of
 // 		events, defined below, including the expected MIDI events, tempo, and extended events.
-		
+
 // 		A MusicTrack has properties which may be inspected and assigned, including support for
 // 		looping, muting/soloing, and time-stamp interpretation. APIs exist for iterating through the
 // 		events in a MusicTrack, and for performing editing operations on them.
-		
+
 // 		A MusicPlayer is used to play a sequence and provides control of playback rate and setting
 // 		to a particular time.
-		
+
 // 		Each MusicSequence may have an associated AUGraph object, which represents a set of
 // 		AudioUnits and the connections between them.  Then, each MusicTrack of the MusicSequence may
 // 		address its events to a specific AudioUnit within the AUGraph. In such a manner, it's
@@ -31,7 +31,6 @@
 // 		MusicDevices (AudioUnit software synthesizers) within an arbitrary audio processing network
 // 		(AUGraph). A MusicSequence or its tracks can also address a CoreMIDI endpoint directly.
 // */
-
 // #ifndef AudioToolbox_MusicPlayer_h
 // #define AudioToolbox_MusicPlayer_h
 
@@ -46,7 +45,6 @@
 // 	typedef UInt32 MIDIEndpointRef;
 // #endif
 
-
 // #pragma clang diagnostic push
 // #pragma clang diagnostic ignored "-Wold-style-cast"
 
@@ -60,9 +58,9 @@
 // /*!
 // 	enum MusicEventType
 // 	@abstract Music event types, including both MIDI and "extended" protocol
-	
+
 // 	@constant kMusicEventType_NULL
-		
+
 // 	@constant kMusicEventType_ExtendedNote
 // 		Note with variable number of arguments (non-MIDI).
 // 	@constant kMusicEventType_ExtendedTempo
@@ -109,7 +107,7 @@
 // 			If this flag is set the resultant Sequence will contain:
 // 			a tempo track
 // 			1 track for each MIDI Channel that is found in the SMF
-// 			1 track for SysEx or MetaEvents - this will be the last track 
+// 			1 track for SysEx or MetaEvents - this will be the last track
 // 			in the sequence after the LoadSMFWithFlags calls
 // */
 // typedef CF_OPTIONS(UInt32, MusicSequenceLoadFlags)
@@ -171,7 +169,6 @@
 // 	kMusicSequenceFileFlags_EraseFile = 1
 // };
 
-
 // /*!
 // 	@typedef	MusicTimeStamp
 // 	@abstract	The type used to refer to time values in a music sequence
@@ -207,9 +204,9 @@
 // typedef struct MIDIChannelMessage
 // {
 // 	UInt8		status;		// contains message and channel
-	
+
 // 	// message specific data
-// 	UInt8		data1;		
+// 	UInt8		data1;
 // 	UInt8		data2;
 // 	UInt8		reserved;
 // } MIDIChannelMessage;
@@ -240,7 +237,7 @@
 
 // /*!
 // 	@struct		MusicEventUserData
-// 	@discussion	Provides a general struct for specifying a user defined event. 
+// 	@discussion	Provides a general struct for specifying a user defined event.
 // 	@var  		length
 // 					the size in bytes of the data
 // 	@var  		data
@@ -296,11 +293,10 @@
 // 	CFPropertyListRef 			preset;
 // } AUPresetEvent;
 
-
 // /*!
 // 	@struct		CABarBeatTime
 // 	@abstract	A display representation of a musical time in beats.
-	
+
 // 	A clock's internal representation of musical time is in beats based on the
 // 	beginning of the timeline. Normally, such times should be displayed to the user
 // 	in terms of bars, beats, and subbeats (sometimes called "units" or "parts per
@@ -378,7 +374,7 @@
 // /*!
 // 	enum MusicTrackProperties
 // 	@discussion Property values are always get and set by reference
-	
+
 // 	@constant	kSequenceTrackProperty_LoopInfo
 // 		read/write	- MusicTrackLoopInfo
 // 		The default looping behaviour is off (track plays once)
@@ -390,11 +386,11 @@
 // 	@constant	kSequenceTrackProperty_OffsetTime
 // 		read/write	- MusicTimeStamp
 // 		offset's the track's start time to the specified beat. By default this value is zero.
-		
+
 // 	@constant	kSequenceTrackProperty_MuteStatus
 // 		read/write	- Boolean
 // 		mute state of a track. By default this value is false (not muted)
-		
+
 // 	@constant	kSequenceTrackProperty_SoloStatus
 // 		read/write	- Boolean
 // 		solo state of a track. By default this value is false (not soloed)
@@ -403,30 +399,30 @@
 // 		read/write	- UInt32
 // 		Determines whether a track is used for automating parameters.
 // 		If set to != 0 the track is used to automate parameter events to an AUNode.
-// 		The track can only contain parameter events and these events are interpreted 
+// 		The track can only contain parameter events and these events are interpreted
 // 		as points in the automation curve
-		
+
 //     @constant	kSequenceTrackProperty_TrackLength
 // 		read/write	- MusicTimeStamp
 // 		The time of the last event in the track plus any additional time that is allowed for fading out of ending notes
 // 		or round a loop point to musical bar, etc.
-		
-// 		If this is not set, the track length will always be adjusted to the end of the last active event in a track and 
+
+// 		If this is not set, the track length will always be adjusted to the end of the last active event in a track and
 // 		is adjusted dynamically as events are added or removed.
-		
+
 // 		The property will return the max of the user set track length, or the calculated length
-	 	
+
 //     @constant	kSequenceTrackProperty_TimeResolution
 // 		read only	- SInt16 (only valid on the Tempo track)
-		
+
 // 		This retrieves the time resolution value for a sequence. This time resolution can be the resolution that
 // 		was contained within the midi file used to construct a sequence. If you want to keep a time resolution
 // 		when writing a new file, you can retrieve this value and then specify it when creating a new file from a sequence.
-		
+
 // 		It has no direct baring on the rendering or notion of time of the sequence itself (just its representation in file
 // 		formats such as MIDI files). By default this is set to either:
 // 			480 if the sequence is created manually
-// 			some_value based on what was in a MIDI file if the sequence was created from a MIDI file		
+// 			some_value based on what was in a MIDI file if the sequence was created from a MIDI file
 // */
 // CF_ENUM(UInt32)
 // {
@@ -442,7 +438,6 @@
 // 	kSequenceTrackProperty_TimeResolution = 6
 // };
 
-
 // /*!
 // 	@struct		MusicTrackLoopInfo
 // 	@discussion	Used to control the looping behaviour of a track
@@ -453,16 +448,14 @@
 // 	SInt32				numberOfLoops;
 // } MusicTrackLoopInfo;
 
-
 // //=====================================================================================================================
 // #pragma mark -
 
 // //=====================================================================================================================
 // #pragma mark Music Player
-// /*! 
+// /*!
 // 	@functiongroup Music Player
 // */
-
 // /*!
 // 	@function	NewMusicPlayer
 // 	@abstract	Create a new music player
@@ -482,7 +475,6 @@
 // extern OSStatus
 // DisposeMusicPlayer(		MusicPlayer		inPlayer)								API_AVAILABLE(macos(10.0), ios(5.0), watchos(2.0), tvos(9.0));
 
-
 // /*!
 // 	@function	MusicPlayerSetSequence
 // 	@abstract	Set the sequence for the player to play
@@ -501,12 +493,12 @@
 // 	@discussion If the player does not have a sequence set, this will return the _NoSequence error
 // 	@param		inPlayer	the player
 // 	@param		outSequence	the sequence currently set on the player
- 
+
 // */
 // extern OSStatus
 // MusicPlayerGetSequence(	MusicPlayer 	inPlayer,
 // 						MusicSequence __nullable * __nonnull outSequence)		API_AVAILABLE(macos(10.3), ios(5.0), watchos(2.0), tvos(9.0));
-								
+
 // /*!
 // 	@function	MusicPlayerSetTime
 // 	@abstract	Set the current time on the player
@@ -525,7 +517,7 @@
 // 	@function	MusicPlayerGetTime
 // 	@abstract	Get the current time of the player
 // 	@discussion The Get and Set Time calls take a specification of time as beats. This retrieves the player's
-// 				current time. If it is playing this time is the time of the player at the time the call was made. 
+// 				current time. If it is playing this time is the time of the player at the time the call was made.
 // 	@param		inPlayer	the player
 // 	@param		outTime		the current time value
 // */
@@ -539,7 +531,7 @@
 // 	@discussion This call is only valid if the player is playing and will return an error if the player is not playing
 // 				or if the starting position of the player (its "starting beat") was after the specified beat.
 // 				For general translation of beats to time in a sequence, see the MusicSequence calls for beat<->seconds.
-				
+
 // 				The call uses the player's sequence's tempo map to translate a beat time from the starting time and beat
 // 				of the player.
 // 	@param		inPlayer	the player
@@ -553,13 +545,13 @@
 
 // /*!
 // 	@function	MusicPlayerGetBeatsForHostTime
-// 	@abstract	Returns the beat that will be (or was) played at the specified host time. 
+// 	@abstract	Returns the beat that will be (or was) played at the specified host time.
 // 	@discussion This call is only valid if the player is playing and will return an error if the player is not playing
 // 				or if the starting time of the player was after the specified host time.
 // 				For general translation of beats to time in a sequence, see the MusicSequence calls for beat<->seconds.
-				
-// 				The call uses the player's sequence's tempo map to retrieve a beat time from the starting and specified host time. 
-				
+
+// 				The call uses the player's sequence's tempo map to retrieve a beat time from the starting and specified host time.
+
 // 	@param		inPlayer	the player
 // 	@param		inHostTime	the specified host time value
 // 	@param		outBeats	the corresponding beat time
@@ -596,7 +588,7 @@
 // extern OSStatus
 // MusicPlayerStop(		MusicPlayer 	inPlayer)								API_AVAILABLE(macos(10.0), ios(5.0), watchos(2.0), tvos(9.0));
 
-// // 
+// //
 // /*!
 // 	@function	MusicPlayerIsPlaying
 // 	@abstract	Returns the playing state of the player. "Is it playing?"
@@ -632,26 +624,25 @@
 // MusicPlayerGetPlayRateScalar(	MusicPlayer		inPlayer,
 // 								Float64 *		outScaleRate)					API_AVAILABLE(macos(10.3), ios(5.0), watchos(2.0), tvos(9.0));
 
-
 // //=====================================================================================================================
 // #pragma mark -
 
 // //=====================================================================================================================
 // #pragma mark Music Sequence
-// /*! 
+// /*!
 // 	@functiongroup Music Sequence
 // */
 // /*!
 // 	@function	NewMusicSequence
 // 	@abstract	Create a new empty sequence
-// 	@discussion	A new music sequence will only have a tempo track (with a default tempo of 120 bpm), 
+// 	@discussion	A new music sequence will only have a tempo track (with a default tempo of 120 bpm),
 // 				and the default type is beat based.
 
 // 				When a sequence is to be played by a player, it can play to either an AUGraph, a MIDI Destination or a
 // 				mixture/combination of both. See MusicSequenceSetAUGraph and MusicSequenceSetMIDIEndpoint for the generic
 // 				destination assignments. Specific tracks can also be assigned nodes of a graph or a MIDI endpoint as targets
 // 				for the events that they contain; see MusicTrackSetDestNode and MusicTrackSetDestMIDIEndpoint.
-				
+
 // 	@param		outSequence		the new sequence
 // */
 // extern OSStatus
@@ -675,7 +666,7 @@
 // extern OSStatus
 // MusicSequenceNewTrack(		MusicSequence 		inSequence,
 // 							MusicTrack __nullable * __nonnull outTrack)			API_AVAILABLE(macos(10.0), ios(5.0), watchos(2.0), tvos(9.0));
-													
+
 // /*!
 // 	@function	MusicSequenceDisposeTrack
 // 	@abstract	Remove and dispose a track from a sequence
@@ -688,7 +679,7 @@
 
 // /*!
 // 	@function	MusicSequenceGetTrackCount
-// 	@abstract	The number of tracks in a sequence. 
+// 	@abstract	The number of tracks in a sequence.
 // 				The track count and accessors exclude the tempo track (which is treated as a special case)
 // 	@param		inSequence			the sequence
 // 	@param		outNumberOfTracks	the number of tracks
@@ -696,7 +687,7 @@
 // extern OSStatus
 // MusicSequenceGetTrackCount(	MusicSequence 		inSequence,
 // 							UInt32 				*outNumberOfTracks)				API_AVAILABLE(macos(10.0), ios(5.0), watchos(2.0), tvos(9.0));
-										
+
 // /*!
 // 	@function	MusicSequenceGetIndTrack
 // 	@abstract	Get a track at the specified index
@@ -738,11 +729,10 @@
 // MusicSequenceGetTempoTrack(	MusicSequence						inSequence,
 // 							MusicTrack __nullable * __nonnull	outTrack)		API_AVAILABLE(macos(10.1), ios(5.0), watchos(2.0), tvos(9.0));
 
-
 // /*!
 // 	@function	MusicSequenceSetAUGraph
 // 	@abstract	Set the graph to be associated with the sequence
-// 	@discussion	A sequence can be associated with an AUGraph and this graph will be used to render the events as 
+// 	@discussion	A sequence can be associated with an AUGraph and this graph will be used to render the events as
 // 				controlled by the sequence when it is played. By default, all of the tracks of a sequence will
 // 				find the first AUNode that is an instance of an Apple MusicDevice audio unit (see MusicSequenceGetAUGraph).
 // 				Specific nodes of the graph can be targeted for different tracks (see MusicTrackSetDestNode).  To render a
@@ -755,17 +745,16 @@
 // MusicSequenceSetAUGraph(	MusicSequence 	   inSequence,
 // 							AUGraph __nullable inGraph)							API_AVAILABLE(macos(10.0), ios(5.0), watchos(2.0), tvos(9.0));
 
-
 // /*!
 // 	@function	MusicSequenceGetAUGraph
 // 	@abstract	Gets the graph currently associated with a sequence
-// 	@discussion	By default if no graph is assigned to a sequence then the sequence will create a default graph. 
+// 	@discussion	By default if no graph is assigned to a sequence then the sequence will create a default graph.
 // 				This default graph contains a MusicDevice and a DynamicsProcessor and all tracks will be targeted
-// 				to the MusicDevice.  On macOS, this MusicDevice is an instance of a software synthesizer that is 
-// 				compatible with the GM and GS MIDI standards.  On iOS, it is an instance of a monotimbral software 
+// 				to the MusicDevice.  On macOS, this MusicDevice is an instance of a software synthesizer that is
+// 				compatible with the GM and GS MIDI standards.  On iOS, it is an instance of a monotimbral software
 // 				synthesizer designed to render events from a single MIDI channel.  To render multi-track GM MIDI
 //  				sequences on iOS, create a custom graph with a MIDISynth audio unit as the MusicDevice.
-				
+
 // 				This call will thus either return the graph as set by the user, or this default graph.
 // 	@param		inSequence		the sequence
 // 	@param		outGraph		the graph
@@ -779,14 +768,14 @@
 // 	@abstract	Makes the target of all of the tracks in the sequence a MIDI endpoint
 // 	@discussion	This is a convenience function, and is equivalent to iterating through all of the tracks in a sequence
 // 				and targeting each track to the MIDI endpoint
-				
+
 // 	@param		inSequence		the sequence
 // 	@param		inEndpoint		the MIDI endpoint
 // */
 // extern OSStatus
 // MusicSequenceSetMIDIEndpoint(	MusicSequence 	inSequence,
 // 								MIDIEndpointRef	inEndpoint)						API_AVAILABLE(macos(10.1), ios(5.0), tvos(12.0)) __WATCHOS_PROHIBITED;
-	
+
 // /*!
 // 	@function	MusicSequenceSetSequenceType
 // 	@abstract	Set the sequence type (the default is beats)
@@ -796,9 +785,9 @@
 // 					kMusicSequenceType_Seconds		= 'secs',
 // 					kMusicSequenceType_Samples		= 'samp'
 
-// 				The sequence type can be set to beats at any time. The sequence type can only be set to 
+// 				The sequence type can be set to beats at any time. The sequence type can only be set to
 // 				seconds or samples if there are NO tempo events already in the sequence.
-				
+
 // 				For beats - it can have as many tempo events as you want
 // 				For Samples and Seconds - you should add a single tempo event after setting the type
 // 					Samples - the tempo is the desired sample rate - e.g. 44100 and each "beat" in the sequence will be
@@ -808,7 +797,7 @@
 // 				Beats is the default (and is the behaviour on pre 10.5 systems)
 
 // 				A meta event of interest for Seconds based MIDI files is the SMPTE Offset meta event - stored in the tempo track.
-// 				The sequence doesn't do anything with this event (except store/write it)	
+// 				The sequence doesn't do anything with this event (except store/write it)
 // 	@param		inSequence	the sequence
 // 	@param		inType		the sequence type
 // */
@@ -826,7 +815,6 @@
 // extern OSStatus
 // MusicSequenceGetSequenceType(	MusicSequence		inSequence,
 // 							MusicSequenceType * 	outType)					API_AVAILABLE(macos(10.5), ios(5.0), watchos(2.0), tvos(9.0));
-
 
 // /*!
 // 	@function	MusicSequenceFileLoad
@@ -847,7 +835,7 @@
 // /*!
 // 	@function	MusicSequenceFileLoadData
 // 	@abstract	Load the data to the sequence
-// 	@discussion	This function will parse the data and add the events to the sequence. The data provided needs to 
+// 	@discussion	This function will parse the data and add the events to the sequence. The data provided needs to
 // 				be of a particular file type as specified by the fileTypeHint.
 // 	@param		inSequence		the sequence
 // 	@param		inData			the contents of a valid file loaded into a CFData object
@@ -870,8 +858,8 @@
 // 	@param		ticks	the ticks per quarter note
 // 	@result		the resolution that can be used when creating a MIDI file derived from the two parameters
 // */
-// CF_INLINE SInt16 
-// MusicSequenceSetSMPTEResolution (SignedByte fps, Byte ticks) 
+// CF_INLINE SInt16
+// MusicSequenceSetSMPTEResolution (SignedByte fps, Byte ticks)
 // {
 // 	SInt8 res8 = fps < 0 ? fps : -fps;
 // 	SInt16 res = (SInt16) (res8 << 8);
@@ -888,11 +876,11 @@
 // 	@param		fps		the frames per second
 // 	@param		ticks	the ticks per quarter note
 // */
-// CF_INLINE void 
-// MusicSequenceGetSMPTEResolution (SInt16 inRes, SignedByte * fps, Byte * ticks) 
+// CF_INLINE void
+// MusicSequenceGetSMPTEResolution (SInt16 inRes, SignedByte * fps, Byte * ticks)
 // {
 // 	*fps = (SignedByte)((0xFF00 & inRes) >> 8);
-// 	*ticks = 0x7F & inRes;			
+// 	*ticks = 0x7F & inRes;
 // }
 
 // /*!
@@ -901,11 +889,11 @@
 // 	@discussion	This function can be (and is most commonly) used to create a MIDI file from the events in a sequence.
 // 				Only MIDI based events are used when creating the MIDI file. MIDI files are normally beat based, but
 // 				can also have a SMPTE (or real-time rather than beat time) representation.
-				
+
 // 				inResolution is relationship between "tick" and quarter note for saving to Standard MIDI File
 // 					- pass in zero to use default - this will be the value that is currently set on the tempo track
 // 					- see the comments for the set track property's time resolution
-				
+
 // 				The different Sequence types determine the kinds of files that can be created:
 
 // 				Beats
@@ -913,9 +901,9 @@
 
 // 				Seconds
 // 					When saving a MIDI file, it will save it as a SMPTE resolution - so you should specify this resolution
-// 					when creating the MIDI file. 
+// 					when creating the MIDI file.
 // 					If zero is specified, 25 fps and 40 ticks/frame is used (a time scale of a millisecond)
-			
+
 // 				Samples
 // 					You cannot save to a MIDI file with this sequence type
 
@@ -966,7 +954,6 @@
 // 						SInt16								inResolution,
 // 						CFDataRef __nullable * __nonnull	outData)			API_AVAILABLE(macos(10.5), ios(5.0), watchos(2.0), tvos(9.0));
 
-
 // /*!
 // 	@function	MusicSequenceReverse
 // 	@abstract	Reverse in time all events in a sequence, including the tempo events
@@ -978,7 +965,7 @@
 // /*!
 // 	@function	MusicSequenceGetSecondsForBeats
 // 	@abstract	Returns a seconds value that would correspond to the supplied beats
-// 	@discussion	Uses the sequence's tempo events 
+// 	@discussion	Uses the sequence's tempo events
 // 	@param		inSequence		the sequence
 // 	@param		inBeats			the beats
 // 	@param		outSeconds		the seconds (time from 0 beat)
@@ -991,7 +978,7 @@
 // /*!
 // 	@function	MusicSequenceGetBeatsForSeconds
 // 	@abstract	Returns a beat value that would correspond to the supplied seconds from zero.
-// 	@discussion	Uses the sequence's tempo events 
+// 	@discussion	Uses the sequence's tempo events
 // 	@param		inSequence		the sequence
 // 	@param		inSeconds		the seconds
 // 	@param		outBeats		the corresponding beat
@@ -1007,19 +994,19 @@
 // 	@discussion	This call is used to register (or remove if inCallback is NULL) a callback
 // 				that the MusicSequence will call for ANY UserEvents that are added to any of the
 // 				tracks of the sequence.
-				
+
 // 				If there is a callback registered, then UserEvents will be chased when
 // 				MusicPlayerSetTime is called. In that case the inStartSliceBeat and inEndSliceBeat
 // 				will both be the same value and will be the beat that the player is chasing too.
-				
+
 // 				In normal cases, where the sequence data is being scheduled for playback, the
 // 				following will apply:
 // 					inStartSliceBeat <= inEventTime < inEndSliceBeat
-				
+
 // 				The only exception to this is if the track that owns the MusicEvent is looping.
 // 				In this case the start beat will still be less than the end beat (so your callback
 // 				can still determine that it is playing, and what beats are currently being scheduled),
-// 				however, the inEventTime will be the original time-stamped time of the user event. 
+// 				however, the inEventTime will be the original time-stamped time of the user event.
 // 	@param		inSequence		the sequence
 // 	@param		inCallback		the callback
 // 	@param		inClientData	client (user supplied) data provided back to the callback when it is called by the sequence
@@ -1064,15 +1051,14 @@
 // /*!
 // 	@function	MusicSequenceGetInfoDictionary
 // 	@abstract	Returns a dictionary containing meta-data derived from a sequence
-// 	@discussion	The dictionary can contain one or more of the kAFInfoDictionary_* 
+// 	@discussion	The dictionary can contain one or more of the kAFInfoDictionary_*
 // 				keys specified in <AudioToolbox/AudioFile.h>
-				
+
 // 				The caller should release the returned dictionary. If the call fails it will return NULL
 
 // 	@param		inSequence		the sequence
 // 	@result		a CFDictionary or NULL if the call fails.
 // */
-
 // CF_IMPLICIT_BRIDGING_ENABLED
 
 // extern CFDictionaryRef
@@ -1085,10 +1071,9 @@
 
 // //=====================================================================================================================
 // #pragma mark Music Track
-// /*! 
+// /*!
 // 	@functiongroup Music Track
 // */
-
 // /*!
 // 	@function	MusicTrackGetSequence
 // 	@abstract	Gets the sequence which the track is a member of
@@ -1121,11 +1106,11 @@
 // extern OSStatus
 // MusicTrackSetDestMIDIEndpoint(	MusicTrack			inTrack,
 // 								MIDIEndpointRef		inEndpoint)					API_AVAILABLE(macos(10.1), ios(5.0), tvos(12.0)) __WATCHOS_PROHIBITED;
-	
+
 // /*!
 // 	@function	MusicTrackGetDestNode
 // 	@abstract	Gets the track's target if it is an AUNode
-// 	@discussion	Returns kAudioToolboxErr_IllegalTrackDestination if the track's target is a MIDIEndpointRef 
+// 	@discussion	Returns kAudioToolboxErr_IllegalTrackDestination if the track's target is a MIDIEndpointRef
 // 				and NOT an AUNode
 // 	@param		inTrack		the track
 // 	@param		outNode		the node target for the track
@@ -1137,7 +1122,7 @@
 // /*!
 // 	@function	MusicTrackGetDestMIDIEndpoint
 // 	@abstract	Gets the track's target if it is a MIDI Endpoint
-// 	@discussion	Returns kAudioToolboxErr_IllegalTrackDestination if the track's target is an AUNode 
+// 	@discussion	Returns kAudioToolboxErr_IllegalTrackDestination if the track's target is an AUNode
 // 				and NOT a MIDI Endpoint
 // 	@param		inTrack		the track
 // 	@param		outEndpoint	the MIDI Endpoint target for the track
@@ -1145,7 +1130,7 @@
 // extern OSStatus
 // MusicTrackGetDestMIDIEndpoint(	MusicTrack			inTrack,
 // 								MIDIEndpointRef	*	outEndpoint)				API_AVAILABLE(macos(10.1), ios(5.0), tvos(12.0)) __WATCHOS_PROHIBITED;
-	
+
 // /*!
 // 	@function	MusicTrackSetProperty
 // 	@abstract	Sets the specified property value
@@ -1180,18 +1165,17 @@
 // 						void				*outData,
 // 						UInt32				*ioLength)							API_AVAILABLE(macos(10.0), ios(5.0), watchos(2.0), tvos(9.0));
 
-
 // //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // // Editing operations on sequence tracks
 
 // /*!
 // 	@function	MusicTrackMoveEvents
 // 	@abstract	Move events in a track
-// 	@discussion	Moves all of the events in the specified time range by the moveTime. MoveTime maybe negative to 
+// 	@discussion	Moves all of the events in the specified time range by the moveTime. MoveTime maybe negative to
 // 				move events backwards (towards zero).
-				
+
 // 				All time ranges are [starttime < endtime]
-				
+
 // 	@param		inTrack			the track
 // 	@param		inStartTime		the start time for the range of events
 // 	@param		inEndTime		the end time up to which will form the range of the events to move
@@ -1220,9 +1204,9 @@
 // 	@function	MusicTrackCut
 // 	@abstract	Removes all the events within the specified range
 // 	@discussion	Events that fall past the specified range will be moved back by the specified range time.
-				
+
 // 				All time ranges are [starttime < endtime]
-				
+
 // 	@param		inTrack		the track
 // 	@param		inStartTime	the start time for the range of events
 // 	@param		inEndTime	the end time up to which will form the range of the events to cut out
@@ -1236,11 +1220,11 @@
 // 	@function	MusicTrackCopyInsert
 // 	@abstract	Copies events from one track and inserts them into another
 // 	@discussion	Copies all of the events with the specified time range of the source track. It then inserts
-// 				those events into the destination track. All events at and after inDestInsertTime in inDestTrack 
+// 				those events into the destination track. All events at and after inDestInsertTime in inDestTrack
 // 				are moved forward by the range's duration
-				
+
 // 				All time ranges are [starttime < endtime]
-				
+
 // 	@param		inSourceTrack		the source track
 // 	@param		inSourceStartTime	the start time for the range of events
 // 	@param		inSourceEndTime		the end time up to which will form the range of the events to copy from the source track
@@ -1259,9 +1243,9 @@
 // 	@abstract	Copies events from one track and merges them into another
 // 	@discussion	Copies all of the events with the specified time range of the source track. It then merges
 // 				those events into the destination track starting at inDestInsertTime.
-				
+
 // 				All time ranges are [starttime < endtime]
-				
+
 // 	@param		inSourceTrack		the source track
 // 	@param		inSourceStartTime	the start time for the range of events
 // 	@param		inSourceEndTime		the end time up to which will form the range of the events to copy from the source track
@@ -1275,13 +1259,12 @@
 // 						MusicTrack 			inDestTrack,
 // 						MusicTimeStamp		inDestInsertTime)					API_AVAILABLE(macos(10.0), ios(5.0), watchos(2.0), tvos(9.0));
 
-
 // //=====================================================================================================================
 // #pragma mark -
 
 // //=====================================================================================================================
 // #pragma mark Music Events
-// /*! 
+// /*!
 // 	@functiongroup Music Events
 // */
 // //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1338,7 +1321,7 @@
 // MusicTrackNewExtendedNoteEvent(		MusicTrack 					inTrack,
 // 									MusicTimeStamp				inTimeStamp,
 // 									const ExtendedNoteOnEvent	*inInfo)		API_AVAILABLE(macos(10.0), ios(5.0), watchos(2.0), tvos(9.0));
-										
+
 // /*!
 // 	@function	MusicTrackNewParameterEvent
 // 	@abstract	Adds a ParameterEvent to a track
@@ -1351,7 +1334,7 @@
 // MusicTrackNewParameterEvent(		MusicTrack 					inTrack,
 // 									MusicTimeStamp				inTimeStamp,
 // 									const ParameterEvent *		inInfo)			API_AVAILABLE(macos(10.2), ios(5.0), watchos(2.0), tvos(9.0));
-										
+
 // /*!
 // 	@function	MusicTrackNewExtendedTempoEvent
 // 	@abstract	Adds a tempo event to a track
@@ -1364,7 +1347,7 @@
 // MusicTrackNewExtendedTempoEvent(	MusicTrack 					inTrack,
 // 									MusicTimeStamp				inTimeStamp,
 // 									Float64						inBPM)			API_AVAILABLE(macos(10.0), ios(5.0), watchos(2.0), tvos(9.0));
-										
+
 // /*!
 // 	@function	MusicTrackNewMetaEvent
 // 	@abstract	Adds a MIDIMetaEvent to a track
@@ -1377,7 +1360,7 @@
 // MusicTrackNewMetaEvent(				MusicTrack 					inTrack,
 // 									MusicTimeStamp				inTimeStamp,
 // 									const MIDIMetaEvent *		inMetaEvent)	API_AVAILABLE(macos(10.0), ios(5.0), watchos(2.0), tvos(9.0));
-										
+
 // /*!
 // 	@function	MusicEventUserData
 // 	@abstract	Adds a MusicEventUserData event to a track
@@ -1404,17 +1387,14 @@
 // 									MusicTimeStamp			 	inTimeStamp,
 // 									const AUPresetEvent *		inPresetEvent)	API_AVAILABLE(macos(10.3), ios(5.0), watchos(2.0), tvos(9.0));
 
-
-
 // //=====================================================================================================================
 // #pragma mark -
 
 // //=====================================================================================================================
 // #pragma mark Music Event Iterator
-// /*! 
+// /*!
 // 	@functiongroup Music Event Iterator
 // */
-
 // //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // // actual event representation and manipulation within a track....
 // //
@@ -1425,20 +1405,19 @@
 // // and allow access to the events through accessor functions.  The user, in this way, can
 // // examine and create standard events, or any user-defined event.
 
-
 // /*!
 // 	@function	NewMusicEventIterator
 // 	@abstract	Creates an iterator to iterator over a track's events
 // 	@discussion	The iterator should be considered invalid if a track is edited. In that case you should create a new
 // 				iterator and seek it to the desired position.
-				
+
 // 	@param		inTrack			the track upon which to iterate
 // 	@param		outIterator		the new iterator
 // */
 // extern OSStatus
 // NewMusicEventIterator(		MusicTrack 									inTrack,
 // 							MusicEventIterator __nullable * __nonnull	outIterator)	API_AVAILABLE(macos(10.0), ios(5.0), watchos(2.0), tvos(9.0));
-													
+
 // /*!
 // 	@function	DisposeMusicEventIterator
 // 	@abstract	Dispose an iterator
@@ -1453,7 +1432,7 @@
 // 	@discussion If there is no event at the specified time, the iterator will point to the first event after
 // 				that time.
 // 				By specifying kMusicTimeStamp_EndOfTrack you will position the iterator to the end of track
-// 				(which is pointing to the space just AFTER the last event). You can use MusicEventIteratorPreviousEvent 
+// 				(which is pointing to the space just AFTER the last event). You can use MusicEventIteratorPreviousEvent
 // 				to backup to the last event.
 // 				By specifying 0, you will position the iterator at the first event
 // 	@param		inIterator		the iterator
@@ -1467,9 +1446,9 @@
 // 	@function	MusicEventIteratorNextEvent
 // 	@abstract	Move the iterator to the next event
 // 	@discussion If the iterator was at the last event, then it will move past the last event and will no longer point
-// 				to an event. You can use check MusicEventIteratorHasCurrentEvent to see if there is an event at the 
+// 				to an event. You can use check MusicEventIteratorHasCurrentEvent to see if there is an event at the
 // 				iterator's current position. See also MusicEventIteratorHasNextEvent.
-				
+
 // 				Typically this call is used to move the iterator forwards through the track's events.
 // 	@param		inIterator		the iterator
 // */
@@ -1479,7 +1458,7 @@
 // /*!
 // 	@function	MusicEventIteratorPreviousEvent
 // 	@abstract	Move the iterator to the previous event
-// 	@discussion If the iterator was at the first event, then it will leave the iterator unchanged and return an error. 
+// 	@discussion If the iterator was at the first event, then it will leave the iterator unchanged and return an error.
 // 				See also MusicEventIteratorHasPreviousEvent
 
 // 				Typically this call is used to move the iterator backwards through the track's events.
@@ -1492,9 +1471,9 @@
 // 	@function	MusicEventIteratorGetEventInfo
 // 	@abstract	Retrieves the event data at the iterator.
 // 	@discussion Retrieves the event and other information from the iterator's current position.
-	
+
 // 				If you do not want specific information (eg, the time stamp) pass in NULL for that parameter.
-				
+
 // 	@param		inIterator		the iterator
 // 	@param		outTimeStamp	the time stamp of the event
 // 	@param		outEventType	one of kMusicEventType_XXX that indicates what kind of event type the iterator
@@ -1509,14 +1488,14 @@
 // 									MusicEventType *		outEventType,
 // 									const void * __nullable * __nonnull outEventData,
 // 									UInt32 *				outEventDataSize)	API_AVAILABLE(macos(10.0), ios(5.0), watchos(2.0), tvos(9.0));
-	
+
 // /*!
 // 	@function	MusicEventIteratorSetEventInfo
 // 	@abstract	Changes the type or value of an event
-// 	@discussion Allows you to change either the event type, or the values of the event data, that the iterator is 
-// 				currently pointing too. You cannot change the event's time (to do that you should use 
+// 	@discussion Allows you to change either the event type, or the values of the event data, that the iterator is
+// 				currently pointing too. You cannot change the event's time (to do that you should use
 // 				MusicEventIteratorSetEventTime).
-				
+
 // 	@param		inIterator		the iterator
 // 	@param		inEventType		the new (or existing) type of the event you are changing
 // 	@param		inEventData		the new event data. The size and type of this event data must match the inEventType
@@ -1529,10 +1508,10 @@
 // /*!
 // 	@function	MusicEventIteratorSetEventTime
 // 	@abstract	Set a new time for an event
-// 	@discussion The iterator will still be pointing to the same event, but as the event will have moved, 
+// 	@discussion The iterator will still be pointing to the same event, but as the event will have moved,
 // 				it may or may not have a next or previous event now (depending of course on the time
 // 				you moved it too).
-				
+
 // 	@param		inIterator		the iterator
 // 	@param		inTimeStamp		the new time stamp of the event
 // */
@@ -1544,7 +1523,7 @@
 // 	@function	MusicEventIteratorDeleteEvent
 // 	@abstract	Deletes the event pointed to by the iterator
 // 	@discussion The iterator will reference the next event after the event has been deleted.
-				
+
 // 	@param		inIterator		the iterator
 // */
 // extern OSStatus
@@ -1561,9 +1540,9 @@
 // 					while (hasPreviousEvent) {
 // 						MusicEventIteratorPreviousEvent (iter)
 // 						// 	do work... MusicEventIteratorGetEventInfo (iter, ...
-						
+
 // 						MusicEventIteratorHasPreviousEvent (iter, &hasPreviousEvent);
-// 					}				
+// 					}
 // 	@param		inIterator		the iterator
 // 	@param		outHasPrevEvent	true if there is a previous event, false if not
 // */
@@ -1580,11 +1559,11 @@
 // 					MusicEventIteratorHasCurrentEvent(iter, &hasCurrentEvent);
 // 					while (hasCurrentEvent) {
 // 						// do work... MusicEventIteratorGetEventInfo (iter, ...
-						
+
 // 						MusicEventIteratorNextEvent (iter)
 // 						MusicEventIteratorHasCurrentEvent(iter, &hasCurrentEvent);
 // 					}
-				
+
 // 	@param		inIterator		the iterator
 // 	@param		outHasNextEvent	true if there is a next event, false if not
 // */
@@ -1602,8 +1581,6 @@
 // MusicEventIteratorHasCurrentEvent(	MusicEventIterator	inIterator,
 // 									Boolean	*			outHasCurEvent)			API_AVAILABLE(macos(10.2), ios(5.0), watchos(2.0), tvos(9.0));
 
-
-
 // //=====================================================================================================================
 // #pragma mark -
 
@@ -1616,7 +1593,6 @@
 // MusicSequenceLoadSMFData(	MusicSequence	inSequence,
 // 							CFDataRef		inData)					API_DEPRECATED("no longer supported", macos(10.2, 10.5)) API_UNAVAILABLE(ios, watchos, tvos);
 // #endif // !TARGET_RT_64_BIT
-
 
 // // passing a value of zero for the flags makes this call equivalent to MusicSequenceLoadSMFData
 // // a kAudio_ParamError is returned if the sequence has ANY data in it and the flags value is != 0
@@ -1666,7 +1642,7 @@
 // extern OSStatus
 // MusicTrackNewExtendedControlEvent(	MusicTrack 					inTrack,
 // 									MusicTimeStamp				inTimeStamp,
-// 									const ExtendedControlEvent	*inInfo)		
+// 									const ExtendedControlEvent	*inInfo)
 // 																	API_DEPRECATED("no longer supported", macos(10.0, 10.7)) API_UNAVAILABLE(ios, watchos, tvos);
 // #endif
 

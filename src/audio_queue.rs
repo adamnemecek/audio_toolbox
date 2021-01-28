@@ -20,7 +20,6 @@
 // 	Additional advanced features support scheduled playback and synchronization of multiple audio
 // 	queues and synchronization of audio with video.
 // */
-
 // #ifndef AudioToolbox_AudioQueue_h
 // #define AudioToolbox_AudioQueue_h
 
@@ -38,10 +37,8 @@
 // extern "C" {
 // #endif
 
-
 // #pragma mark -
 // #pragma mark Constants
-
 
 // #pragma mark -
 // #pragma mark Types
@@ -87,7 +84,6 @@
 // 	AudioQueueGetCurrentTime, which means a discontinuity has occurred.
 // */
 // typedef struct OpaqueAudioQueueTimeline *   AudioQueueTimelineRef;
-
 
 // //==================================================================================================
 // //  CONSTANTS
@@ -188,7 +184,6 @@
 //     kAudioQueueErr_InvalidOfflineMode   = -66626,
 // };
 
-
 // /*!
 //     @enum Audio Queue Property IDs
 //     @abstract   Constants that identify properties for audio queues.
@@ -207,7 +202,7 @@
 //         A read/write property whose value is a CFStringRef that contains the unique identifier
 //         (UID) of the associated audio device.
 // 		If the audio queue is tracking the default system device and the device changes, it will
-// 		generate a property changed notification for this property. You can then query the HAL 
+// 		generate a property changed notification for this property. You can then query the HAL
 // 		for info on the new default system device.
 //     @constant   kAudioQueueProperty_MagicCookie
 //         A read/write property whose value is an audio format magic cookie. If the audio format
@@ -219,7 +214,7 @@
 //     @constant   kAudioQueueProperty_StreamDescription
 //         A read-only AudioStreamBasicDescription that indicates the queue's recording format.
 //         This is useful when recording, where you may specify a sample rate of 0 during
-//         construction, 
+//         construction,
 //     @constant   kAudioQueueProperty_ChannelLayout
 //         A read/write property whose value is an audio channel layout structure that describes
 //         the audio queue's channel layout. The number of channels must match the format of the
@@ -263,11 +258,11 @@
 //     kAudioQueueDeviceProperty_SampleRate        = 'aqsr',       // value is Float64
 //     kAudioQueueDeviceProperty_NumberChannels    = 'aqdc',       // value is UInt32
 //     kAudioQueueProperty_CurrentDevice           = 'aqcd',       // value is CFStringRef
-    
+
 //     kAudioQueueProperty_MagicCookie             = 'aqmc',       // value is void*
 //     kAudioQueueProperty_MaximumOutputPacketSize = 'xops',       // value is UInt32
 //     kAudioQueueProperty_StreamDescription       = 'aqft',       // value is AudioStreamBasicDescription
-       
+
 //     kAudioQueueProperty_ChannelLayout           = 'aqcl',       // value is AudioChannelLayout
 //     kAudioQueueProperty_EnableLevelMetering     = 'aqme',       // value is UInt32
 //     kAudioQueueProperty_CurrentLevelMeter       = 'aqmv',       // value is array of AudioQueueLevelMeterState, 1 per channel
@@ -314,23 +309,23 @@
 // /*!
 //     @enum Audio Queue Property IDs
 //     @abstract Audio Queue Property IDs (iOS 3.0 or greater only)
-    
+
 //     @constant   kAudioQueueProperty_HardwareCodecPolicy
 //         A UInt32 describing how the audio queue is to choose between a hardware or
 //         software version of the codec required for its audio format. Its value is one of
 //         the AudioQueueHardwareCodecPolicy constants below.
-        
-//         If the chosen codec is not available, or if a hardware codec is chosen and the 
+
+//         If the chosen codec is not available, or if a hardware codec is chosen and the
 //         AudioSession category does not permit use of hardware codecs, attempts to Prime or Start
 //         the queue will fail.
 
 //         Use kAudioFormatProperty_Encoders or kAudioFormatProperty_Decoders to determine
 //         whether the codec you are interested in using is available in hardware form,
 //         software, or both.
-        
+
 //         Changing this property is not permitted while the queue is primed or running. Changing
 //         this property at other times may cause any properties set on the codec to be lost.
- 
+
 //         DEPRECATED: Hardware codecs are no longer supported.
 // */
 // CF_ENUM(AudioQueuePropertyID) {
@@ -340,7 +335,7 @@
 // /*!
 //     @enum       AudioQueueHardwareCodecPolicy constants
 //     @abstract   Values of kAudioQueueProperty_HardwareCodecPolicy (iOS 3.0 or greater only)
-    
+
 //     @constant kAudioQueueHardwareCodecPolicy_Default
 //         If the required codec is available in both hardware and software forms, the audio queue
 //         will choose a hardware codec if its AudioSession category permits, software otherwise.
@@ -387,13 +382,13 @@
 //     @abstract   Constants that identify the parameters for audio queues.
 
 // 	You can set a parameter in one of two ways:
-	
+
 // 	- Assign a parameter value to an audio queue to take effect immediately using
 // 			AudioQueueSetParameter.
 // 	- Schedule a parameter to take effect when a buffer is enqueued. You supply the
 // 			parameter when you queue a buffer, and the new value of the parameter is applied
 // 			when that buffer is rendered.
-	
+
 // 	AudioQueueGetParameter always returns the current value of the parameter
 
 //     @constant   kAudioQueueParam_Volume
@@ -405,7 +400,7 @@
 //         applicable when the time/pitch processor has been enabled and on macOS 10.6 and higher.
 //     @constant   kAudioQueueParam_Pitch
 //         A value from -2400 to 2400 indicating the number of cents to pitch-shift the queue's
-//         playback. (1200 cents is one octave.) Only applicable when the time/pitch processor has 
+//         playback. (1200 cents is one octave.) Only applicable when the time/pitch processor has
 //         been enabled with the spectral algorithm, and on macOS 10.6 and higher.
 //     @constant   kAudioQueueParam_VolumeRampTime
 //         A value indicating the number of seconds over which subsequent volume changes will be
@@ -430,7 +425,7 @@
 //     @abstract   Flags used in conjunction with processing taps
 
 // 	In the flags passed to AudioQueueProcessingTapNew, either the PreEffects
-// 	or PostEffects flag must be set, but not both. 
+// 	or PostEffects flag must be set, but not both.
 
 //     @constant   kAudioQueueProcessingTap_PreEffects
 //         Signifies that the processing tap is inserted before any effects.
@@ -476,12 +471,12 @@
 // 	Each audio queue has an associated set of audio queue buffers. You can request that a
 // 	queue allocate buffers using the AudioQueueAllocateBuffer function and dispose of them
 // 	using the AudioQueueFreeBuffer function.
-	
+
 // 	You may also use AudioQueueAllocateBufferWithPacketDescriptions to allocate buffers
-// 	with space for AudioPacketDescriptions, as used in VBR formats. The 
+// 	with space for AudioPacketDescriptions, as used in VBR formats. The
 // 	mPacketDescriptionCapacity, mmPacketDescriptions, and mPacketDescriptionCount
 // 	fields may only be used with buffers allocated with this function.
-	
+
 //     @var        mAudioDataBytesCapacity
 //         The size of the buffer, in bytes. This size is set when the buffer is allocated and
 //         cannot be changed.
@@ -504,7 +499,6 @@
 //         buffers for playback; the audio queue sets this value when returning buffers from
 //         a recording queue.
 // */
-
 // typedef struct AudioQueueBuffer {
 //     const UInt32                    mAudioDataBytesCapacity;
 //     void * const                    mAudioData;
@@ -537,13 +531,13 @@
 
 // 	- Assign a parameter value immediately to an audio queue by calling the
 // 	AudioQueueSetParameter function.
-	
+
 // 	Note that the AudioQueueGetParameter function always returns the actual value of the
 // 	parameter.
 
 // 	In macOS v10.5, audio queues have one parameter available: kAudioQueueParam_Volume,
 // 	which controls the queue's playback volume.
-	
+
 //     @var        mID
 //         The parameter.
 //     @var        mValue
@@ -554,7 +548,6 @@
 //     AudioQueueParameterValue        mValue;
 // };
 // typedef struct AudioQueueParameterEvent AudioQueueParameterEvent;
-
 
 // /*!
 //     @struct     AudioQueueLevelMeterState
@@ -624,7 +617,7 @@
 // 	is invoked each time the recording audio queue has filled a buffer with input data.
 // 	Typically, your callback should write the audio queue buffer's data to a file or other
 // 	buffer, and then re-queue the audio queue buffer to receive more data.
-        
+
 //     @param      inAQ
 //         The audio queue that invoked the callback.
 //     @param      inBuffer
@@ -677,7 +670,7 @@
 // 	is invoked each time the recording audio queue has filled a buffer with input data.
 // 	Typically, your callback should write the audio queue buffer's data to a file or other
 // 	buffer, and then re-queue the audio queue buffer to receive more data.
-        
+
 //     @param      inUserData
 //         The value you've specified in the inUserData parameter of the AudioQueueNewInput
 //         function.
@@ -703,14 +696,13 @@
 //                                     UInt32                          inNumberPacketDescriptions,
 //                                     const AudioStreamPacketDescription * __nullable inPacketDescs);
 
-
 // /*!
 //     @typedef    AudioQueuePropertyListenerProc
 //     @abstract   Defines a pointer to a callback function that is called when a specified
 //                 property changes value.
 
 // 	You assign a property listener callback when calling AudioQueueAddPropertyListener.
-        
+
 //     @param      inUserData
 //         A pointer to the data specified by the inUserData parameter of the
 //         AudioQueueAddPropertyListener function.
@@ -719,7 +711,7 @@
 //     @param      inID
 //         The ID of the property that invoked the callback.
 // */
-// typedef void (*AudioQueuePropertyListenerProc)(  
+// typedef void (*AudioQueuePropertyListenerProc)(
 //                                     void * __nullable       inUserData,
 //                                     AudioQueueRef           inAQ,
 //                                     AudioQueuePropertyID    inID);
@@ -814,7 +806,7 @@
 //     @param      ioData
 //                     For non-siphoning taps, on entry, the buffer pointers are null and the lengths
 //                     are zero. On exit, they should contain the tap's output.
-                    
+
 //                     Siphoning taps receive valid buffers which they must not alter.
 // */
 // typedef void (*AudioQueueProcessingTapCallback)(
@@ -844,7 +836,7 @@
 // 	AudioQueueEnqueueBuffer). The callback receives buffers and typically queues them again.
 // 	To schedule a buffer for playback, providing parameter and start time information, call
 // 	AudioQueueEnqueueBufferWithParameters.
-       
+
 //     @param      inFormat
 //         A pointer to a structure describing the format of the audio data to be played. For
 //         linear PCM, only interleaved formats are supported. Compressed formats are supported.
@@ -869,7 +861,7 @@
 //         object.
 //     @result     An OSStatus result code.
 // */
-// extern OSStatus             
+// extern OSStatus
 // AudioQueueNewOutput(                const AudioStreamBasicDescription *inFormat,
 //                                     AudioQueueOutputCallback        inCallbackProc,
 //                                     void * __nullable               inUserData,
@@ -878,18 +870,17 @@
 //                                     UInt32                          inFlags,
 //                                     AudioQueueRef __nullable * __nonnull outAQ)          API_AVAILABLE(macos(10.5), ios(2.0), watchos(2.0), tvos(9.0));
 
-
 // /*!
 //     @function   AudioQueueNewInput
 //     @abstract   Creates a new audio queue for recording audio data.
 
 // 	Outline of how to use the queue for input:
-	
+
 // 	- create input queue
 // 	- allocate buffers
 // 	- enqueue buffers (AudioQueueEnqueueBuffer, not with parameters, no packet descriptions)
 // 	- the callback receives buffers and re-enqueues them
-	
+
 //     @param      inFormat
 //         A pointer to a structure describing the format of the audio data to be recorded. For
 //         linear PCM, only interleaved formats are supported. Compressed formats are supported.
@@ -914,7 +905,7 @@
 //         object.
 //     @result     An OSStatus result code.
 // */
-// extern OSStatus             
+// extern OSStatus
 // AudioQueueNewInput(                 const AudioStreamBasicDescription *inFormat,
 //                                     AudioQueueInputCallback         inCallbackProc,
 //                                     void * __nullable               inUserData,
@@ -932,7 +923,7 @@
 // 	AudioQueueEnqueueBuffer). The callback receives buffers and typically queues them again.
 // 	To schedule a buffer for playback, providing parameter and start time information, call
 // 	AudioQueueEnqueueBufferWithParameters.
-       
+
 //     @param      outAQ
 //         On return, this variable contains a pointer to the newly created playback audio queue
 //         object.
@@ -948,7 +939,7 @@
 //         a buffer.
 //     @result     An OSStatus result code.
 // */
-// extern OSStatus             
+// extern OSStatus
 // AudioQueueNewOutputWithDispatchQueue(AudioQueueRef __nullable * __nonnull outAQ,
 //                                     const AudioStreamBasicDescription *inFormat,
 //                                     UInt32                          inFlags,
@@ -961,12 +952,12 @@
 //     @abstract   Creates a new audio queue for recording audio data.
 
 // 	Outline of how to use the queue for input:
-	
+
 // 	- create input queue
 // 	- allocate buffers
 // 	- enqueue buffers (AudioQueueEnqueueBuffer, not with parameters, no packet descriptions)
 // 	- the callback receives buffers and re-enqueues them
-        
+
 //     @param      outAQ
 //         On return, this variable contains a pointer to the newly created recording audio queue
 //         object.
@@ -982,7 +973,7 @@
 //         a buffer.
 //     @result     An OSStatus result code.
 // */
-// extern OSStatus             
+// extern OSStatus
 // AudioQueueNewInputWithDispatchQueue(AudioQueueRef __nullable * __nonnull outAQ,
 //                                     const AudioStreamBasicDescription *inFormat,
 //                                     UInt32                          inFlags,
@@ -1005,13 +996,13 @@
 //         processed. Whether you call AudioQueueDispose synchronously or asynchronously, you can
 //         no longer interact with the queue, and the queue no longer invokes any callbacks to your
 //         application after the function returns.
-		
+
 // 		Note that if AudioQueueDispose is called from a buffer completion callback or property
 // 		listener, you may receive further callbacks afterwards.
 //     @result     An OSStatus result code.
 // */
 // extern OSStatus
-// AudioQueueDispose(                  AudioQueueRef           inAQ, 
+// AudioQueueDispose(                  AudioQueueRef           inAQ,
 //                                     Boolean                 inImmediate)            API_AVAILABLE(macos(10.5), ios(2.0), watchos(2.0), tvos(9.0));
 
 // #pragma mark -
@@ -1027,7 +1018,7 @@
 // 	Once allocated, the pointer to the buffer and the buffer's size are fixed and cannot be
 // 	changed. The mAudioDataByteSize field in the audio queue buffer structure,
 // 	AudioQueueBuffer, is initially set to 0.
-        
+
 //     @param      inAQ
 //         The audio queue you want to allocate a buffer.
 //     @param      inBufferByteSize
@@ -1050,7 +1041,7 @@
 // 	Once allocated, the pointer to the buffer and the buffer's size are fixed and cannot be
 // 	changed. The mAudioDataByteSize field in the audio queue buffer structure,
 // 	AudioQueueBuffer, is initially set to 0.
-        
+
 //     @param      inAQ
 //         The audio queue you want to allocate a buffer.
 //     @param      inBufferByteSize
@@ -1090,8 +1081,6 @@
 // AudioQueueFreeBuffer(               AudioQueueRef           inAQ,
 //                                     AudioQueueBufferRef     inBuffer)           API_AVAILABLE(macos(10.5), ios(2.0), watchos(2.0), tvos(9.0));
 
-
-
 // /*!
 //     @function   AudioQueueEnqueueBuffer
 //     @abstract   Assigns a buffer to an audio queue for recording or playback.
@@ -1100,7 +1089,7 @@
 // 	the client should provide packet descriptions in the buffer's mPacketDescriptions
 // 	and mPacketDescriptionCount fields rather than in inPacketDescs and
 // 	inNumPacketDescs, which should be NULL and 0, respectively, in this case.
-	
+
 // 	For an input queue, pass 0 and NULL for inNumPacketDescs and inPacketDescs,
 // 	respectively. Your callback will receive packet descriptions owned by the audio queue.
 
@@ -1132,7 +1121,7 @@
 // 	You can exert some control of the buffer queue by using this function. You can assign
 // 	audio queue settings that are in effect carried by an audio queue buffer as you enqueue
 // 	it. Hence, these changes only take effect when an audio queue buffer begins playing.
-	
+
 // 	This function queues a buffer for playback only, not for recording. Audio queues for
 // 	recording have no parameters, do not support variable-bit-rate (VBR) formats (which
 // 	might require trimming), and have a different way to handle timing. When queued for
@@ -1176,7 +1165,7 @@
 //         queued. If multiple buffers are queued, their times must be in ascending order or NULL;
 //         otherwise, an error occurs. The start time indicates when the actual audio data in the
 //         buffer is to be played (that is, the trim frames are not counted).
-        
+
 //         Note: When specifying a start time for a buffer, if the buffer is not the first enqueued
 //         since AudioQueueStop or AudioQueueReset, it is normally necessary to call AudioQueueFlush
 //         before AudioQueueEnqueueBufferWithParameters.
@@ -1307,15 +1296,15 @@
 // 	audio; otherwise, some of the audio might not play in the next set of queued buffers.
 // 	The only time it is not necessary to call AudioQueueFlush is following AudioQueueStop
 // 	with inImmediate=false. (This action internally calls AudioQueueFlush.)
-	
+
 // 	Also, you might wish to call this function before calling AudioQueueStop depending on
 // 	whether you want to stop immediately regardless of what has played or whether you want
 // 	to ensure that all buffered data and all data that is in the middle of processing gets
 // 	recorded or played before stopping.
-        
+
 //     @param      inAQ
 //         The audio queue to be flushed.
-        
+
 //     @result     An OSStatus result code.
 // */
 // extern OSStatus
@@ -1391,7 +1380,6 @@
 //                                     AudioQueueParameterID       inParamID,
 //                                     AudioQueueParameterValue    inValue)        API_AVAILABLE(macos(10.5), ios(2.0), watchos(2.0), tvos(9.0));
 
-                                                                        
 // #pragma mark -
 // #pragma mark Property Management
 // //=============================================================================
@@ -1439,7 +1427,6 @@
 //                                     AudioQueuePropertyID    inID,
 //                                     const void *            inData,
 //                                     UInt32                  inDataSize)             API_AVAILABLE(macos(10.5), ios(2.0), watchos(2.0), tvos(9.0));
-
 
 // /*!
 //     @function   AudioQueueGetPropertySize
@@ -1504,8 +1491,6 @@
 //                                     AudioQueuePropertyID            inID,
 //                                     AudioQueuePropertyListenerProc  inProc,
 //                                     void * __nullable               inUserData)     API_AVAILABLE(macos(10.5), ios(2.0), watchos(2.0), tvos(9.0));
-
-                                    
 
 // #pragma mark -
 // #pragma mark Handling Timing
@@ -1610,7 +1595,7 @@
 
 // 	This function converts from one time representation to another (for example, from sample
 // 	time to host time or vice versa):
-	
+
 // 	- Sample time is the absolute sample frame time. Sample numbers are the count of the samples
 // 		on the audio device.
 // 	- Host time is the time base of the host machine such as the time of the bus clock on the CPU.
@@ -1711,7 +1696,6 @@
 // //  Processing Taps
 // //=============================================================================
 
-
 // /*!
 //     @function   AudioQueueProcessingTapNew
 //     @abstract   Create a new processing tap
@@ -1725,7 +1709,7 @@
 // 	The processing is performed on audio either before or after any effects or other
 // 	processing (varispeed, etc) is applied by the audio queue, depending on inFlags.
 
-//     @param      inAQ    
+//     @param      inAQ
 //                     The audio queue from which to create the processing tap
 //     @param      inCallback
 //                     A callback which the queue will call to process the audio
@@ -1760,10 +1744,10 @@
 //                     most efficient from its playback (or recording) requirement.
 //     @param      outAQTap
 //                     The processing tap object.
-                    
+
 //     @result     An OSStatus result code.
 // */
-// extern OSStatus 
+// extern OSStatus
 // AudioQueueProcessingTapNew(         AudioQueueRef                   inAQ,
 //                                     AudioQueueProcessingTapCallback inCallback,
 //                                     void * __nullable               inClientData,
@@ -1779,13 +1763,13 @@
 
 // 	As with AudioQueueProcessingTapNew(), this call can only be made on an
 // 	audio queue that is stopped (paused is not sufficient)
-    
+
 //     @param      inAQTap
 //                     The processing tap to dispose.
 
 //    @result     An OSStatus result code.
 // */
-// extern OSStatus 
+// extern OSStatus
 // AudioQueueProcessingTapDispose(     AudioQueueProcessingTapRef      inAQTap)
 //                                         API_AVAILABLE(macos(10.7), ios(6.0), watchos(2.0), tvos(9.0));
 
@@ -1794,7 +1778,7 @@
 //     @abstract   Used by a processing tap to retrieve source audio.
 
 // 	This function may only be called from the processing tap's callback.
-    
+
 //     @param      inAQTap
 //                     the processing tap
 //     @param      inNumberFrames
@@ -1816,7 +1800,7 @@
 //                     callback. If the buffer pointers are non-NULL, then they must be big enough to
 //                     hold inNumberFrames, and the audio queue will copy its source data into those
 //                     buffers.
-                    
+
 //    @result     An OSStatus result code.
 // */
 // extern OSStatus
@@ -1836,7 +1820,7 @@
 // 	This function may only be called from the processing tap's callback, and only
 // 	for audio output queues. It must be called after calling
 // 	AudioQueueProcessingTapGetSourceAudio().
-    
+
 //     @param      inAQTap
 //                     the processing tap
 //     @param      outQueueSampleTime
@@ -1848,7 +1832,7 @@
 //                     to the tap if the queue's playback rate is currently other than 1.0, due to the
 //                     use of time compression/expansion. The frame count can also be 0 if the queue is
 //                     paused.
-                    
+
 //    @result     An OSStatus result code.
 // */
 // extern OSStatus
@@ -1864,4 +1848,3 @@
 // CF_ASSUME_NONNULL_END
 
 // #endif // AudioToolbox_AudioQueue_h
-

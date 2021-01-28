@@ -11,7 +11,6 @@
 // 				on top of the AudioFile and AudioConverter API sets. It provides a single
 // 				unified interface to reading and writing both encoded and unencoded files.
 // */
-
 // #ifndef AudioToolbox_ExtendedAudioFile_h
 // #define AudioToolbox_ExtendedAudioFile_h
 
@@ -31,7 +30,6 @@
 // 	@abstract   An extended audio file object.
 // */
 // typedef struct OpaqueExtAudioFile *	ExtAudioFileRef;
-
 
 // typedef SInt32 ExtAudioFilePacketTableInfoOverride;
 
@@ -78,22 +76,22 @@
 // 						performs the remapping. This must be set after ClientDataFormat, and the
 // 						number of channels in the layout must match.
 // 	@constant		kExtAudioFileProperty_CodecManufacturer
-// 						A UInt32 specifying the manufacturer of the codec to be used. This must be 
+// 						A UInt32 specifying the manufacturer of the codec to be used. This must be
 // 						specified before setting kExtAudioFileProperty_ClientDataFormat, which
 // 						triggers the creation of the codec. This can be used on iOS
-// 						to choose between a hardware or software encoder, by specifying 
+// 						to choose between a hardware or software encoder, by specifying
 // 						kAppleHardwareAudioCodecManufacturer or kAppleSoftwareAudioCodecManufacturer.
-						
+
 // 						Available starting on macOS version 10.7 and iOS version 4.0.
 // 	@constant		kExtAudioFileProperty_AudioConverter
 // 						AudioConverterRef. The underlying AudioConverterRef, if any. Read-only.
-						
+
 // 						Note: If you alter any properties of the AudioConverterRef, for example,
 // 						an encoder's bit rate, you must set the kExtAudioFileProperty_ConverterConfig
-// 						property on the ExtAudioFileRef afterwards. A NULL configuration is 
+// 						property on the ExtAudioFileRef afterwards. A NULL configuration is
 // 						sufficient. This will ensure that the output file's data format is consistent
 // 						with the format being produced by the converter.
-						
+
 // 						```
 // 						CFArrayRef config = NULL;
 // 						err = ExtAudioFileSetProperty(myExtAF, kExtAudioFileProperty_ConverterConfig,
@@ -108,12 +106,12 @@
 // 						UInt32 representing the client data format's maximum packet size in bytes.
 // 						Read-only.
 // 	@constant		kExtAudioFileProperty_FileLengthFrames
-// 						SInt64 representing the file's length in sample frames. Read-only on 
+// 						SInt64 representing the file's length in sample frames. Read-only on
 // 						non-PCM formats; writable for files in PCM formats.
 // 	@constant		kExtAudioFileProperty_ConverterConfig
 // 						CFArrayRef representing the underlying AudioConverter's configuration, as
 // 						specified by kAudioConverterPropertySettings.
-						
+
 // 						This may be NULL to force resynchronization of the converter's output format
 // 						with the file's data format.
 // 	@constant		kExtAudioFileProperty_IOBufferSizeBytes
@@ -133,7 +131,7 @@
 // 						and remainder frames information for a given ExtAudioFile object. If the
 // 						underlying file type does not provide packet table info, the Get call will
 // 						return an error.
-						
+
 // 						If you set this, then you can override the setting for these values in the
 // 						file to ones that you want to use. When setting this, you can use
 // 						kExtAudioFilePacketTableInfoOverride_UseFileValue (-1) for either the
@@ -176,14 +174,14 @@
 // 	kExtAudioFileProperty_ClientDataFormat		= 'cfmt',   // AudioStreamBasicDescription
 // 	kExtAudioFileProperty_ClientChannelLayout	= 'cclo',   // AudioChannelLayout
 // 	kExtAudioFileProperty_CodecManufacturer		= 'cman',	// UInt32
-	
+
 // 	// read-only:
 // 	kExtAudioFileProperty_AudioConverter		= 'acnv',	// AudioConverterRef
 // 	kExtAudioFileProperty_AudioFile				= 'afil',	// AudioFileID
 // 	kExtAudioFileProperty_FileMaxPacketSize		= 'fmps',	// UInt32
 // 	kExtAudioFileProperty_ClientMaxPacketSize	= 'cmps',	// UInt32
 // 	kExtAudioFileProperty_FileLengthFrames		= '#frm',	// SInt64
-	
+
 // 	// writable:
 // 	kExtAudioFileProperty_ConverterConfig		= 'accf',   // CFPropertyListRef
 // 	kExtAudioFileProperty_IOBufferSizeBytes		= 'iobs',	// UInt32
@@ -228,16 +226,14 @@
 // };
 // #endif
 
-
 // //==================================================================================================
 // //	Creation/Destruction
 // /*!
 //     @functiongroup  Creation/Destruction
 // */
-
 // /*!
 // 	@function   ExtAudioFileOpenURL
-	
+
 // 	@abstract   Opens an audio file specified by a CFURLRef.
 // 	@param		inURL
 // 					The audio file to read.
@@ -254,7 +250,7 @@
 
 // /*!
 // 	@function   ExtAudioFileWrapAudioFileID
-	
+
 // 	@abstract   Wrap an AudioFileID in an ExtAudioFileRef.
 // 	@param		inFileID
 // 					The AudioFileID to wrap.
@@ -279,7 +275,7 @@
 
 // /*!
 // 	@function   ExtAudioFileCreateWithURL
-	
+
 // 	@abstract   Create a new audio file.
 // 	@param		inURL
 // 					The URL of the new audio file.
@@ -300,7 +296,7 @@
 
 // 	@discussion
 // 				Creates a new audio file.
-				
+
 // 				If the file to be created is in an encoded format, it is permissible for the
 // 				sample rate in inStreamDesc to be 0, since in all cases, the file's encoding
 // 				AudioConverter may produce audio at a different sample rate than the source. The
@@ -314,11 +310,11 @@
 //                     		UInt32								inFlags,
 // 							ExtAudioFileRef __nullable * __nonnull outExtAudioFile)
 // 																			API_AVAILABLE(macos(10.5), ios(2.1), watchos(2.0), tvos(9.0));
-																			
+
 // #if !TARGET_OS_IPHONE
 // /*!
 // 	@function   ExtAudioFileOpen
-	
+
 // 	@abstract   Opens an audio file specified by an FSRef.
 // 	@param		inFSRef
 // 					The audio file to read.
@@ -328,7 +324,7 @@
 
 // 	@discussion
 // 				Allocates a new ExtAudioFileRef, for reading an existing audio file.
-				
+
 // 				This function is deprecated as of Mac OS 10.6. ExtAudioFileOpenURL is preferred.
 // */
 // extern OSStatus
@@ -337,7 +333,7 @@
 
 // /*!
 // 	@function   ExtAudioFileCreateNew
-	
+
 // 	@abstract   Creates a new audio file.
 // 	@param		inParentDir
 // 					The directory in which to create the new file.
@@ -375,31 +371,29 @@
 
 // /*!
 // 	@function   ExtAudioFileDispose
-	
+
 // 	@abstract   Close the file and dispose the object.
 // 	@param		inExtAudioFile
 // 					The extended audio file object.
 // 	@result		An OSStatus error code.
-	
+
 // 	@discussion
 // 				Closes the file and deletes the object.
 // */
 // extern OSStatus
-// ExtAudioFileDispose(		ExtAudioFileRef				inExtAudioFile)		
+// ExtAudioFileDispose(		ExtAudioFileRef				inExtAudioFile)
 // 																			API_AVAILABLE(macos(10.4), ios(2.1), watchos(2.0), tvos(9.0));
-
 
 // //==================================================================================================
 // //	I/O
 // /*!
 //     @functiongroup  I/O
 // */
-
 // /*!
 // 	@function   ExtAudioFileRead
-	
+
 // 	@abstract   Perform a synchronous sequential read.
-	
+
 // 	@param		inExtAudioFile
 // 					The extended audio file object.
 // 	@param		ioNumberFrames
@@ -416,7 +410,7 @@
 // 				If the file has a client data format, then the audio data from the file is
 // 				translated from the file data format to the client format, via the
 // 				ExtAudioFile's internal AudioConverter.
-				
+
 // 				(Note that the use of sequential reads/writes means that an ExtAudioFile must
 // 				not be read on multiple threads; clients wishing to do this should use the
 // 				lower-level AudioFile API set).
@@ -424,12 +418,12 @@
 // extern OSStatus
 // ExtAudioFileRead(			ExtAudioFileRef			inExtAudioFile,
 // 							UInt32 *				ioNumberFrames,
-// 							AudioBufferList *		ioData)					
+// 							AudioBufferList *		ioData)
 // 																			API_AVAILABLE(macos(10.4), ios(2.1), watchos(2.0), tvos(9.0));
 
 // /*!
 // 	@function   ExtAudioFileWrite
-	
+
 // 	@abstract   Perform a synchronous sequential write.
 
 // 	@param		inExtAudioFile
@@ -439,7 +433,7 @@
 // 	@param		ioData
 // 					The buffer(s) from which audio data is written to the file.
 // 	@result		An OSStatus error code.
-	
+
 // 	@discussion
 // 				If the file has a client data format, then the audio data in ioData is
 // 				translated from the client format to the file data format, via the
@@ -448,14 +442,14 @@
 // extern OSStatus
 // ExtAudioFileWrite(			ExtAudioFileRef			inExtAudioFile,
 // 							UInt32					inNumberFrames,
-// 							const AudioBufferList * ioData)					
+// 							const AudioBufferList * ioData)
 // 																			API_AVAILABLE(macos(10.4), ios(2.1), watchos(2.0), tvos(9.0));
 
 // /*!
 // 	@function   ExtAudioFileWriteAsync
-	
+
 // 	@abstract   Perform an asynchronous sequential write.
-	
+
 // 	@param		inExtAudioFile
 // 					The extended audio file object.
 // 	@param		inNumberFrames
@@ -463,7 +457,7 @@
 // 	@param		ioData
 // 					The buffer(s) from which audio data is written to the file.
 // 	@result		An OSStatus error code.
-		
+
 // 	@discussion
 // 				Writes the provided buffer list to an internal ring buffer and notifies an
 // 				internal thread to perform the write at a later time. The first time this is
@@ -498,34 +492,34 @@
 // 					the file. This is specified in the sample rate and frame count of the file's format
 // 					(not the client format)
 // 	@result		An OSStatus error code.
-	
+
 // 	@discussion
 // 				Sets the file's read position to the specified sample frame number. The next call
 // 				to ExtAudioFileRead will return samples from precisely this location, even if it
 // 				is located in the middle of a packet.
-				
+
 // 				This function's behavior with files open for writing is currently undefined.
 // */
 // extern OSStatus
 // ExtAudioFileSeek(			ExtAudioFileRef			inExtAudioFile,
-// 							SInt64					inFrameOffset)			
+// 							SInt64					inFrameOffset)
 // 																			API_AVAILABLE(macos(10.4), ios(2.1), watchos(2.0), tvos(9.0));
 
 // /*!
 // 	@function   ExtAudioFileTell
-	
+
 // 	@abstract   Return the file's read/write position.
 
 // 	@param		inExtAudioFile
 // 					The extended audio file object.
 // 	@param		outFrameOffset
-// 					On exit, the file's current read/write position in sample frames. This is specified in the 
+// 					On exit, the file's current read/write position in sample frames. This is specified in the
 // 					sample rate and frame count of the file's format (not the client format)
 // 	@result		An OSStatus error code.
 // */
 // extern OSStatus
 // ExtAudioFileTell(			ExtAudioFileRef			inExtAudioFile,
-// 							SInt64 *				outFrameOffset)			
+// 							SInt64 *				outFrameOffset)
 // 																			API_AVAILABLE(macos(10.4), ios(2.1), watchos(2.0), tvos(9.0));
 
 // //==================================================================================================
@@ -533,7 +527,6 @@
 // /*!
 //     @functiongroup  Property Access
 // */
-
 // /*!
 // 	@function   ExtAudioFileGetPropertyInfo
 // 	@abstract   Get information about a property
@@ -565,7 +558,7 @@
 // 					The property being fetched.
 // 	@param		ioPropertyDataSize
 // 					On entry, the size (in bytes) of the memory pointed to by outPropertyData.
-// 					On exit, the actual size of the property data returned.	
+// 					On exit, the actual size of the property data returned.
 // 	@param		outPropertyData
 // 					The value of the property is copied to the memory this points to.
 // 	@result		An OSStatus error code.
@@ -595,7 +588,7 @@
 // ExtAudioFileSetProperty(	ExtAudioFileRef			inExtAudioFile,
 // 							ExtAudioFilePropertyID	inPropertyID,
 // 							UInt32					inPropertyDataSize,
-// 							const void *			inPropertyData)			
+// 							const void *			inPropertyData)
 // 																			API_AVAILABLE(macos(10.4), ios(2.1), watchos(2.0), tvos(9.0));
 
 // CF_ASSUME_NONNULL_END

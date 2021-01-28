@@ -5,7 +5,6 @@
 //  	@copyright	(c) 2000-2015 Apple, Inc. All rights reserved.
 // 	@abstract	Constants for the parameters of Apple audio units.
 // */
-
 // #ifndef AudioUnit_AudioUnitParameters_h
 // #define AudioUnit_AudioUnitParameters_h
 
@@ -15,7 +14,7 @@
 
 // /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // The following specifies the equivalent parameterID's for the Group scope for standard
-// MIDI Controllers. This list is not exhaustive. It represents the parameters, and their corresponding 
+// MIDI Controllers. This list is not exhaustive. It represents the parameters, and their corresponding
 // MIDI messages, that should be supported in Group scope by MIDI capable AUs.
 
 // Group scope parameter IDs from 0 < 512 are reserved for mapping MIDI controllers.
@@ -42,58 +41,54 @@
 // 	kAUGroupParameterID_Foot_LSB				= kAUGroupParameterID_Foot + 32,		// value 0 < 128
 // 	kAUGroupParameterID_Expression_LSB			= kAUGroupParameterID_Expression + 32,	// value 0 < 128
 // 	kAUGroupParameterID_DataEntry_LSB			= kAUGroupParameterID_DataEntry + 32,	// value 0 < 128
-	
+
 // 	kAUGroupParameterID_KeyPressure_FirstKey	= 256,	// value 0 < 128
 // 	kAUGroupParameterID_KeyPressure_LastKey		= 383	// value 0 < 128
 // };
 // /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Supporting the kAUGroupParameterID_KeyPressure parameter indicates to hosts that your audio unit
-// supports polyphonic "aftertouch" key pressure. 
+// supports polyphonic "aftertouch" key pressure.
 
-// Each of the 128 MIDI key numbers can have its own value for polyphonic aftertouch. To respond to 
-// aftertouch for a particular key, your audio unit needs to support an additional parameter 
-// specifically for that key. The aftertouch parameter ID for a given MIDI key is equal to the MIDI 
+// Each of the 128 MIDI key numbers can have its own value for polyphonic aftertouch. To respond to
+// aftertouch for a particular key, your audio unit needs to support an additional parameter
+// specifically for that key. The aftertouch parameter ID for a given MIDI key is equal to the MIDI
 // key number plus 256. For example, the aftertouch parameter ID for MIDI key #60 (middle C) is:
 
 // 	60 + kAUGroupParameterID_KeyPressure_FirstKey = 316
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-
 // /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // The following sections specify the parameter IDs for the audio units included in macOS.
-// Host applications can use these IDs to directly address these parameters without first discovering 
+// Host applications can use these IDs to directly address these parameters without first discovering
 // them through the AUParameterInfo mechanism (see the AudioUnitProperties.h header file)
 
 // Each parameter is preceeded by a comment that indicates scope, unit of measurement, minimum
 // value, maximum value, and default value.
-    
+
 // See the AudioUnitProperties.h header file for additional information that a parameter may report
 
 // When displaying to the user information about a parameter, a host application should always
 // get the parameter information from the audio unit itself.
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-
 // #if !TARGET_OS_IPHONE
 // // Parameters for all Panner AudioUnits
 // CF_ENUM(AudioUnitParameterID) {
 //         // Global, Linear, 0->1, 1
-// 	kPannerParam_Gain = 0,			
-	
+// 	kPannerParam_Gain = 0,
+
 //         // Global, Degrees, -180->180, 0
-// 	kPannerParam_Azimuth = 1,		
+// 	kPannerParam_Azimuth = 1,
 //         // Global, Degrees, -90->90, 0
-// 	kPannerParam_Elevation = 2,	
-		
+// 	kPannerParam_Elevation = 2,
+
 //         // Global, Linear, 0->1, 1
 // 	kPannerParam_Distance = 3,		// 0 .. 1
-	
+
 //         // Global, Meters, 0.01->1000, 1
-// 	kPannerParam_CoordScale = 4,	
+// 	kPannerParam_CoordScale = 4,
 //         // Global, Meters, 0.01->1000, 1
-// 	kPannerParam_RefDistance = 5,	
+// 	kPannerParam_RefDistance = 5,
 // };
 // #endif // !TARGET_OS_IPHONE
-
-
 
 // #pragma mark Apple Specific
 
@@ -101,115 +96,114 @@
 // CF_ENUM(AudioUnitParameterID) {
 //     // Input, Degrees, -180->180, 0
 //     kSpatialMixerParam_Azimuth		= 0,
-    
+
 //     // Input, Degrees, -90->90, 0
 //     kSpatialMixerParam_Elevation	= 1,
-    
+
 //     // Input, Metres, 0->10000, 0
 //     kSpatialMixerParam_Distance		= 2,
-    
+
 //     // Input/Output, dB, -120->20, 0
 //     kSpatialMixerParam_Gain			= 3,
-	
+
 //     // Input, rate scaler	0.5 -> 2.0, 1.0
 //     kSpatialMixerParam_PlaybackRate	= 4,
-    
+
 //     // bus enable : 0 or 1, 1
 //     kSpatialMixerParam_Enable       = 5,
-    
+
 //     // Minimum input gain constraint : 0.0 -> 10.0, 0.0
 //     kSpatialMixerParam_MinGain      = 6,
-    
+
 //     // Maximum input gain constraint : 0.0 -> 10.0, 10.0
 //     kSpatialMixerParam_MaxGain      = 7,
-	
+
 //     // Input, Dry/Wet equal-power blend, %	  0.0 -> 100.0, 30.0
 //     kSpatialMixerParam_ReverbBlend		= 8,
-    
+
 //     // Global, dB,		-40.0 -> +40.0, 0.0
 //     kSpatialMixerParam_GlobalReverbGain	= 9,
-	
+
 //     // Input, Lowpass filter attenuation at 5KHz :		decibels -100.0dB -> 0.0dB, 0.0dB
 //     // smaller values make both direct and reverb sound more muffled; a value of 0.0 indicates no filtering
 //     // Occlusion is a filter applied to the sound prior to the reverb send
 //     kSpatialMixerParam_OcclusionAttenuation	= 10,
-	
+
 //     // Input, Lowpass filter attenuation at 5KHz :		decibels -100.0dB -> 0.0dB, 0.0dB
 //     // smaller values make direct sound more muffled; a value of 0.0 indicates no filtering
 //     // Obstruction is a filter applied to the "direct" part of the sound (so is post reverb send)
 //     kSpatialMixerParam_ObstructionAttenuation = 11,
-    
+
 //     // Global, Degrees, -180->180, 0
 //     kSpatialMixerParam_HeadYaw        = 19,
-    
+
 //     // Global, Degrees, -90->90, 0
 //     kSpatialMixerParam_HeadPitch      = 20,
-    
+
 //     // Global, Degrees, -180->180, 0
 //     kSpatialMixerParam_HeadRoll       = 21
 // };
-    
+
 // // Reverb parameters applicable to AUSpatialMixer
 // CF_ENUM(AudioUnitParameterID) {
 //     // Global, Hertz, 10.0 -> 20000.0, 800.0
 // 	kReverbParam_FilterFrequency					= 14,
-    
+
 //     // Global, Octaves, 0.05 -> 4.0, 3.0
 // 	kReverbParam_FilterBandwidth					= 15,
-    
+
 //     // Global, Decibels, -18.0 -> +18.0, 0.0
 // 	kReverbParam_FilterGain							= 16,
-    
+
 //     // Global, Indexed, 0->kNumAUNBandEQFilterTypes-1, 0
 //     kReverbParam_FilterType                         = 17,       // only available for AUSpatialMixer
-    
+
 //     // Global, Boolean, 0->1, 1
 //     kReverbParam_FilterEnable                       = 18        // only available for AUSpatialMixer
 // };
-
 
 // // Parameters for the AUMixer3D unit
 // CF_ENUM(AudioUnitParameterID) {
 //         // Input, Degrees, -180->180, 0
 //     k3DMixerParam_Azimuth		= 0,
-        
+
 // 		// Input, Degrees, -90->90, 0
 //     k3DMixerParam_Elevation		= 1,
-        
+
 // 		// Input, Metres, 0->10000, 0
 //     k3DMixerParam_Distance		= 2,
-        
+
 // 		// Input/Output, dB, -120->20, 0
 //     k3DMixerParam_Gain			= 3,
-	
+
 // 		// Input, rate scaler	0.5 -> 2.0
 //     k3DMixerParam_PlaybackRate	= 4,
-    
+
 //     // bus enable : 0.0 or 1.0
 //     k3DMixerParam_BusEnable API_AVAILABLE(macos(10.15), ios(13.0), tvos(9.0), watchos(6.0)) = 20,
-    
+
 //     // Input/Output, dB, -120->20, 0
 //     k3DMixerParam_MinGainInDecibels API_AVAILABLE(macos(10.15), ios(13.0), tvos(9.0), watchos(6.0)) = 21,
-    
+
 //     // Input/Output, dB, -120->20, 0
 //     k3DMixerParam_MaxGainInDecibels API_AVAILABLE(macos(10.15), ios(13.0), tvos(9.0), watchos(6.0)) = 22,
 
 //     // Input, Dry/Wet equal-power blend, %      0.0 -> 100.0
 //     k3DMixerParam_DryWetReverbBlend API_AVAILABLE(macos(10.15), ios(13.0), tvos(9.0), watchos(6.0)) = 23,
-    
+
 //     // Global, dB,        -40.0 -> +40.0
 //     k3DMixerParam_GlobalReverbGainInDecibels API_AVAILABLE(macos(10.15), ios(13.0), tvos(9.0), watchos(6.0)) = 24,
-    
+
 //     // Input, Lowpass filter attenuation at 5KHz :        decibels -100.0dB -> 0.0dB
 //     // smaller values make both direct and reverb sound more muffled; a value of 0.0 indicates no filtering
 //     // Occlusion is a filter applied to the sound prior to the reverb send
 //     k3DMixerParam_OcclusionAttenuationInDecibels API_AVAILABLE(macos(10.15), ios(13.0), tvos(9.0), watchos(6.0)) = 25,
-    
+
 //     // Input, Lowpass filter attenuation at 5KHz :        decibels -100.0dB -> 0.0dB
 //     // smaller values make direct sound more muffled; a value of 0.0 indicates no filtering
 //     // Obstruction is a filter applied to the "direct" part of the sound (so is post reverb send)
 //     k3DMixerParam_ObstructionAttenuationInDecibels API_AVAILABLE(macos(10.15), ios(13.0), tvos(9.0), watchos(6.0)) = 26,
-    
+
 // #if TARGET_OS_IPHONE && !TARGET_OS_MACCATALYST
 // 		// iPhone specific 3D mixer parameters -- deprecated
 
@@ -221,18 +215,18 @@
 
 // 		// Maximum input gain constraint : 0.0 -> 1.0 (available on iphone only)
 //     k3DMixerParam_MaxGain   API_DEPRECATED_WITH_REPLACEMENT("k3DMixerParam_MaxGainInDecibels", ios(2.0, API_TO_BE_DEPRECATED), watchos(2.0, API_TO_BE_DEPRECATED), tvos(9.0, API_TO_BE_DEPRECATED)) API_UNAVAILABLE(macos)   = 7,
-	
+
 // 		// Input, Dry/Wet equal-power blend, %	  0.0 -> 100.0
 //     k3DMixerParam_ReverbBlend   API_DEPRECATED_WITH_REPLACEMENT("k3DMixerParam_DryWetReverbBlend", ios(2.0, API_TO_BE_DEPRECATED), watchos(2.0, API_TO_BE_DEPRECATED), tvos(9.0, API_TO_BE_DEPRECATED)) API_UNAVAILABLE(macos)   = 8,
 
 // 		// Global, dB,		-40.0 -> +40.0
 //     k3DMixerParam_GlobalReverbGain  API_DEPRECATED_WITH_REPLACEMENT("k3DMixerParam_GlobalReverbGainInDecibels", ios(2.0, API_TO_BE_DEPRECATED), watchos(2.0, API_TO_BE_DEPRECATED), tvos(9.0, API_TO_BE_DEPRECATED)) API_UNAVAILABLE(macos) = 9,
-	
+
 // 		// Input, Lowpass filter attenuation at 5KHz :		decibels -100.0dB -> 0.0dB
 // 		// smaller values make both direct and reverb sound more muffled; a value of 0.0 indicates no filtering
 // 		// Occlusion is a filter applied to the sound prior to the reverb send
 //     k3DMixerParam_OcclusionAttenuation  API_DEPRECATED_WITH_REPLACEMENT("k3DMixerParam_OcclusionAttenuationInDecibels", ios(2.0, API_TO_BE_DEPRECATED), watchos(2.0, API_TO_BE_DEPRECATED), tvos(9.0, API_TO_BE_DEPRECATED)) API_UNAVAILABLE(macos)  = 10,
-	
+
 // 		// Input, Lowpass filter attenuation at 5KHz :		decibels -100.0dB -> 0.0dB
 // 		// smaller values make direct sound more muffled; a value of 0.0 indicates no filtering
 // 		// Obstruction is a filter applied to the "direct" part of the sound (so is post reverb send)
@@ -241,18 +235,18 @@
 
 // #if TARGET_OS_OSX
 // 		// Desktop specific 3D mixer parameters -- deprecated
-    
+
 // 		// Input, Dry/Wet equal-power blend, %	  0.0 -> 100.0
 //     k3DMixerParam_ReverbBlend   API_DEPRECATED_WITH_REPLACEMENT("k3DMixerParam_DryWetReverbBlend", macos(10.0, API_TO_BE_DEPRECATED)) API_UNAVAILABLE(ios, watchos, tvos) = 5,
 
 // 		// Global, dB,		-40.0 -> +40.0
 //     k3DMixerParam_GlobalReverbGain  API_DEPRECATED_WITH_REPLACEMENT("k3DMixerParam_GlobalReverbGainInDecibels", macos(10.0, API_TO_BE_DEPRECATED)) API_UNAVAILABLE(ios, watchos, tvos) = 6,
-	
+
 // 		// Input, Lowpass filter attenuation at 5KHz :		decibels -100.0dB -> 0.0dB
 // 		// smaller values make both direct and reverb sound more muffled; a value of 0.0 indicates no filtering
 // 		// Occlusion is a filter applied to the sound prior to the reverb send
 //     k3DMixerParam_OcclusionAttenuation  API_DEPRECATED_WITH_REPLACEMENT("k3DMixerParam_OcclusionAttenuationInDecibels", macos(10.0, API_TO_BE_DEPRECATED)) API_UNAVAILABLE(ios, watchos, tvos) = 7,
-	
+
 // 		// Input, Lowpass filter attenuation at 5KHz :		decibels -100.0dB -> 0.0dB
 // 		// smaller values make direct sound more muffled; a value of 0.0 indicates no filtering
 // 		// Obstruction is a filter applied to the "direct" part of the sound (so is post reverb send)
@@ -260,12 +254,12 @@
 
 // 		// Input/Output, dB, -120->20, 0
 //     k3DMixerParam_MinGain  API_DEPRECATED_WITH_REPLACEMENT("k3DMixerParam_MinGainInDecibels", macos(10.0, API_TO_BE_DEPRECATED)) API_UNAVAILABLE(ios, watchos, tvos) = 9,
-	
+
 // 		// Input/Output, dB, -120->20, 0
 //     k3DMixerParam_MaxGain  API_DEPRECATED_WITH_REPLACEMENT("k3DMixerParam_MaxGainInDecibels", macos(10.0, API_TO_BE_DEPRECATED)) API_UNAVAILABLE(ios, watchos, tvos) = 10,
-		
+
 // #endif
-    
+
 //     // read-only
 //     //
 //     // For each of the following, use the parameter ID plus the channel number
@@ -277,7 +271,6 @@
 //     k3DMixerParam_PostAveragePower    = 3000,
 //     k3DMixerParam_PostPeakHoldLevel    = 4000
 // };
-
 
 // // Parameters for the AUMultiChannelMixer unit
 // // these are available for both desktop and iphone
@@ -299,12 +292,11 @@
 // 	kMultiChannelMixerParam_PostPeakHoldLevel	= 4000
 // };
 
-
 // // Parameters for the AUMatrixMixer unit
 // CF_ENUM(AudioUnitParameterID) {
 // 	kMatrixMixerParam_Volume 	= 0,
 // 	kMatrixMixerParam_Enable 	= 1,
-	
+
 // 		// read-only
 // 	// these report level in dB, as do the other mixers
 // 	kMatrixMixerParam_PreAveragePower	= 1000,
@@ -319,12 +311,11 @@
 // 	kMatrixMixerParam_PostPeakHoldLevelLinear		= 8000
 // };
 
-
 // // Output Units
 // // Parameters for the AudioDeviceOutput, DefaultOutputUnit, and SystemOutputUnit units
 // CF_ENUM(AudioUnitParameterID) {
 // 		// Global, LinearGain, 0->1, 1
-// 	kHALOutputParam_Volume 		= 14 
+// 	kHALOutputParam_Volume 		= 14
 // };
 
 // // Parameters for the AUTimePitch, AUTimePitch (offline), AUPitch units
@@ -341,17 +332,17 @@
 // 		// rate control.
 // 		// Global, rate, 1/32 -> 32.0, 1.0
 // 	kNewTimePitchParam_Rate							= 0,
-	
+
 // 		// pitch shift in cents.
 // 		// Global, Cents, -2400 -> 2400, 1.0
 // 	kNewTimePitchParam_Pitch						= 1,
-	
+
 // 		// Overlap is the number of overlapped spectral windows that are used to produce the output.
 // 		// The value of overlap is directly proportional to CPU cost. More overlaps can make smooth
 // 		// passages sound smoother. For percussive sound, a lower overlap may be better.
 // 		// Global, generic, 3.0 -> 32.0, 8.0
 // 	kNewTimePitchParam_Overlap						= 4,
-	
+
 // 		// Peak locking enforces phase coherence of spectral peaks.
 // 		// Peak locking adds some expense but results in a less "phasey"
 // 		// or reverberant sound, sometimes also called loss of presence.
@@ -377,7 +368,7 @@
 
 // // Effect units
 // // The values for some effect unit parameters depend on the audio unit's sample rate.
-// // For example, maximum values are typically the Nyquist frequency (indicated here as 
+// // For example, maximum values are typically the Nyquist frequency (indicated here as
 // // SampleRate/2).
 
 // // Parameters for the AUBandpass unit
@@ -393,7 +384,7 @@
 // CF_ENUM(AudioUnitParameterID) {
 // 		// Global, Hz, 10->(SampleRate/2), 6900
 // 	kHipassParam_CutoffFrequency 			= 0,
-		
+
 // 		// Global, dB, -20->40, 0
 // 	kHipassParam_Resonance					= 1
 // };
@@ -402,7 +393,7 @@
 // CF_ENUM(AudioUnitParameterID) {
 // 		// Global, Hz, 10->(SampleRate/2), 6900
 // 	kLowPassParam_CutoffFrequency 			= 0,
-		
+
 // 		// Global, dB, -20->40, 0
 // 	kLowPassParam_Resonance 				= 1
 // };
@@ -411,7 +402,7 @@
 // CF_ENUM(AudioUnitParameterID) {
 // 		// Global, Hz, 10000->(SampleRate/2), 10000
 // 	kHighShelfParam_CutOffFrequency 		= 0,
-		
+
 // 		// Global, dB, -40->40, 0
 // 	kHighShelfParam_Gain 					= 1
 // };
@@ -420,7 +411,7 @@
 // CF_ENUM(AudioUnitParameterID) {
 // 		// Global, Hz, 10->200, 80
 // 	kAULowShelfParam_CutoffFrequency = 0,
-		
+
 // 		// Global, dB, -40->40, 0
 // 	kAULowShelfParam_Gain = 1
 // };
@@ -429,10 +420,10 @@
 // CF_ENUM(AudioUnitParameterID) {
 // 		// Global, Hz, 20->(SampleRate/2), 2000
 //     kParametricEQParam_CenterFreq = 0,
-		
+
 // 		// Global, Hz, 0.1->20, 1.0
 //     kParametricEQParam_Q = 1,
-		
+
 // 		// Global, dB, -20->20, 0
 //     kParametricEQParam_Gain = 2
 // };
@@ -441,10 +432,10 @@
 // CF_ENUM(AudioUnitParameterID) {
 // 		// Global, Secs, 0.001->0.03, 0.012
 // 	kLimiterParam_AttackTime 			= 0,
-		
+
 // 		// Global, Secs, 0.001->0.06, 0.024
 // 	kLimiterParam_DecayTime 			= 1,
-		
+
 // 		// Global, dB, -40->40, 0
 // 	kLimiterParam_PreGain 				= 2
 // };
@@ -454,35 +445,34 @@
 // // Instead, kDynamicsProcessorParam_HeadRoom adjusts the amount of compression.
 // // Lower kDynamicsProcessorParam_HeadRoom values results in higher compression.
 // // The compression ratio is automatically adjusted to not exceed kDynamicsProcessorParam_Threshold + kDynamicsProcessorParam_HeadRoom values.
-    
+
 // CF_ENUM(AudioUnitParameterID) {
 // 		// Global, dB, -40->20, -20
 // 	kDynamicsProcessorParam_Threshold 			= 0,
-		
+
 // 		// Global, dB, 0.1->40.0, 5
 // 	kDynamicsProcessorParam_HeadRoom	 		= 1,
-		
+
 // 		// Global, rate, 1->50.0, 2
 // 	kDynamicsProcessorParam_ExpansionRatio		= 2,
-		
+
 // 		// Global, dB
 // 	kDynamicsProcessorParam_ExpansionThreshold	= 3,
-		
+
 // 		// Global, secs, 0.0001->0.2, 0.001
 // 	kDynamicsProcessorParam_AttackTime 			= 4,
-		
+
 // 		// Global, secs, 0.01->3, 0.05
 // 	kDynamicsProcessorParam_ReleaseTime 		= 5,
-		
+
 // 		// Global, dB, -40->40, 0
 // 	kDynamicsProcessorParam_MasterGain 			= 6,
-	
+
 // 		// Global, dB, read-only parameter
 // 	kDynamicsProcessorParam_CompressionAmount 	= 1000,
 // 	kDynamicsProcessorParam_InputAmplitude		= 2000,
 // 	kDynamicsProcessorParam_OutputAmplitude 	= 3000
 // };
-
 
 // // Parameters for the AUVarispeed unit
 // CF_ENUM(AudioUnitParameterID) {
@@ -492,8 +482,7 @@
 // 	kVarispeedParam_PlaybackCents				= 1
 // };
 
-
-// // Parameters for the Distortion unit 
+// // Parameters for the Distortion unit
 // CF_ENUM(AudioUnitParameterID) {
 // 		// Global, Milliseconds, 0.1 -> 500, 0.1
 // 	kDistortionParam_Delay = 0,
@@ -501,23 +490,23 @@
 // 	kDistortionParam_Decay = 1,
 // 		// Global, Percent, 0 -> 100, 50
 // 	kDistortionParam_DelayMix = 2,
-	
+
 // 		// Global, Percent, 0 -> 100
 // 	kDistortionParam_Decimation = 3,
 // 		// Global, Percent, 0 -> 100, 0
 // 	kDistortionParam_Rounding = 4,
 // 		// Global, Percent, 0 -> 100, 50
 // 	kDistortionParam_DecimationMix = 5,
-	
+
 // 		// Global, Linear Gain, 0 -> 1, 1
-// 	kDistortionParam_LinearTerm = 6,  
+// 	kDistortionParam_LinearTerm = 6,
 // 		// Global, Linear Gain, 0 -> 20, 0
-// 	kDistortionParam_SquaredTerm = 7,	
+// 	kDistortionParam_SquaredTerm = 7,
 // 		// Global, Linear Gain, 0 -> 20, 0
-// 	kDistortionParam_CubicTerm = 8,  
+// 	kDistortionParam_CubicTerm = 8,
 // 		// Global, Percent, 0 -> 100, 50
 // 	kDistortionParam_PolynomialMix = 9,
-	
+
 // 		// Global, Hertz, 0.5 -> 8000, 100
 // 	kDistortionParam_RingModFreq1 = 10,
 // 		// Global, Hertz, 0.5 -> 8000, 100
@@ -526,10 +515,10 @@
 // 	kDistortionParam_RingModBalance = 12,
 // 		// Global, Percent, 0 -> 100, 0
 // 	kDistortionParam_RingModMix = 13,
-				
+
 // 		// Global, dB, -80 -> 20, -6
 // 	kDistortionParam_SoftClipGain = 14,
-		
+
 // 		// Global, Percent, 0 -> 100, 50
 // 	kDistortionParam_FinalMix = 15
 // };
@@ -538,13 +527,13 @@
 // CF_ENUM(AudioUnitParameterID) {
 // 		// Global, EqPow Crossfade, 0->100, 50
 // 	kDelayParam_WetDryMix 				= 0,
-		
+
 // 		// Global, Secs, 0->2, 1
 // 	kDelayParam_DelayTime				= 1,
-		
+
 // 		// Global, Percent, -100->100, 50
 // 	kDelayParam_Feedback 				= 2,
-		
+
 // 		// Global, Hz, 10->(SampleRate/2), 15000
 // 	kDelayParam_LopassCutoff	 		= 3
 // };
@@ -565,19 +554,19 @@
 // CF_ENUM(AudioUnitParameterID) {
 //     // Global, dB, -96->24, 0
 // 	kAUNBandEQParam_GlobalGain								= 0,
-	
+
 //     // Global, Boolean, 0 or 1, 1
 // 	kAUNBandEQParam_BypassBand								= 1000,
-	
+
 //     // Global, Indexed, 0->kNumAUNBandEQFilterTypes-1, 0
 // 	kAUNBandEQParam_FilterType								= 2000,
-	
+
 //     // Global, Hz, 20->(SampleRate/2), 1000
 // 	kAUNBandEQParam_Frequency								= 3000,
-	
+
 //     // Global, dB, -96->24, 0
 // 	kAUNBandEQParam_Gain									= 4000,
-	
+
 //     // Global, octaves, 0.05->5.0, 0.5
 // 	kAUNBandEQParam_Bandwidth								= 5000
 // };
@@ -585,7 +574,7 @@
 // /*!
 //  @enum		AUNBandEQ filter types
 //  @brief		Constants available as values for the kAUNBandEQParam_FilterType parameter defined above
- 
+
 //  @constant		kAUNBandEQFilterType_Parametric
 //  Parametric filter based on Butterworth analog prototype. Uses parameterization where
 //  the bandwidth is specifed as the relationship of the upper bandedge frequency to the
@@ -596,60 +585,60 @@
 //  - kAUNBandEQParam_Frequency (center frequency)
 //  - kAUNBandEQParam_Gain (peak gain)
 //  - kAUNBandEQParam_Bandwidth
- 
+
 //  @constant		kAUNBandEQFilterType_2ndOrderButterworthLowPass
 //  Simple Butterworth 2nd order low pass filter
 //  Applicable parameters:
 //  - kAUNBandEQParam_Frequency (-3 dB cutoff frequency)
- 
+
 //  @constant		kAUNBandEQFilterType_2ndOrderButterworthHighPass
 //  Simple Butterworth 2nd order high pass filter
 //  Applicable parameters:
 //  - kAUNBandEQParam_Frequency (-3 dB cutoff frequency)
- 
+
 //  @constant		kAUNBandEQFilterType_ResonantLowPass
 //  Low pass filter with resonance support (via bandwidth parameter)
 //  Applicable parameters:
 //  - kAUNBandEQParam_Frequency (-3 dB cutoff frequency)
 //  - kAUNBandEQParam_Bandwidth
- 
+
 //  @constant		kAUNBandEQFilterType_ResonantHighPass
 //  High pass filter with resonance support (via bandwidth parameter)
 //  Applicable parameters:
 //  - kAUNBandEQParam_Frequency (-3 dB cutoff frequency)
 //  - kAUNBandEQParam_Bandwidth
- 
+
 //  @constant		kAUNBandEQFilterType_BandPass
 //  Band pass filter
 //  Applicable parameters:
 //  - kAUNBandEQParam_Frequency (center frequency)
 //  - kAUNBandEQParam_Bandwidth
- 
+
 //  @constant		kAUNBandEQFilterType_BandStop
 //  Band stop filter (aka "notch filter")
 //  Applicable parameters:
 //  - kAUNBandEQParam_Frequency (center frequency)
 //  - kAUNBandEQParam_Bandwidth
- 
+
 //  @constant		kAUNBandEQFilterType_LowShelf
 //  Low shelf filter
 //  Applicable parameters:
 //  - kAUNBandEQParam_Frequency (center frequency)
 //  - kAUNBandEQParam_Gain (shelf gain)
- 
+
 //  @constant		kAUNBandEQFilterType_HighShelf
 //  High shelf filter
 //  Applicable parameters:
 //  - kAUNBandEQParam_Frequency (center frequency)
 //  - kAUNBandEQParam_Gain (shelf gain)
- 
+
 //  @constant		kAUNBandEQFilterType_ResonantLowShelf
 //  Low shelf filter with resonance support (via bandwidth parameter)
 //  Applicable parameters:
 //  - kAUNBandEQParam_Frequency (center frequency)
 //  - kAUNBandEQParam_Gain (shelf gain)
 //  - kAUNBandEQParam_Bandwidth
- 
+
 //  @constant		kAUNBandEQFilterType_ResonantHighShelf
 //  High shelf filter with resonance support (via bandwidth parameter)
 //  Applicable parameters:
@@ -669,16 +658,15 @@
 // 	kAUNBandEQFilterType_HighShelf							= 8,
 // 	kAUNBandEQFilterType_ResonantLowShelf					= 9,
 // 	kAUNBandEQFilterType_ResonantHighShelf					= 10,
-	
+
 // 	kNumAUNBandEQFilterTypes								= 11
 // };
-
 
 // // Parameters for the AURoundTripAACParam unit
 // CF_ENUM(AudioUnitParameterID) {
 // 		// Global, indexed : AAC, HE-AAC, HE-AACv2
 // 	kRoundTripAACParam_Format				= 0,
-	
+
 // 		// Global, indexed
 // 	kRoundTripAACParam_EncodingStrategy = 1,
 
@@ -707,34 +695,34 @@
 // CF_ENUM(AudioUnitParameterID) {
 // 		// Global, EqPow CrossFade, 0->100, 100
 // 	kReverbParam_DryWetMix 							= 0,
-		
+
 // 		// Global, EqPow CrossFade, 0->100, 50
 // 	kReverbParam_SmallLargeMix						= 1,
-		
+
 // 		// Global, Secs, 0.005->0.020, 0.06
 // 	kReverbParam_SmallSize							= 2,
-		
+
 // 		// Global, Secs, 0.4->10.0, 3.07
 // 	kReverbParam_LargeSize							= 3,
-		
+
 // 		// Global, Secs, 0.001->0.03, 0.025
 // 	kReverbParam_PreDelay							= 4,
-		
+
 // 		// Global, Secs, 0.001->0.1, 0.035
 // 	kReverbParam_LargeDelay							= 5,
-		
+
 // 		// Global, Genr, 0->1, 0.28
 // 	kReverbParam_SmallDensity						= 6,
-		
+
 // 		// Global, Genr, 0->1, 0.82
 // 	kReverbParam_LargeDensity						= 7,
-		
+
 // 		// Global, Genr, 0->1, 0.3
 // 	kReverbParam_LargeDelayRange					= 8,
-		
+
 // 		// Global, Genr, 0.1->1, 0.96
 // 	kReverbParam_SmallBrightness					= 9,
-		
+
 // 		// Global, Genr, 0.1->1, 0.49
 // 	kReverbParam_LargeBrightness					= 10,
 
@@ -788,7 +776,7 @@
 // 	kMultibandCompressorParam_EQ3 				= 17,
 // 		// Global, dB, -20 -> 20, 0
 // 	kMultibandCompressorParam_EQ4 				= 18,
-	
+
 // 	// read-only parameters
 // 		// Global, dB, 0 -> 20
 // 	kMultibandCompressorParam_CompressionAmount1 = 1000,
@@ -834,14 +822,14 @@
 // 	kMultibandFilter_CenterGain1	= 4,
 // 		// Global, Octaves, 0.05 -> 3.0, 2.0
 // 	kMultibandFilter_Bandwidth1		= 5,
-	
+
 // 		// Global, Hertz, 10 -> (SampleRate/2), 100
 // 	kMultibandFilter_CenterFreq2	= 6,
 // 		// Global, dB, -18 -> +18, 0
 // 	kMultibandFilter_CenterGain2	= 7,
 // 		// Global, Octaves, 0.05 -> 3.0, 2.0
 // 	kMultibandFilter_Bandwidth2		= 8,
-	
+
 // 		// Global, Hertz, 10 -> (SampleRate/2), 100
 // 	kMultibandFilter_CenterFreq3	= 9,
 // 		// Global, dB, -18 -> +18, 0
@@ -866,9 +854,9 @@
 // 		// Global, dB, -80 -> 0, -6
 // 	kRogerBeepParam_OutGateThreshold = 2,
 // 		// Global, Milliseconds, 0 -> 1000, 1000
-// 	kRogerBeepParam_OutGateThresholdTime = 3,	
+// 	kRogerBeepParam_OutGateThresholdTime = 3,
 // 		// Global, indexed, 0 -> 2, 2
-// 	kRogerBeepParam_Sensitivity = 4,	
+// 	kRogerBeepParam_Sensitivity = 4,
 // 		// Global, indexed, 0 -> 2, 0
 // 	kRogerBeepParam_RogerType = 5,
 // 		// Global, dB, -80 -> 20, -6
@@ -881,10 +869,10 @@
 // CF_ENUM(AudioUnitParameterID) {
 // 		// Input/Output, Mixer Fader Curve, 0->1, 1
 // 	kStereoMixerParam_Volume 	= 0,
-		
+
 // 		// Input, Pan, 0->1, 0.5
 // 	kStereoMixerParam_Pan		= 1,
-	
+
 // 		// read-only
 // 		//
 // 		// For each of the following, use the parameter ID for the left channel
@@ -911,7 +899,6 @@
 // 	kAUNetSendParam_NumParameters = 1
 // };
 
-
 // // Status values for the AUNetSend and AUNetReceive units
 // enum {
 // 	kAUNetStatus_NotConnected = 0,
@@ -935,15 +922,15 @@
 // 	kMusicDeviceParam_ReverbVolume	= 2
 // };
 // // In macOS v10.5, the DLSMusicDevice audio unit does not report parameters in the Group scope.
-// // However, parameter values can be set in Group scope that correspond to controller values defined  
+// // However, parameter values can be set in Group scope that correspond to controller values defined
 // // by the MIDI specification. This includes the standard MIDI Controller values (such as Volume and
-// // Mod Wheel) as well as MIDI status messages (such as Pitch Bend and Channel Pressure) and the 
+// // Mod Wheel) as well as MIDI status messages (such as Pitch Bend and Channel Pressure) and the
 // // MIDI RPN control messages.
 
-// // For MIDI status messages, use a value of 0 for the "channel part" (lower four bits) when setting  
-// // these parameters. This allows audio units to distinguish these IDs from the 0-127 
+// // For MIDI status messages, use a value of 0 for the "channel part" (lower four bits) when setting
+// // these parameters. This allows audio units to distinguish these IDs from the 0-127
 // // values used by MIDI controllers in the first byte of status messages.
-// // 
+// //
 // // The element ID represents the group or channel number.
 // //
 // // You can use the MusicDeviceMIDIEvent function to send a MIDI formatted control command to a device.
@@ -951,19 +938,18 @@
 // // You can use the SetParameter API calls, declared in the AUComponent.h header file, as follows:
 // //
 // //	scope == kAudioUnitScope_Group
-// //	element == groupID -> in MIDI equivalent to channel number 0->15, 
+// //	element == groupID -> in MIDI equivalent to channel number 0->15,
 // //			but this is not a limitation of the MusicDevice and values greater than 15 can be specified
 // //	paramID == midi controller value (0->127), (status bytes corresponding to pitch bend, channel pressure)
 // //	value == typically the range associated with the corresponding MIDI message	(7 bit, 0->127)
 // //			pitch bend is specified as a 14 bit value
-	
-// // See the MusicDevice.h header file for more about using the extended control semantics 
-// // of this API.	
+
+// // See the MusicDevice.h header file for more about using the extended control semantics
+// // of this API.
 
 // #endif // !TARGET_OS_IPHONE
 
 // // `Analog' AudioUnits
-
 
 // // Parameters for the AURandom unit
 // CF_ENUM(AudioUnitParameterID) {
@@ -972,9 +958,7 @@
 // 	kRandomParam_Curve				= 2
 // };
 
-
 // #pragma mark Apple Specific - iOS
-
 
 // // Parameters for the iOS reverb unit
 // CF_ENUM(AudioUnitParameterID) {
@@ -982,7 +966,7 @@
 // 	kReverb2Param_DryWetMix 						= 0,
 // 		// Global, Decibels, -20->20, 0
 // 	kReverb2Param_Gain								= 1,
-		
+
 // 		// Global, Secs, 0.0001->1.0, 0.008
 // 	kReverb2Param_MinDelayTime						= 2,
 // 		// Global, Secs, 0.0001->1.0, 0.050

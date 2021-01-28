@@ -8,7 +8,6 @@
 
 //     AudioServices provides a means to play audio for things such as UI sound effects.
 // */
-
 // #ifndef AudioToolbox_AudioServices_h
 // #define AudioToolbox_AudioServices_h
 
@@ -41,15 +40,15 @@
 //     @abstract       Error codes returned from the AudioServices portion of the API.
 //     @constant       kAudioServicesNoError
 //                         No error has occurred
-//     @constant       kAudioServicesUnsupportedPropertyError 
+//     @constant       kAudioServicesUnsupportedPropertyError
 //                         The property is not supported.
-//     @constant       kAudioServicesBadPropertySizeError 
+//     @constant       kAudioServicesBadPropertySizeError
 //                         The size of the property data was not correct.
-//     @constant       kAudioServicesBadSpecifierSizeError 
+//     @constant       kAudioServicesBadSpecifierSizeError
 //                         The size of the specifier data was not correct.
-//     @constant       kAudioServicesSystemSoundUnspecifiedError 
+//     @constant       kAudioServicesSystemSoundUnspecifiedError
 //                         A SystemSound unspecified error has occurred.
-//     @constant       kAudioServicesSystemSoundClientTimedOutError 
+//     @constant       kAudioServicesSystemSoundClientTimedOutError
 //                         The SystemSound client message timed out
 //     @constant       kAudioServicesSystemSoundExceededMaximumDurationError
 //                         The SystemSound's duration exceeded the allowable threshold
@@ -103,7 +102,7 @@
 // /*!
 //     @enum           AudioServices constants
 //     @abstract       Constants for use with System Sound portion of the AudioServices APIs.
-//     @constant       kSystemSoundID_UserPreferredAlert 
+//     @constant       kSystemSoundID_UserPreferredAlert
 //                         Use this constant with the play sound APIs to
 //                         playback the alert sound selected by the User in System Preferences.
 //     @constant       kSystemSoundID_FlashScreen
@@ -123,8 +122,8 @@
 //     @enum           AudioServices constants
 //     @constant       kSystemSoundID_Vibrate
 //                         Use this constant with the play sound APIs to vibrate the device
-//                         - iOS only 
-//                             - on a device with no vibration capability (like iPod Touch) this will 
+//                         - iOS only
+//                             - on a device with no vibration capability (like iPod Touch) this will
 //                             do nothing
 // */
 // CF_ENUM(SystemSoundID)
@@ -143,9 +142,9 @@
 //                         inSpecifier parameter will respect the 'Play user interface sounds effects'
 //                         check box in System Preferences and be silent when the user turns off UI
 //                         sounds. This property is set to 1 by default. Set to 0 if it is desired for
-//                         an SystemSoundID to always be heard when passed to AudioServicesPlaySystemSound(), 
+//                         an SystemSoundID to always be heard when passed to AudioServicesPlaySystemSound(),
 //                         regardless of user's setting in the Sound Preferences.
-//     @constant       kAudioServicesPropertyCompletePlaybackIfAppDies 
+//     @constant       kAudioServicesPropertyCompletePlaybackIfAppDies
 //                         a UInt32 where 1 means that the SystemSoundID passed in the
 //                         inSpecifier parameter will finish playing even if the client application goes away.
 // */
@@ -161,25 +160,24 @@
 // /*!
 //     @functiongroup  AudioServices
 // */
-
 // /*!
 //     @function       AudioServicesCreateSystemSoundID
 //     @abstract       Allows the application to designate an audio file for playback by the System Sound server.
-//     @discussion     Returned SystemSoundIDs are passed to AudioServicesPlayAlertSoundWithCompletion() 
+//     @discussion     Returned SystemSoundIDs are passed to AudioServicesPlayAlertSoundWithCompletion()
 //                     and AudioServicesPlaySystemSoundWithCompletion() to be played.
- 
+
 //                     The maximum supported duration for a system sound is 30 secs.
 //     @param          inFileURL
 //                         A CFURLRef for an AudioFile.
 //     @param          outSystemSoundID
 //                         Returns a SystemSoundID.
 // */
-// extern OSStatus 
+// extern OSStatus
 // AudioServicesCreateSystemSoundID(   CFURLRef                    inFileURL,
 //                                     SystemSoundID*              outSystemSoundID)
 //                                                                 API_AVAILABLE(macos(10.5), ios(2.0), watchos(2.0), tvos(9.0))
 //                                                                 ;
-	
+
 // /*!
 //     @function       AudioServicesDisposeSystemSoundID
 //     @abstract       Allows the System Sound server to dispose any resources needed for the provided
@@ -189,8 +187,8 @@
 //     @param          inSystemSoundID
 //                         A SystemSoundID that the application no longer needs to use.
 // */
-// extern OSStatus 
-// AudioServicesDisposeSystemSoundID(SystemSoundID inSystemSoundID)                                    
+// extern OSStatus
+// AudioServicesDisposeSystemSoundID(SystemSoundID inSystemSoundID)
 //                                                                 API_AVAILABLE(macos(10.5), ios(2.0), watchos(2.0), tvos(9.0))
 //                                                                 ;
 
@@ -212,7 +210,7 @@
 //                                             void (^__nullable inCompletionBlock)(void))
 //                                                                     API_AVAILABLE(macos(10.11), ios(9.0), watchos(2.0), tvos(9.0))
 //                                                                     ;
-                                                                
+
 // /*!
 //     @function       AudioServicesPlaySystemSoundWithCompletion
 //     @abstract       Play a system sound
@@ -220,8 +218,8 @@
 //     @param          inSystemSoundID
 //                         The SystemSoundID to be played.
 //     @param          inCompletionBlock
-//                         The completion block gets executed for every attempt to play a system sound irrespective 
-//                         of success or failure. The callbacks are issued on a serial queue and the client is 
+//                         The completion block gets executed for every attempt to play a system sound irrespective
+//                         of success or failure. The callbacks are issued on a serial queue and the client is
 //                         responsible for handling thread safety.
 // */
 // extern void
@@ -229,7 +227,7 @@
 //                                                 void (^__nullable inCompletionBlock)(void))
 //                                                                         API_AVAILABLE(macos(10.11), ios(9.0), watchos(2.0), tvos(9.0))
 //                                                                         ;
-                                                                
+
 // /*!
 //     @function       AudioServicesGetPropertyInfo
 //     @abstract       Get information about the size of an AudioServices property and whether it can
@@ -247,8 +245,8 @@
 //     @param          outWritable
 //                         Will be set to 1 if writable, or 0 if read only.
 //     @result         returns kAudioServicesNoError if successful.
-// */                            
-// extern OSStatus 
+// */
+// extern OSStatus
 // AudioServicesGetPropertyInfo( AudioServicesPropertyID   inPropertyID,
 //                               UInt32                    inSpecifierSize,
 //                               const void * __nullable   inSpecifier,
@@ -275,8 +273,8 @@
 //                         wants ioPropertyDataSize to be filled with the amount that would have been
 //                         written.
 //     @result         returns kAudioServicesNoError if successful.
-// */                        
-// extern OSStatus 
+// */
+// extern OSStatus
 // AudioServicesGetProperty(   AudioServicesPropertyID         inPropertyID,
 //                             UInt32                          inSpecifierSize,
 //                             const void * __nullable         inSpecifier,
@@ -301,7 +299,7 @@
 //                         The buffer containing the property data.
 //     @result         returns kAudioServicesNoError if successful.
 // */
-// extern OSStatus 
+// extern OSStatus
 // AudioServicesSetProperty(   AudioServicesPropertyID             inPropertyID,
 //                             UInt32                              inSpecifierSize,
 //                             const void * __nullable             inSpecifier,
@@ -309,41 +307,41 @@
 //                             const void *                        inPropertyData)
 //                                                                 API_AVAILABLE(macos(10.5), ios(2.0), watchos(2.0), tvos(9.0))
 //                                                                 ;
-                                                                
+
 // /*!
 //     This function will be deprecated in a future release. Use AudioServicesPlayAlertSoundWithCompletion instead.
- 
+
 //     @function       AudioServicesPlayAlertSound
 //     @abstract       Play an Alert Sound
 //     @discussion     Play the provided SystemSoundID with AlertSound behavior.
 //     @param          inSystemSoundID
 //                         A SystemSoundID for the System Sound server to play. On the desktop you
-//                         can pass the kSystemSoundID_UserPreferredAlert constant to playback the alert sound 
+//                         can pass the kSystemSoundID_UserPreferredAlert constant to playback the alert sound
 //                         selected by the user in System Preferences. On iOS there is no preferred user alert sound.
 // */
-// extern void 
-// AudioServicesPlayAlertSound(SystemSoundID inSystemSoundID)                                          
+// extern void
+// AudioServicesPlayAlertSound(SystemSoundID inSystemSoundID)
 //                                                                 API_AVAILABLE(macos(10.5), ios(2.0), watchos(2.0), tvos(9.0))
 //                                                                 ;
-                                                                
+
 // /*!
 //     This function will be deprecated in a future release. Use AudioServicesPlaySystemSoundWithCompletion instead.
- 
+
 //     @function       AudioServicesPlaySystemSound
 //     @abstract       Play the sound designated by the provided SystemSoundID.
 //     @discussion     A SystemSoundID indicating the desired System Sound to be played.
 //     @param          inSystemSoundID
 //                         A SystemSoundID for the System Sound server to play.
 // */
-// extern void 
-// AudioServicesPlaySystemSound(SystemSoundID inSystemSoundID)                                         
+// extern void
+// AudioServicesPlaySystemSound(SystemSoundID inSystemSoundID)
 //                                                                 API_AVAILABLE(macos(10.5), ios(2.0), watchos(2.0), tvos(9.0))
 //                                                                 ;
-                                                                
+
 // /*!
-//     This function will be deprecated in a future release. Use AudioServicesPlayAlertSoundWithCompletion 
+//     This function will be deprecated in a future release. Use AudioServicesPlayAlertSoundWithCompletion
 //     or AudioServicesPlaySystemSoundWithCompletion instead.
- 
+
 //     @function       AudioServicesAddSystemSoundCompletion
 //     @abstract       Call the provided Completion Routine when provided SystemSoundID
 //                     finishes playing.
@@ -364,7 +362,7 @@
 //     @param          inClientData
 //                         A void* to pass client data to the completion routine.
 // */
-// extern OSStatus 
+// extern OSStatus
 // AudioServicesAddSystemSoundCompletion(  SystemSoundID                                       inSystemSoundID,
 //                                     	CFRunLoopRef __nullable                             inRunLoop,
 //                                     	CFStringRef __nullable                              inRunLoopMode,
@@ -376,7 +374,7 @@
 // /*!
 //     This function will be deprecated in a future release. Use AudioServicesPlayAlertSoundWithCompletion
 //     or AudioServicesPlaySystemSoundWithCompletion instead.
- 
+
 //     @function       AudioServicesRemoveSystemSoundCompletion
 //     @abstract       Disassociate any completion proc for the specified SystemSoundID
 //     @discussion     Tells the SystemSound client to remove any completion proc associated with the
@@ -385,13 +383,13 @@
 //                         The SystemSoundID for which completion routines should be
 //                         removed.
 // */
-// extern void 
-// AudioServicesRemoveSystemSoundCompletion(SystemSoundID inSystemSoundID)                             
+// extern void
+// AudioServicesRemoveSystemSoundCompletion(SystemSoundID inSystemSoundID)
 //                                                                     API_AVAILABLE(macos(10.5), ios(2.0), watchos(2.0), tvos(9.0))
 //                                                                     ;
 
 // CF_ASSUME_NONNULL_END
-    
+
 // #ifdef __cplusplus
 // }
 // #endif

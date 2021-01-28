@@ -48,14 +48,14 @@
 // 				<integer>12345</integer>
 // 				<key>factoryFunction</key>
 // 				<string>AUExampleFactory</string>
-				
+
 // 				<!-- An AudioComponent is sandbox safe -->
-				
+
 // 				<key>sandboxSafe</key>
 // 				<true/>
-				
+
 // 				<!-- or it can describe its resource usage -->
-				
+
 // 				<key>resourceUsage</key>
 // 				<dict>
 // 					<key>iokit.user-client</key>
@@ -75,7 +75,7 @@
 // 				</dict>
 
 // 				<!-- An AudioComponent can define its tags -->
-				
+
 // 				<key>tags</key>
 // 				<array>
 // 					<string>Effect</string>
@@ -90,7 +90,6 @@
 // 	otherwise they must be 32-bit integers.
 
 // 	The "factoryFunction" is the name of a AudioComponentFactoryFunction in the bundle's binary.
-
 
 // 	Sandbox-Safety
 // 	--------------
@@ -139,7 +138,6 @@
 // 	AudioComponent. If the user says yes, the system will suspend the process's sandbox and allow
 // 	the unsafe AudioComponent to be opened and used.
 
-
 // 	Tags
 // 	----
 
@@ -148,16 +146,15 @@
 // 	definition. "Equalizer", "Dynamics", "Distortion", "Synthesizer", "Effects", "Filter", "Dynamics
 // 	Processor", "Delay", "Reverb", "Pitch", "Panner", "Imaging", "Sampler", "Mixer", "Format
 // 	Converter", "Time Effect", "Output", "Offline Effect", "Drums", "Guitar", "Vocal", "Bass",
-// 	"MIDI". 
+// 	"MIDI".
 
 // 	These standard tags should not be localized in the audio unit.
 
-// 	Localizing the tags is similar to localizing AudioUnit parameter strings. Create a strings 
+// 	Localizing the tags is similar to localizing AudioUnit parameter strings. Create a strings
 // 	resource file and name it "AudioUnitTags.strings".
 // 	For more information on strings resource file please check
 // 	https://developer.apple.com/library/mac/documentation/macosx/conceptual/bpinternational/Articles/StringsFiles.html
 // */
-
 // #ifndef AudioUnit_AudioComponent_h
 // #define AudioUnit_AudioComponent_h
 
@@ -177,31 +174,31 @@
 // /*!
 // 	@enum		AudioComponentFlags
 // 	@brief		Flags found in AudioComponentDescription.componentFlags.
-	
+
 // 	@constant	kAudioComponentFlag_Unsearchable
 
 // 	When this bit in AudioComponentDescription's componentFlags is set, AudioComponentFindNext
 // 	will only return this component when performing a specific, non-wildcard search for the
 // 	component, i.e. with non-zero values of componentType, componentSubType, and
 // 	componentManufacturer. This can be useful when privately registering a component.
-	
+
 // 	@constant	kAudioComponentFlag_SandboxSafe
-	
+
 // 	An AudioComponent sets this bit in its componentFlags to indicate to the system that the
 // 	AudioComponent is safe to open in a sandboxed process.
-	
+
 // 	@constant	kAudioComponentFlag_IsV3AudioUnit
-	
+
 // 	The system sets this flag automatically when registering components which implement a version 3
 // 	Audio Unit.
-	
+
 // 	@constant	kAudioComponentFlag_RequiresAsyncInstantiation
-	
+
 // 	The system sets this flag automatically when registering components which require asynchronous
 // 	instantiation via AudioComponentInstantiate (v3 audio units with views).
-	
+
 // 	@constant	kAudioComponentFlag_CanLoadInProcess
-	
+
 // 	The system sets this flag automatically when registering components which can be loaded into
 // 	the current process. This is always true for V2 audio units; it depends on the packaging
 // 	in the case of a V3 audio unit.
@@ -224,7 +221,7 @@
 //         requires that the developer package the audio unit in a bundle separate from the application
 //         extension, since an extension's main binary cannot be dynamically loaded into another
 //         process.
-        
+
 //         A macOS host may request in-process loading of such audio units using
 //         kAudioComponentInstantiation_LoadInProcess.
 
@@ -242,7 +239,6 @@
 //     kAudioComponentInstantiation_LoadOutOfProcess   CF_ENUM_AVAILABLE(10_11,  9_0) = 1,
 //     kAudioComponentInstantiation_LoadInProcess      CF_ENUM_AVAILABLE(10_11,  NA)  = 2
 // };
-
 
 // //=====================================================================================================================
 // #pragma mark Data Types
@@ -271,6 +267,16 @@
 //     UInt32              componentFlagsMask;
 // } AudioComponentDescription;
 // #pragma pack(pop)
+pub type OSType = u32;
+#[repr(C)]
+#[derive(Clone, Copy, PartialEq, Eq)]
+pub struct AudioComponentDescription {
+    pub component_type: OSType,
+    pub component_sub_type: OSType,
+    pub component_manufacturer: OSType,
+    pub component_flags: u32,
+    pub component_flags_mask: u32,
+}
 
 // /*!
 //     @typedef        AudioComponent
@@ -278,7 +284,7 @@
 //     @discussion     An audio component is usually found through a search and is then uniquely
 //                     identified by the triple of an audio component's type, subtype and
 //                     manufacturer.
-                    
+
 //                     It can have properties associated with it (such as a name, a version).
 
 //                     It is then used as a factory (like a class in an object-oriented programming
@@ -300,7 +306,7 @@
 //     @abstract       The type used to represent an instance of a particular audio component
 //     @discussion     An audio component instance is created from its factory/producer audio
 //                     component. It is the body of code that does the work.
-    
+
 //                     A special note: While on the desktop this is typedef'd to a
 //                     ComponentInstanceRecord *, you should not assume that this will always be
 //                     compatible and usable with Component Manager calls.
@@ -318,20 +324,20 @@
 // 					selector. For example, the AudioUnitInitialize API call is implemented by a
 // 					plugin implementing the kAudioUnitInitializeSelect selector. Any function implementing
 // 					an audio plugin selector conforms to the basic pattern where the first argument
-// 					is a pointer to the plugin instance structure, has 0 or more specific arguments,  
+// 					is a pointer to the plugin instance structure, has 0 or more specific arguments,
 // 					and returns an OSStatus.
 // */
 // typedef OSStatus (*AudioComponentMethod)(void *self, ...);
 
 // /*!
 //     @struct         AudioComponentPlugInInterface
-//     @discussion     A structure used to represent an audio plugin's routines 
+//     @discussion     A structure used to represent an audio plugin's routines
 //     @var            Open
 //                         the function used to open (or create) an audio plugin instance
 //     @var            Close
 //                         the function used to close (or dispose) an audio plugin instance
 //     @var            Lookup
-//                         this is used to return a function pointer for a given selector, 
+//                         this is used to return a function pointer for a given selector,
 // 						or NULL if that selector is not implemented
 //     @var            reserved
 //                         must be NULL
@@ -343,6 +349,7 @@
 // 	void * __nullable				reserved;
 // };
 // typedef struct AudioComponentPlugInInterface AudioComponentPlugInInterface;
+pub struct AudioComponentPlugInInterface {}
 
 // /*!
 //     @typedef        AudioComponentFactoryFunction
@@ -351,7 +358,7 @@
 //                     Authors of AudioComponents may register them from bundles as described
 //                     above in the discussion of this header file, or dynamically within a single
 //                     process, using AudioComponentRegister.
-    
+
 //     @param          inDesc
 //                         The AudioComponentDescription specifying the component to be instantiated.
 //     @result         A pointer to a AudioComponentPlugInInterface structure.
@@ -364,94 +371,98 @@
 // #ifdef __cplusplus
 // extern "C" {
 // #endif
+#[link(name = "AudioToolbox", kind = "framework")]
+extern "C" {
+    // /*!
+    //     @function       AudioComponentFindNext
+    //     @abstract       Finds an audio component.
+    //     @discussion     This function is used to find an audio component that is the closest match
+    //                     to the provided values. Note that the list of available components may change
+    // 					dynamically in situations involving inter-app audio on iOS, or version 3
+    // 					audio unit extensions. See kAudioComponentRegistrationsChangedNotification.
 
-// /*!
-//     @function       AudioComponentFindNext
-//     @abstract       Finds an audio component.
-//     @discussion     This function is used to find an audio component that is the closest match
-//                     to the provided values. Note that the list of available components may change
-// 					dynamically in situations involving inter-app audio on iOS, or version 3
-// 					audio unit extensions. See kAudioComponentRegistrationsChangedNotification.
+    //     @param          inComponent
+    //                         If NULL, then the search starts from the beginning until an audio
+    //                         component is found that matches the description provided by inDesc.
+    //                         If non-NULL, then the search starts (continues) from the previously
+    //                         found audio component specified by inComponent, and will return the next
+    //                         found audio component.
+    //     @param          inDesc
+    //                         The type, subtype and manufacturer fields are used to specify the audio
+    //                         component to search for. A value of 0 (zero) for any of these fields is
+    //                         a wildcard, so the first match found is returned.
+    //     @result         An audio component that matches the search parameters, or NULL if none found.
+    // */
+    // extern AudioComponent __nullable
+    // AudioComponentFindNext (    AudioComponent __nullable           inComponent,
+    //                             const AudioComponentDescription *   inDesc)
+    //                                                                             API_AVAILABLE(macos(10.6), ios(2.0), watchos(2.0), tvos(9.0));
+    // pub fn AudioComponentFindNext(component: AudioComponent) -> !;
 
-//     @param          inComponent
-//                         If NULL, then the search starts from the beginning until an audio
-//                         component is found that matches the description provided by inDesc.
-//                         If non-NULL, then the search starts (continues) from the previously
-//                         found audio component specified by inComponent, and will return the next
-//                         found audio component.
-//     @param          inDesc
-//                         The type, subtype and manufacturer fields are used to specify the audio
-//                         component to search for. A value of 0 (zero) for any of these fields is
-//                         a wildcard, so the first match found is returned.
-//     @result         An audio component that matches the search parameters, or NULL if none found.
-// */
-// extern AudioComponent __nullable
-// AudioComponentFindNext (    AudioComponent __nullable           inComponent,
-//                             const AudioComponentDescription *   inDesc) 
-//                                                                             API_AVAILABLE(macos(10.6), ios(2.0), watchos(2.0), tvos(9.0));
+    // /*!
+    //     @function       AudioComponentCount
+    //     @abstract       Counts audio components.
+    //     @discussion     Returns the number of AudioComponents that match the specified
+    //                     AudioComponentDescription.
+    //     @param          inDesc
+    //                         The type, subtype and manufacturer fields are used to specify the audio
+    //                         components to count A value of 0 (zero) for any of these fields is a
+    //                         wildcard, so will match any value for this field
+    //     @result         a UInt32. 0 (zero) means no audio components were found that matched the
+    //                     search parameters.
+    // */
+    // extern UInt32
+    // AudioComponentCount (   const AudioComponentDescription *       inDesc)
+    //                                                                             API_AVAILABLE(macos(10.6), ios(2.0), watchos(2.0), tvos(9.0));
 
-// /*!
-//     @function       AudioComponentCount
-//     @abstract       Counts audio components.
-//     @discussion     Returns the number of AudioComponents that match the specified
-//                     AudioComponentDescription.
-//     @param          inDesc
-//                         The type, subtype and manufacturer fields are used to specify the audio
-//                         components to count A value of 0 (zero) for any of these fields is a
-//                         wildcard, so will match any value for this field
-//     @result         a UInt32. 0 (zero) means no audio components were found that matched the
-//                     search parameters.
-// */
-// extern UInt32
-// AudioComponentCount (   const AudioComponentDescription *       inDesc)
-//                                                                             API_AVAILABLE(macos(10.6), ios(2.0), watchos(2.0), tvos(9.0));
+    pub fn AudioComponentCount(desc: *const AudioComponentDescription) -> u32;
 
-// /*!
-//     @function       AudioComponentCopyName
-//     @abstract       Retrieves the name of an audio component.
-//     @discussion     the name of an audio component
-//     @param          inComponent
-//                         the audio component (must not be NULL)
-//     @param          outName
-//                         a CFString that is the name of the audio component. This string should
-//                         be released by the caller.
-//     @result         an OSStatus result code.
-// */
-// extern OSStatus 
-// AudioComponentCopyName (    AudioComponent                      inComponent, 
-//                             CFStringRef __nullable * __nonnull  outName)
-//                                                                             API_AVAILABLE(macos(10.6), ios(2.0), watchos(2.0), tvos(9.0));
+    // /*!
+    //     @function       AudioComponentCopyName
+    //     @abstract       Retrieves the name of an audio component.
+    //     @discussion     the name of an audio component
+    //     @param          inComponent
+    //                         the audio component (must not be NULL)
+    //     @param          outName
+    //                         a CFString that is the name of the audio component. This string should
+    //                         be released by the caller.
+    //     @result         an OSStatus result code.
+    // */
+    // extern OSStatus
+    // AudioComponentCopyName (    AudioComponent                      inComponent,
+    //                             CFStringRef __nullable * __nonnull  outName)
+    //                                                                             API_AVAILABLE(macos(10.6), ios(2.0), watchos(2.0), tvos(9.0));
 
-// /*!
-//     @function       AudioComponentGetDescription
-//     @abstract       Retrieve an audio component's description.
-//     @discussion     This will return the fully specified audio component description for the
-//                     provided audio component.
-//     @param          inComponent
-//                         the audio component (must not be NULL)
-//     @param          outDesc
-//                         the audio component description for the specified audio component
-//     @result         an OSStatus result code.
-// */
-// extern OSStatus 
-// AudioComponentGetDescription(   AudioComponent                  inComponent,
-//                                 AudioComponentDescription *     outDesc)
-//                                                                             API_AVAILABLE(macos(10.6), ios(2.0), watchos(2.0), tvos(9.0));
+    // /*!
+    //     @function       AudioComponentGetDescription
+    //     @abstract       Retrieve an audio component's description.
+    //     @discussion     This will return the fully specified audio component description for the
+    //                     provided audio component.
+    //     @param          inComponent
+    //                         the audio component (must not be NULL)
+    //     @param          outDesc
+    //                         the audio component description for the specified audio component
+    //     @result         an OSStatus result code.
+    // */
+    // extern OSStatus
+    // AudioComponentGetDescription(   AudioComponent                  inComponent,
+    //                                 AudioComponentDescription *     outDesc)
+    //                                                                             API_AVAILABLE(macos(10.6), ios(2.0), watchos(2.0), tvos(9.0));
 
-// /*!
-//     @function       AudioComponentGetVersion
-//     @abstract       Retrieve an audio component's version.
-//     @param          inComponent
-//                         the audio component (must not be NULL)
-//     @param          outVersion
-//                         the audio component's version in the form of 0xMMMMmmDD (Major, Minor, Dot)
-//     @result         an OSStatus result code.
-// */
-// extern OSStatus 
-// AudioComponentGetVersion(   AudioComponent                      inComponent, 
-//                             UInt32 *                            outVersion)
-//                                                                             API_AVAILABLE(macos(10.6), ios(2.0), watchos(2.0), tvos(9.0));
-
+    // /*!
+    //     @function       AudioComponentGetVersion
+    //     @abstract       Retrieve an audio component's version.
+    //     @param          inComponent
+    //                         the audio component (must not be NULL)
+    //     @param          outVersion
+    //                         the audio component's version in the form of 0xMMMMmmDD (Major, Minor, Dot)
+    //     @result         an OSStatus result code.
+    // */
+    // extern OSStatus
+    // AudioComponentGetVersion(   AudioComponent                      inComponent,
+    //                             UInt32 *                            outVersion)
+    //                                                                             API_AVAILABLE(macos(10.6), ios(2.0), watchos(2.0), tvos(9.0));
+}
 // #if defined(__OBJC__) && !TARGET_OS_IPHONE
 // @class NSImage;
 
@@ -465,7 +476,7 @@
 //     @discussion
 //         For a component originating in an app extension, the returned icon will be that of the
 //         application containing the extension.
-        
+
 //         For components loaded from bundles, the icon will be that of the bundle.
 // */
 // extern NSImage * __nullable
@@ -489,7 +500,7 @@
 //                         the audio component instance
 //     @result         an OSStatus result code.
 // */
-// extern OSStatus 
+// extern OSStatus
 // AudioComponentInstanceNew(      AudioComponent                                inComponent,
 //                                 AudioComponentInstance __nullable * __nonnull outInstance)
 //                                                                             API_AVAILABLE(macos(10.6), ios(2.0), watchos(2.0), tvos(9.0));
@@ -499,7 +510,7 @@
 //     @discussion     This is an asynchronous version of AudioComponentInstanceNew(). It must be
 //                     used to instantiate any component with kAudioComponentFlag_RequiresAsyncInstantiation
 //                     set in its component flags. It may be used for other components as well.
-					
+
 // 					Note: Do not block the main thread while waiting for the completion handler
 // 					to be called; this can deadlock.
 //     @param          inComponent
@@ -524,7 +535,7 @@
 //                         the audio component instance to dispose (must not be NULL)
 //     @result         an OSStatus result code.
 // */
-// extern OSStatus 
+// extern OSStatus
 // AudioComponentInstanceDispose(  AudioComponentInstance          inInstance)
 //                                                                             API_AVAILABLE(macos(10.6), ios(2.0), watchos(2.0), tvos(9.0));
 
@@ -541,7 +552,7 @@
 //                         the audio component instance (must not be NULL, and instance must be valid - that is, not disposed)
 //     @result         a valid audio component or NULL if no component was found.
 // */
-// extern AudioComponent 
+// extern AudioComponent
 // AudioComponentInstanceGetComponent (    AudioComponentInstance      inInstance)
 //                                                                             API_AVAILABLE(macos(10.6), ios(2.0), watchos(2.0), tvos(9.0));
 
@@ -555,8 +566,8 @@
 //                         a number to signify the audio component API (component selector) as appropriate for the instance's component type.
 //     @result         a boolean
 // */
-// extern Boolean 
-// AudioComponentInstanceCanDo (   AudioComponentInstance              inInstance, 
+// extern Boolean
+// AudioComponentInstanceCanDo (   AudioComponentInstance              inInstance,
 //                                 SInt16                              inSelectorID)
 //                                                                             API_AVAILABLE(macos(10.6), ios(3.0), watchos(2.0), tvos(9.0));
 
@@ -567,7 +578,7 @@
 //         AudioComponents are registered either when found in appropriate bundles in the filesystem,
 //         or via this call. AudioComponents registered via this call are available only within
 //         the current process.
-    
+
 //     @param          inDesc
 //                         The AudioComponentDescription that describes the AudioComponent. Note that
 //                         the registrar needs to be sure to set the flag kAudioComponentFlag_SandboxSafe
@@ -630,7 +641,18 @@
 // 	kAudioComponentValidationResult_UnauthorizedError_Open,
 // 	kAudioComponentValidationResult_UnauthorizedError_Init
 // };
-	
+
+#[repr(u32)]
+#[derive(Clone, Copy, PartialEq, Eq)]
+pub enum AudioComponentValidationResult {
+    Unknown = 0,
+    Passed,
+    Failed,
+    TimedOut,
+    UnauthorizedError_Open,
+    UnauthorizedError_Init
+}
+
 // /*!
 // 	@define		kAudioComponentConfigurationInfo_ValidationResult
 // 	@abstract	Dictionary that contains the AudioComponentValidationResult for the component.
@@ -638,7 +660,7 @@
 // 		The keys in this dictionary are the CPU architectures (e.g. "i386") that generated each result.
 // */
 // #define kAudioComponentConfigurationInfo_ValidationResult	"ValidationResult"
-	
+
 // /*!
 // 	@function		AudioComponentValidate
 // 	@abstract		Tests a specified AudioComponent for API and behavioral conformance.
@@ -658,7 +680,7 @@
 // 						CFDictionaryRef __nullable		inValidationParameters,
 // 						AudioComponentValidationResult *outValidationResult)
 //                                                     API_AVAILABLE(macos(10.7)) API_UNAVAILABLE(ios, watchos, tvos);
-	
+
 // /*!
 // 	@define		kAudioComponentValidationParameter_TimeOut
 // 	@discussion This is a number that indicates the time in seconds to wait for a validation
@@ -666,7 +688,7 @@
 // 				kAudioComponentValidationResult_TimedOut as its result.
 // */
 // #define kAudioComponentValidationParameter_TimeOut				"TimeOut"
-	
+
 // /*!
 // 	 @define	 kAudioComponentValidationParameter_ForceValidation
 // 	 @discussion
@@ -674,7 +696,6 @@
 // 	 	audio unit and update the cache.
 // */
 // #define kAudioComponentValidationParameter_ForceValidation		 "ForceValidation"
-
 
 // #ifdef __cplusplus
 // }

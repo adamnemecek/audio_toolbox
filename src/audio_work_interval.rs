@@ -10,7 +10,7 @@
 // 	client applications. The system uses workgroups to observe the CPU usage of audio realtime
 // 	threads and dynamically balance the competing considerations of power consumption vs. rendering
 // 	capacity.
-	
+
 // 	Workgroups have "work intervals", or "workgroup intervals", which express the duty cycle of the
 // 	main thread in the workgroup. We sometimes use these terms interchangeably with "workgroup".
 
@@ -31,7 +31,7 @@
 // 	I/O thread and has a deadline within the current I/O cycle, that auxiliary thread should be
 // 	joined to the device thread's workgroup, using the join/leave APIs in
 // 	<os/workgroup_object.h>.
-	
+
 // 	2. If an Audio Unit's auxiliary realtime thread operates with the same cadence as the
 // 	requests to render the plug-in, that is, it is triggered by the rendering thread and is
 // 	expected to finish rendering before that render request completes, the plug-in should
@@ -54,7 +54,6 @@
 
 // 	See also: <os/workgroup_object.h>, <os/workgroup_interval.h>.
 // */
-
 // #ifndef AudioToolbox_AudioWorkInterval_h
 // #define AudioToolbox_AudioWorkInterval_h
 
@@ -70,7 +69,7 @@
 // /*!
 // 	@fn		AudioWorkIntervalCreate
 // 	@brief	Create an OS workgroup interval for use with audio realtime threads.
-	
+
 // 	@param name
 // 		A name for the created work interval.
 // 	@param clock

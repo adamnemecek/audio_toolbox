@@ -3,9 +3,9 @@
 // 	@framework	AudioToolbox.framework
 // 	@copyright	(c) 2006-2015 by Apple, Inc., all rights reserved.
 //     @abstract   API's for general high level audio services.
- 
+
 //     @discussion
- 
+
 //      The Audio Hardware Service (AHS) provides a way for applications to query and manipulate the
 //      aspects of an audio hardware device without incurring the overhead of loading the full audio
 //      HAL. AHS provides access to all the AudioObjects and their properties on the system. However,
@@ -14,7 +14,6 @@
 //      incorporates the various structures and constants in HAL's API, with the caveat that the
 //      AudioObjectIDs used in AHS cannot be used with the HAL.
 // */
-
 // #ifndef AudioHardwareService_h
 // #define AudioHardwareService_h
 
@@ -33,7 +32,7 @@
 // extern "C"
 // {
 // #endif
-    
+
 // //==================================================================================================
 // #pragma mark    Audio Hardware Service Properties
 
@@ -76,7 +75,6 @@
 // /*!
 //     @functiongroup  Audio Hardware Service
 // */
-
 // /*!
 //     @function       AudioHardwareServiceHasProperty
 //     @abstract       Queries an AudioObject about whether or not it has the given property.
@@ -88,7 +86,7 @@
 // */
 // extern Boolean
 // AudioHardwareServiceHasProperty(    AudioObjectID                       inObjectID,
-//                                     const AudioObjectPropertyAddress*   inAddress)                  
+//                                     const AudioObjectPropertyAddress*   inAddress)
 //                                                             API_DEPRECATED("no longer supported", macos(10.5, 10.11)) API_UNAVAILABLE(ios, watchos, tvos);
 
 // /*!
@@ -106,7 +104,7 @@
 // extern OSStatus
 // AudioHardwareServiceIsPropertySettable( AudioObjectID                       inObjectID,
 //                                         const AudioObjectPropertyAddress*   inAddress,
-//                                         Boolean*                            outIsSettable)          
+//                                         Boolean*                            outIsSettable)
 //                                                             API_DEPRECATED("no longer supported", macos(10.5, 10.11)) API_UNAVAILABLE(ios, watchos, tvos);
 
 // /*!
@@ -133,7 +131,7 @@
 //                                             const AudioObjectPropertyAddress*   inAddress,
 //                                             UInt32                              inQualifierDataSize,
 //                                             const void*                         inQualifierData,
-//                                             UInt32*                             outDataSize)        
+//                                             UInt32*                             outDataSize)
 //                                                             API_DEPRECATED("no longer supported", macos(10.5, 10.11)) API_UNAVAILABLE(ios, watchos, tvos);
 
 // /*!
@@ -166,7 +164,7 @@
 //                                         UInt32                              inQualifierDataSize,
 //                                         const void*                         inQualifierData,
 //                                         UInt32*                             ioDataSize,
-//                                         void*                               outData)                
+//                                         void*                               outData)
 //                                                         API_DEPRECATED("no longer supported", macos(10.5, 10.11)) API_UNAVAILABLE(ios, watchos, tvos);
 
 // /*!
@@ -200,7 +198,7 @@
 //                                         UInt32                              inQualifierDataSize,
 //                                         const void*                         inQualifierData,
 //                                         UInt32                              inDataSize,
-//                                         const void*                         inData)                 
+//                                         const void*                         inData)
 //                                                         API_DEPRECATED("no longer supported", macos(10.5, 10.11)) API_UNAVAILABLE(ios, watchos, tvos);
 
 // /*!
@@ -222,7 +220,7 @@
 // AudioHardwareServiceAddPropertyListener(    AudioObjectID                       inObjectID,
 //                                             const AudioObjectPropertyAddress*   inAddress,
 //                                             AudioObjectPropertyListenerProc     inListener,
-//                                             void*                               inClientData)       
+//                                             void*                               inClientData)
 //                                                         API_DEPRECATED("no longer supported", macos(10.5, 10.11)) API_UNAVAILABLE(ios, watchos, tvos);
 
 // /*!
@@ -244,7 +242,7 @@
 // AudioHardwareServiceRemovePropertyListener( AudioObjectID                       inObjectID,
 //                                             const AudioObjectPropertyAddress*   inAddress,
 //                                             AudioObjectPropertyListenerProc     inListener,
-//                                             void*                               inClientData)       
+//                                             void*                               inClientData)
 //                                                         API_DEPRECATED("no longer supported", macos(10.5, 10.11)) API_UNAVAILABLE(ios, watchos, tvos);
 
 // #if defined(__cplusplus)
