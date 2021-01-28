@@ -1,3 +1,4 @@
+use crate::prelude::*;
 // #if (defined(__USE_PUBLIC_HEADERS__) && __USE_PUBLIC_HEADERS__) || (defined(USE_AUDIOTOOLBOX_PUBLIC_HEADERS) && USE_AUDIOTOOLBOX_PUBLIC_HEADERS) || !__has_include(<AudioToolboxCore/AudioUnitProperties.h>)
 // /*!
 // 	@file		AudioUnitProperties.h
@@ -3767,6 +3768,28 @@ extern "C" {
 // 	kAUNetSendPresetFormat_AAC_LD_32kbpspc	= 17,
 // 	kAUNetSendNumPresetFormats				= 18
 // };
+
+impl AudioUnitPropertyID {
+    pub const AUNetSendPresetFormat_PCMFloat32: Self		= Self::new(0);
+	pub const AUNetSendPresetFormat_PCMInt24: Self			= Self::new(1);
+	pub const AUNetSendPresetFormat_PCMInt16: Self			= Self::new(2);
+	pub const AUNetSendPresetFormat_Lossless24: Self		= Self::new(3);
+	pub const AUNetSendPresetFormat_Lossless16: Self		= Self::new(4);
+	pub const AUNetSendPresetFormat_ULaw: Self				= Self::new(5);
+	pub const AUNetSendPresetFormat_IMA4: Self				= Self::new(6);
+	pub const AUNetSendPresetFormat_AAC_128kbpspc: Self	= Self::new(7);
+	pub const AUNetSendPresetFormat_AAC_96kbpspc: Self		= Self::new(8);
+	pub const AUNetSendPresetFormat_AAC_80kbpspc: Self		= Self::new(9);
+	pub const AUNetSendPresetFormat_AAC_64kbpspc: Self		= Self::new(10);
+	pub const AUNetSendPresetFormat_AAC_48kbpspc: Self		= Self::new(11);
+	pub const AUNetSendPresetFormat_AAC_40kbpspc: Self		= Self::new(12);
+	pub const AUNetSendPresetFormat_AAC_32kbpspc: Self		= Self::new(13);
+	pub const AUNetSendPresetFormat_AAC_LD_64kbpspc: Self	= Self::new(14);
+	pub const AUNetSendPresetFormat_AAC_LD_48kbpspc: Self	= Self::new(15);
+	pub const AUNetSendPresetFormat_AAC_LD_40kbpspc: Self	= Self::new(16);
+	pub const AUNetSendPresetFormat_AAC_LD_32kbpspc: Self	= Self::new(17);
+	pub const AUNetSendNumPresetFormats: Self				= Self::new(18);
+}
 
 // #endif // _TARGET_OS_IPHONE for Apple Specific audio units
 
