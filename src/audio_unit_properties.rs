@@ -3770,25 +3770,25 @@ extern "C" {
 // };
 
 impl AudioUnitPropertyID {
-    pub const AUNetSendPresetFormat_PCMFloat32: Self		= Self::new(0);
-	pub const AUNetSendPresetFormat_PCMInt24: Self			= Self::new(1);
-	pub const AUNetSendPresetFormat_PCMInt16: Self			= Self::new(2);
-	pub const AUNetSendPresetFormat_Lossless24: Self		= Self::new(3);
-	pub const AUNetSendPresetFormat_Lossless16: Self		= Self::new(4);
-	pub const AUNetSendPresetFormat_ULaw: Self				= Self::new(5);
-	pub const AUNetSendPresetFormat_IMA4: Self				= Self::new(6);
-	pub const AUNetSendPresetFormat_AAC_128kbpspc: Self	= Self::new(7);
-	pub const AUNetSendPresetFormat_AAC_96kbpspc: Self		= Self::new(8);
-	pub const AUNetSendPresetFormat_AAC_80kbpspc: Self		= Self::new(9);
-	pub const AUNetSendPresetFormat_AAC_64kbpspc: Self		= Self::new(10);
-	pub const AUNetSendPresetFormat_AAC_48kbpspc: Self		= Self::new(11);
-	pub const AUNetSendPresetFormat_AAC_40kbpspc: Self		= Self::new(12);
-	pub const AUNetSendPresetFormat_AAC_32kbpspc: Self		= Self::new(13);
-	pub const AUNetSendPresetFormat_AAC_LD_64kbpspc: Self	= Self::new(14);
-	pub const AUNetSendPresetFormat_AAC_LD_48kbpspc: Self	= Self::new(15);
-	pub const AUNetSendPresetFormat_AAC_LD_40kbpspc: Self	= Self::new(16);
-	pub const AUNetSendPresetFormat_AAC_LD_32kbpspc: Self	= Self::new(17);
-	pub const AUNetSendNumPresetFormats: Self				= Self::new(18);
+    pub const AUNetSendPresetFormat_PCMFloat32: Self = Self::new(0);
+    pub const AUNetSendPresetFormat_PCMInt24: Self = Self::new(1);
+    pub const AUNetSendPresetFormat_PCMInt16: Self = Self::new(2);
+    pub const AUNetSendPresetFormat_Lossless24: Self = Self::new(3);
+    pub const AUNetSendPresetFormat_Lossless16: Self = Self::new(4);
+    pub const AUNetSendPresetFormat_ULaw: Self = Self::new(5);
+    pub const AUNetSendPresetFormat_IMA4: Self = Self::new(6);
+    pub const AUNetSendPresetFormat_AAC_128kbpspc: Self = Self::new(7);
+    pub const AUNetSendPresetFormat_AAC_96kbpspc: Self = Self::new(8);
+    pub const AUNetSendPresetFormat_AAC_80kbpspc: Self = Self::new(9);
+    pub const AUNetSendPresetFormat_AAC_64kbpspc: Self = Self::new(10);
+    pub const AUNetSendPresetFormat_AAC_48kbpspc: Self = Self::new(11);
+    pub const AUNetSendPresetFormat_AAC_40kbpspc: Self = Self::new(12);
+    pub const AUNetSendPresetFormat_AAC_32kbpspc: Self = Self::new(13);
+    pub const AUNetSendPresetFormat_AAC_LD_64kbpspc: Self = Self::new(14);
+    pub const AUNetSendPresetFormat_AAC_LD_48kbpspc: Self = Self::new(15);
+    pub const AUNetSendPresetFormat_AAC_LD_40kbpspc: Self = Self::new(16);
+    pub const AUNetSendPresetFormat_AAC_LD_32kbpspc: Self = Self::new(17);
+    pub const AUNetSendNumPresetFormats: Self = Self::new(18);
 }
 
 // #endif // _TARGET_OS_IPHONE for Apple Specific audio units
@@ -3816,6 +3816,22 @@ impl AudioUnitPropertyID {
 //   UInt8               minorAndBugRev;         /*2nd & 3rd part of version number share a byte*/
 //   UInt8               majorRev;               /*1st part of version number in BCD*/
 // } AUNumVersion;
+#[cfg(target_endian = "big")]
+pub struct AUNumVersion {
+    /* Numeric version part of 'vers' resource */
+    pub major_rev: u8,         /*1st part of version number in BCD*/
+    pub minor_and_bug_rev: u8, /*2nd & 3rd part of version number share a byte*/
+    pub stage: u8,             /*stage code: dev, alpha, beta, final*/
+    pub non_rel_rev: u8,       /*revision level of non-released version*/
+}
+#[cfg(target_endian = "little")]
+pub struct AUNumVersion {
+    /* Numeric version part of 'vers' resource */
+    pub non_rel_rev: u8,       /*revision level of non-released version*/
+    pub stage: u8,             /*stage code: dev, alpha, beta, final*/
+    pub minor_and_bug_rev: u8, /*2nd & 3rd part of version number share a byte*/
+    pub major_rev: u8,         /*1st part of version number in BCD*/
+}
 // #endif  /* TARGET_RT_BIG_ENDIAN */
 // /*!
 // 	@struct			AUHostIdentifier
