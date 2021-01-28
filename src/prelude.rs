@@ -1,1 +1,4 @@
-pub use crate::{AudioComponentValidationResult, AudioFileTypeID};
+pub use crate::{
+    AudioComponentValidationResult,
+    AudioFileTypeID,
+};
