@@ -994,7 +994,13 @@ impl crate::AudioUnitPropertyID {
 // 	UInt32					destInputNumber;
 // };
 // typedef struct AudioUnitConnection AudioUnitConnection;
-
+#[repr(C)]
+#[derive(Clone, Copy, PartialEq, Eq)]
+struct AudioUnitConnection {
+    // AudioUnit __nullable	sourceAudioUnit;
+    pub source_output_number: u32,
+    pub dest_input_number: u32,
+}
 // /*!
 // 	@struct			AUChannelInfo
 // 	@abstract		Define an audio unit's channel handling capabilities
@@ -1004,7 +1010,12 @@ impl crate::AudioUnitPropertyID {
 // 	SInt16		outChannels;
 // };
 // typedef struct AUChannelInfo AUChannelInfo;
-
+#[repr(C)]
+#[derive(Clone, Copy, PartialEq, Eq)]
+pub struct AUChannelInfo {
+    pub in_channels: i16,
+    pub out_channels: i16,
+}
 // /*!
 // 	@struct			AudioUnitExternalBuffer
 // 	@abstract		Allow a host to tell an audio unit to use the provided memory for its input callback
