@@ -51,18 +51,21 @@
 //     @abstract   A value that uniquely identifies an audio queue property.
 // */
 // typedef UInt32      AudioQueuePropertyID;
+pub struct AudioQueuePropertyID(u32);
 
 // /*!
 //     @typedef    AudioQueueParameterID
 //     @abstract   A value that uniquely identifies an audio queue parameter.
 // */
 // typedef UInt32      AudioQueueParameterID;
+pub struct AudioQueueParameterID(u32);
 
 // /*!
 //     @typedef    AudioQueueParameterValue
 //     @abstract   A value for an audio queue parameter.
 // */
 // typedef Float32     AudioQueueParameterValue;
+pub type AudioQueueParameterValue = f32;
 
 // /*!
 //     @typedef    AudioQueueRef
