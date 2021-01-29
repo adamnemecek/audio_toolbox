@@ -1047,6 +1047,8 @@ impl AudioUnitExternalBuffer {
 // };
 // typedef struct AURenderCallbackStruct AURenderCallbackStruct;
 
+pub struct AURenderCallbackStruct {}
+
 // /*!
 // 	@struct			AUPreset
 // 	@abstract		Used to publish and set factory presets on an audio unit
@@ -1061,7 +1063,11 @@ impl AudioUnitExternalBuffer {
 // 	CFStringRef	__nullable	presetName;
 // };
 // typedef struct AUPreset AUPreset;
-
+#[repr(C)]
+pub struct AUPreset {
+    pub presetNumber: i32,
+    // pub presetName: CFStringRef	__nullable	,
+}
 // /*!
 // 	@enum			RenderQuality
 // 	@abstract		Used to get/set a render quality setting on an audio unit
@@ -1116,121 +1122,133 @@ pub struct AudioUnitFrequencyResponseBin {
     pub m_magnitude: f64,
 }
 
-#[link(name = "AudioToolbox", kind = "framework")]
-extern "C" {
-    // /*!
-    // 	@typedef		HostCallback_GetBeatAndTempo
-    // 	@abstract		Retrieve information about the current beat and/or tempo
-    // 	@discussion
-    // 		If the host app has set this callback, then the audio unit can use this to get the current
-    // 		beat and tempo as they relate to the first sample in the render buffer. The audio unit can
-    // 		call this callback only from within the audio unit render call (otherwise the host is unable
-    // 		to provide information accurately to the audio unit as the information obtained is relate to
-    // 		the current AudioUnitRender call). If the host cannot provide the requested information, it
-    // 		will return kAudioUnitErr_CannotDoInCurrentContext.
+// /*!
+// 	@typedef		HostCallback_GetBeatAndTempo
+// 	@abstract		Retrieve information about the current beat and/or tempo
+// 	@discussion
+// 		If the host app has set this callback, then the audio unit can use this to get the current
+// 		beat and tempo as they relate to the first sample in the render buffer. The audio unit can
+// 		call this callback only from within the audio unit render call (otherwise the host is unable
+// 		to provide information accurately to the audio unit as the information obtained is relate to
+// 		the current AudioUnitRender call). If the host cannot provide the requested information, it
+// 		will return kAudioUnitErr_CannotDoInCurrentContext.
 
-    // 		The AudioUnit can provide NULL for any of the requested parameters (except for
-    // 		inHostUserData) if it is not interested in that particular piece of information
+// 		The AudioUnit can provide NULL for any of the requested parameters (except for
+// 		inHostUserData) if it is not interested in that particular piece of information
 
-    // 	@param			inHostUserData			Must be provided by the audio unit when it makes this call. It is the client data provided by the host when it set the HostCallbacks property
-    // 	@param			outCurrentBeat			The current beat, where 0 is the first beat. Tempo is defined as the number of whole-number (integer) beat values (as indicated by the outCurrentBeat field) per minute.
-    // 	@param			outCurrentTempo			The current tempo
-    // */
-    // typedef OSStatus (*HostCallback_GetBeatAndTempo)(void * __nullable	inHostUserData,
-    // 											Float64	* __nullable	outCurrentBeat,
-    // 											Float64	* __nullable	outCurrentTempo);
+// 	@param			inHostUserData			Must be provided by the audio unit when it makes this call. It is the client data provided by the host when it set the HostCallbacks property
+// 	@param			outCurrentBeat			The current beat, where 0 is the first beat. Tempo is defined as the number of whole-number (integer) beat values (as indicated by the outCurrentBeat field) per minute.
+// 	@param			outCurrentTempo			The current tempo
+// */
+// typedef OSStatus (*HostCallback_GetBeatAndTempo)(void * __nullable	inHostUserData,
+// 											Float64	* __nullable	outCurrentBeat,
+// 											Float64	* __nullable	outCurrentTempo);
 
-    // /*!
-    // 	@typedef		HostCallback_GetMusicalTimeLocation
-    // 	@abstract		Retrieve information about the musical time state of the host
-    // 	@discussion
-    // 		If the host app has set this callback, then the audio unit can use this to obtain
-    // 		information about the state of musical time in the host. The audio unit can call this
-    // 		callback only from within the audio unit render call (otherwise the host is unable to
-    // 		provide information accurately to the audio unit as the information obtained is relate to
-    // 		the current AudioUnitRender call). If the host cannot provide the requested information, it
-    // 		will return kAudioUnitErr_CannotDoInCurrentContext.
+pub struct OSStatus {}
 
-    // 		The AudioUnit can provide NULL for any of the requested parameters (except for
-    // 		inHostUserData) if it is not interested in that particular piece of information
+pub type HostCallback_GetBeatAndTempo = extern "C" fn(
+    user_data: *const std::ffi::c_void,
+    current_beat: *mut f64,
+    current_tempo: *mut f64,
+) -> OSStatus;
 
-    // 	@param			inHostUserData					Must be provided by the audio unit when it makes this call. It is the client data provided by the host when it set the HostCallbacks property
-    // 	@param			outDeltaSampleOffsetToNextBeat	The number of samples until the next whole beat from the start sample of the current rendering buffer
-    // 	@param			outTimeSig_Numerator			The Numerator of the current time signature
-    // 	@param			outTimeSig_Denominator			The Denominator of the current time signature (4 is a quarter note, etc)
-    // 	@param			outCurrentMeasureDownBeat		The beat that corresponds to the downbeat (first beat) of the current measure that is being rendered
+// /*!
+// 	@typedef		HostCallback_GetMusicalTimeLocation
+// 	@abstract		Retrieve information about the musical time state of the host
+// 	@discussion
+// 		If the host app has set this callback, then the audio unit can use this to obtain
+// 		information about the state of musical time in the host. The audio unit can call this
+// 		callback only from within the audio unit render call (otherwise the host is unable to
+// 		provide information accurately to the audio unit as the information obtained is relate to
+// 		the current AudioUnitRender call). If the host cannot provide the requested information, it
+// 		will return kAudioUnitErr_CannotDoInCurrentContext.
 
-    // */
-    // typedef OSStatus (*HostCallback_GetMusicalTimeLocation)(void * __nullable	inHostUserData,
-    // 												UInt32 * __nullable			outDeltaSampleOffsetToNextBeat,
-    // 												Float32 * __nullable		outTimeSig_Numerator,
-    // 												UInt32 * __nullable			outTimeSig_Denominator,
-    // 												Float64 * __nullable		outCurrentMeasureDownBeat);
+// 		The AudioUnit can provide NULL for any of the requested parameters (except for
+// 		inHostUserData) if it is not interested in that particular piece of information
 
-    // /*!
-    // 	@typedef		HostCallback_GetTransportState
-    // 	@abstract		Retrieve information about the time line's (or transport) state of the host.
-    // 	@discussion
-    // 		If the host app has set this callback, then the audio unit can use this to obtain
-    // 		information about the transport state of the host's time line. The audio unit can call this
-    // 		callback only from within the audio unit render call (otherwise the host is unable to
-    // 		provide information accurately to the audio unit as the information obtained is relate to
-    // 		the current AudioUnitRender call. If the host cannot provide the requested information, it
-    // 		will return kAudioUnitErr_CannotDoInCurrentContext.
+// 	@param			inHostUserData					Must be provided by the audio unit when it makes this call. It is the client data provided by the host when it set the HostCallbacks property
+// 	@param			outDeltaSampleOffsetToNextBeat	The number of samples until the next whole beat from the start sample of the current rendering buffer
+// 	@param			outTimeSig_Numerator			The Numerator of the current time signature
+// 	@param			outTimeSig_Denominator			The Denominator of the current time signature (4 is a quarter note, etc)
+// 	@param			outCurrentMeasureDownBeat		The beat that corresponds to the downbeat (first beat) of the current measure that is being rendered
 
-    // 		The AudioUnit can provide NULL for any of the requested parameters (except for
-    // 		inHostUserData) if it is not interested in that particular piece of information
+// */
+// typedef OSStatus (*HostCallback_GetMusicalTimeLocation)(void * __nullable	inHostUserData,
+// 												UInt32 * __nullable			outDeltaSampleOffsetToNextBeat,
+// 												Float32 * __nullable		outTimeSig_Numerator,
+// 												UInt32 * __nullable			outTimeSig_Denominator,
+// 												Float64 * __nullable		outCurrentMeasureDownBeat);
+pub type HostCallback_GetMusicalTimeLocation = extern "C" fn(
+    user_data: *const std::ffi::c_void,
+    out_delta_sample_offset_to_next_beat: *mut u32,
+    time_sig_numerator: *mut f32,
+    time_sig_denominator: *mut u32,
+    current_measure_down_beat: *mut f32,
+) -> OSStatus;
+// /*!
+// 	@typedef		HostCallback_GetTransportState
+// 	@abstract		Retrieve information about the time line's (or transport) state of the host.
+// 	@discussion
+// 		If the host app has set this callback, then the audio unit can use this to obtain
+// 		information about the transport state of the host's time line. The audio unit can call this
+// 		callback only from within the audio unit render call (otherwise the host is unable to
+// 		provide information accurately to the audio unit as the information obtained is relate to
+// 		the current AudioUnitRender call. If the host cannot provide the requested information, it
+// 		will return kAudioUnitErr_CannotDoInCurrentContext.
 
-    // 	@param			inHostUserData					Must be provided by the audio unit when it makes this call. It is the client data provided by the host when it set the HostCallbacks property
-    // 	@param			outIsPlaying					Returns true if the host's transport is currently playing, false if stopped
-    // 	@param			outTransportStateChanged		Returns true if there was a change to the state of, or discontinuities in, the host's transport (generally since the callback was last called). Can indicate such state changes as start/top, time moves (jump from one time line to another).
-    // 	@param			outCurrentSampleInTimeLine		Returns the current sample count in the time line of the host's transport time.
-    // 	@param			outIsCycling					Returns true if the host's transport is currently cycling or looping
-    // 	@param			outCycleStartBeat				If cycling is true, the start beat of the cycle or loop point in the host's transport
-    // 	@param			outCycleEndBeat					If cycling is true, the end beat of the cycle or loop point in the host's transport
+// 		The AudioUnit can provide NULL for any of the requested parameters (except for
+// 		inHostUserData) if it is not interested in that particular piece of information
 
-    // */
-    // typedef OSStatus (*HostCallback_GetTransportState)(void * __nullable	inHostUserData,
-    // 										Boolean * __nullable			outIsPlaying,
-    // 										Boolean * __nullable			outTransportStateChanged,
-    // 										Float64 * __nullable			outCurrentSampleInTimeLine,
-    // 										Boolean * __nullable			outIsCycling,
-    // 										Float64 * __nullable			outCycleStartBeat,
-    // 										Float64 * __nullable			outCycleEndBeat);
+// 	@param			inHostUserData					Must be provided by the audio unit when it makes this call. It is the client data provided by the host when it set the HostCallbacks property
+// 	@param			outIsPlaying					Returns true if the host's transport is currently playing, false if stopped
+// 	@param			outTransportStateChanged		Returns true if there was a change to the state of, or discontinuities in, the host's transport (generally since the callback was last called). Can indicate such state changes as start/top, time moves (jump from one time line to another).
+// 	@param			outCurrentSampleInTimeLine		Returns the current sample count in the time line of the host's transport time.
+// 	@param			outIsCycling					Returns true if the host's transport is currently cycling or looping
+// 	@param			outCycleStartBeat				If cycling is true, the start beat of the cycle or loop point in the host's transport
+// 	@param			outCycleEndBeat					If cycling is true, the end beat of the cycle or loop point in the host's transport
 
-    // /*!
-    // 	@typedef		HostCallback_GetTransportState2
-    // 	@abstract		Retrieve information about the time line's (or transport) state of the host.
-    // 	@discussion
-    // 		If the host app has set this callback, then the audio unit can use this to obtain
-    // 		information about the transport state of the host's time line. The audio unit can call this
-    // 		callback only from within the audio unit render call (otherwise the host is unable to
-    // 		provide information accurately to the audio unit as the information obtained is relate to
-    // 		the current AudioUnitRender call. If the host cannot provide the requested information, it
-    // 		will return kAudioUnitErr_CannotDoInCurrentContext.
+// */
+// typedef OSStatus (*HostCallback_GetTransportState)(void * __nullable	inHostUserData,
+// 										Boolean * __nullable			outIsPlaying,
+// 										Boolean * __nullable			outTransportStateChanged,
+// 										Float64 * __nullable			outCurrentSampleInTimeLine,
+// 										Boolean * __nullable			outIsCycling,
+// 										Float64 * __nullable			outCycleStartBeat,
+// 										Float64 * __nullable			outCycleEndBeat);
 
-    // 		The AudioUnit can provide NULL for any of the requested parameters (except for
-    // 		inHostUserData) if it is not interested in that particular piece of information
+// /*!
+// 	@typedef		HostCallback_GetTransportState2
+// 	@abstract		Retrieve information about the time line's (or transport) state of the host.
+// 	@discussion
+// 		If the host app has set this callback, then the audio unit can use this to obtain
+// 		information about the transport state of the host's time line. The audio unit can call this
+// 		callback only from within the audio unit render call (otherwise the host is unable to
+// 		provide information accurately to the audio unit as the information obtained is relate to
+// 		the current AudioUnitRender call. If the host cannot provide the requested information, it
+// 		will return kAudioUnitErr_CannotDoInCurrentContext.
 
-    // 	@param			inHostUserData					Must be provided by the audio unit when it makes this call. It is the client data provided by the host when it set the HostCallbacks property
-    // 	@param			outIsPlaying					Returns true if the host's transport is currently playing, false if stopped
-    // 	@param			outIsRecording					Returns true if the host is currently record-enabled, otherwise false.
-    // 	@param			outTransportStateChanged		Returns true if there was a change to the state of, or discontinuities in, the host's transport (generally since the callback was last called). Can indicate such state changes as start/top, time moves (jump from one time line to another).
-    // 	@param			outCurrentSampleInTimeLine		Returns the current sample count in the time line of the host's transport time.
-    // 	@param			outIsCycling					Returns true if the host's transport is currently cycling or looping
-    // 	@param			outCycleStartBeat				If cycling is true, the start beat of the cycle or loop point in the host's transport
-    // 	@param			outCycleEndBeat					If cycling is true, the end beat of the cycle or loop point in the host's transport
+// 		The AudioUnit can provide NULL for any of the requested parameters (except for
+// 		inHostUserData) if it is not interested in that particular piece of information
 
-    // */
-    // typedef OSStatus (*HostCallback_GetTransportState2)(void * __nullable	inHostUserData,
-    // 										Boolean * __nullable			outIsPlaying,
-    // 										Boolean	* __nullable			outIsRecording,
-    // 										Boolean * __nullable			outTransportStateChanged,
-    // 										Float64 * __nullable			outCurrentSampleInTimeLine,
-    // 										Boolean * __nullable			outIsCycling,
-    // 										Float64 * __nullable			outCycleStartBeat,
-    // 										Float64 * __nullable			outCycleEndBeat);
-}
+// 	@param			inHostUserData					Must be provided by the audio unit when it makes this call. It is the client data provided by the host when it set the HostCallbacks property
+// 	@param			outIsPlaying					Returns true if the host's transport is currently playing, false if stopped
+// 	@param			outIsRecording					Returns true if the host is currently record-enabled, otherwise false.
+// 	@param			outTransportStateChanged		Returns true if there was a change to the state of, or discontinuities in, the host's transport (generally since the callback was last called). Can indicate such state changes as start/top, time moves (jump from one time line to another).
+// 	@param			outCurrentSampleInTimeLine		Returns the current sample count in the time line of the host's transport time.
+// 	@param			outIsCycling					Returns true if the host's transport is currently cycling or looping
+// 	@param			outCycleStartBeat				If cycling is true, the start beat of the cycle or loop point in the host's transport
+// 	@param			outCycleEndBeat					If cycling is true, the end beat of the cycle or loop point in the host's transport
+
+// */
+// typedef OSStatus (*HostCallback_GetTransportState2)(void * __nullable	inHostUserData,
+// 										Boolean * __nullable			outIsPlaying,
+// 										Boolean	* __nullable			outIsRecording,
+// 										Boolean * __nullable			outTransportStateChanged,
+// 										Float64 * __nullable			outCurrentSampleInTimeLine,
+// 										Boolean * __nullable			outIsCycling,
+// 										Float64 * __nullable			outCycleStartBeat,
+// 										Float64 * __nullable			outCycleEndBeat);
+
 // /*!
 // 	@struct			HostCallbackInfo
 // 	@abstract		Contains the various callbacks for an audio unit to call
