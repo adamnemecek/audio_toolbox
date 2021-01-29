@@ -8,3 +8,4 @@ edition = "2018"
 
 [dependencies]
 cc4 = "*"
+core_audio_types = { path = "../core_audio_types" }

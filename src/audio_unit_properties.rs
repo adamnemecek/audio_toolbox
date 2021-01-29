@@ -1,3 +1,4 @@
+use core_audio_types::prelude::*;
 use crate::prelude::*;
 // #if (defined(__USE_PUBLIC_HEADERS__) && __USE_PUBLIC_HEADERS__) || (defined(USE_AUDIOTOOLBOX_PUBLIC_HEADERS) && USE_AUDIOTOOLBOX_PUBLIC_HEADERS) || !__has_include(<AudioToolboxCore/AudioUnitProperties.h>)
 // /*!
@@ -1323,6 +1324,11 @@ pub struct HostCallbackInfo {}
 // 	UInt32				hostVersion;
 // };
 // typedef struct AUHostVersionIdentifier AUHostVersionIdentifier;
+#[repr(C)]
+pub struct AUHostVersionIdentifier {
+    	// CFStringRef 		hostName;
+    	// UInt32				hostVersion;
+}
 // #endif //!TARGET_OS_IPHONE
 
 // /*!
@@ -1341,6 +1347,18 @@ pub struct HostCallbackInfo {}
 // 						UInt32							midiOutNum,
 // 						const struct MIDIPacketList *	pktlist);
 
+// todo
+pub struct MIDIPacketList {
+
+}
+
+pub type AUMIDIOutputCallback = extern "C" fn(
+    user_data: *const std::ffi::c_void,
+    time_stamp: *const AudioTimeStamp,
+    midi_num: *mut u32,
+    pkt_list: *const MIDIPacketList,
+) -> OSStatus;
+
 // /*!
 // 	@struct			AUMIDIOutputCallbackStruct
 // 	@abstract		Set by host application to provide the callback and user data for an audio
@@ -1351,7 +1369,11 @@ pub struct HostCallbackInfo {}
 // 	void * __nullable		userData;
 // };
 // typedef struct AUMIDIOutputCallbackStruct AUMIDIOutputCallbackStruct;
-
+#[repr(C)]
+pub struct AUMIDIOutputCallbackStruct {
+	pub midi_output_callback: AUMIDIOutputCallback,
+	// pub user_data: void * __nullable	,
+}
 // /*!
 // 	@struct			AUInputSamplesInOutputCallbackStruct
 // 	@abstract		Used by a host when registering a callback with an audio unit, to provide
@@ -1362,6 +1384,12 @@ pub struct HostCallbackInfo {}
 // 	void * __nullable					userData;
 // };
 // typedef struct AUInputSamplesInOutputCallbackStruct AUInputSamplesInOutputCallbackStruct;
+
+#[repr(C)]
+struct AUInputSamplesInOutputCallbackStruct {
+	// pub input_to_output_callback: AUInputSamplesInOutputCallback,
+	// pub user_data: void * __nullable,
+}
 
 // /*!
 // 	@struct			AudioUnitParameterHistoryInfo
