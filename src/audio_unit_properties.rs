@@ -1185,6 +1185,7 @@ pub type HostCallback_GetMusicalTimeLocation = extern "C" fn(
     time_sig_denominator: *mut u32,
     current_measure_down_beat: *mut f32,
 ) -> OSStatus;
+
 // /*!
 // 	@typedef		HostCallback_GetTransportState
 // 	@abstract		Retrieve information about the time line's (or transport) state of the host.
@@ -1215,6 +1216,16 @@ pub type HostCallback_GetMusicalTimeLocation = extern "C" fn(
 // 										Boolean * __nullable			outIsCycling,
 // 										Float64 * __nullable			outCycleStartBeat,
 // 										Float64 * __nullable			outCycleEndBeat);
+
+pub type HostCallback_GetTransportState = extern "C" fn(
+    user_data: *const std::ffi::c_void,
+    is_playing: *mut bool,
+    transport_state_changed: *mut bool,
+    current_sample_in_time_line: *mut f64,
+    is_cycling: *mut bool,
+    cycle_start_beat: *mut f64,
+    cycle_end_beat: *mut f64,
+) -> OSStatus;
 
 // /*!
 // 	@typedef		HostCallback_GetTransportState2
@@ -1249,6 +1260,17 @@ pub type HostCallback_GetMusicalTimeLocation = extern "C" fn(
 // 										Float64 * __nullable			outCycleStartBeat,
 // 										Float64 * __nullable			outCycleEndBeat);
 
+pub type HostCallback_GetTransportState2 = extern "C" fn(
+    user_data: *const std::ffi::c_void,
+    is_playing: *mut bool,
+    is_recording: *mut bool,
+    transport_state_changed: *mut bool,
+    current_sample_in_time_line: *mut f64,
+    is_cycling: *mut bool,
+    cycle_start_beat: *mut f64,
+    cycle_end_beat: *mut f64,
+) -> OSStatus;
+
 // /*!
 // 	@struct			HostCallbackInfo
 // 	@abstract		Contains the various callbacks for an audio unit to call
@@ -1263,6 +1285,8 @@ pub type HostCallback_GetMusicalTimeLocation = extern "C" fn(
 // 	HostCallback_GetTransportState2 __nullable			transportStateProc2;
 // };
 // typedef struct HostCallbackInfo HostCallbackInfo;
+
+pub struct HostCallbackInfo {}
 
 // /*!
 // 	@struct			AUDependentParameter
