@@ -1,3 +1,4 @@
+use crate::prelude::*;
 // #if (defined(__USE_PUBLIC_HEADERS__) && __USE_PUBLIC_HEADERS__) || (defined(USE_AUDIOTOOLBOX_PUBLIC_HEADERS) && USE_AUDIOTOOLBOX_PUBLIC_HEADERS) || !__has_include(<AudioToolboxCore/AudioUnitUtilities.h>)
 // /*!
 // 	@file		AudioUnitUtilities.h
@@ -72,6 +73,14 @@
 //     kAudioUnitEvent_EndParameterChangeGesture   = 2,
 //     kAudioUnitEvent_PropertyChange              = 3
 // };
+#[repr(u32)]
+#[derive(Clone, Copy, PartialEq, Eq)]
+pub enum AudioUnitEventType {
+    ParameterValueChange = 0,
+    BeginParameterChangeGesture = 1,
+    EndParameterChangeGesture = 2,
+    PropertyChange = 3,
+}
 
 // /* ============================================================================= */
 // /*!
@@ -122,6 +131,8 @@
 // typedef void (^AUParameterListenerBlock)(   void * __nullable           inObject,
 //                                             const AudioUnitParameter *  inParameter,
 //                                             AudioUnitParameterValue     inValue);
+pub type AUParameterListenerBlock =
+    block::RcBlock<(*mut std::ffi::c_void, *const AudioUnitParameter), ()>;
 
 // /*!
 //     @typedef    AUEventListenerBlock

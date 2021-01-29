@@ -859,6 +859,10 @@ impl AudioUnitPropertyID {
 // 						(for instance, global, input, output)
 // */
 // typedef UInt32							AudioUnitScope;
+#[repr(C)]
+#[derive(Clone, Copy, PartialEq, Eq)]
+pub struct AudioUnitScope(u32);
+
 // /*!
 // 	@typedef			AudioUnitElement
 // 	@discussion			Type used for audio unit elements.
@@ -867,6 +871,10 @@ impl AudioUnitPropertyID {
 // 						For instance, input bus 1 is input scope, element 1
 // */
 // typedef UInt32							AudioUnitElement;
+#[repr(C)]
+#[derive(Clone, Copy, PartialEq, Eq)]
+pub struct AudioUnitElement(u32);
+
 // /*!
 // 	@typedef			AudioUnitParameterID
 // 	@discussion			Type used for audio unit parameters.
@@ -874,6 +882,9 @@ impl AudioUnitPropertyID {
 // 						(for instance, filter cut-off frequency)
 // */
 // typedef UInt32							AudioUnitParameterID;
+#[repr(C)]
+#[derive(Clone, Copy, PartialEq, Eq)]
+pub struct AudioUnitParameterID(u32);
 // /*!
 // 	@typedef			AudioUnitParameterValue
 // 	@discussion			Type used for audio unit parameter values.
@@ -881,6 +892,7 @@ impl AudioUnitPropertyID {
 // 						(typically a Float32)
 // */
 // typedef	Float32							AudioUnitParameterValue;
+pub type AudioUnitParameterValue = f32;
 
 // /*!
 // 	@enum			AUParameterEventType
@@ -978,6 +990,13 @@ impl AudioUnitPropertyID {
 // 	AudioUnitElement		mElement;
 // };
 // typedef struct AudioUnitParameter	AudioUnitParameter;
+#[repr(C)]
+pub struct AudioUnitParameter {
+    // pub m_audio_unit: AudioUnit,
+    pub m_parameter_id: AudioUnitParameterID,
+    pub m_scope: AudioUnitScope,
+    pub m_element: AudioUnitElement,
+}
 
 // /*!
 // 	@struct			AudioUnitProperty

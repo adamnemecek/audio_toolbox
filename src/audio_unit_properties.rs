@@ -1,5 +1,5 @@
-use core_audio_types::prelude::*;
 use crate::prelude::*;
+use core_audio_types::prelude::*;
 // #if (defined(__USE_PUBLIC_HEADERS__) && __USE_PUBLIC_HEADERS__) || (defined(USE_AUDIOTOOLBOX_PUBLIC_HEADERS) && USE_AUDIOTOOLBOX_PUBLIC_HEADERS) || !__has_include(<AudioToolboxCore/AudioUnitProperties.h>)
 // /*!
 // 	@file		AudioUnitProperties.h
@@ -1326,8 +1326,8 @@ pub struct HostCallbackInfo {}
 // typedef struct AUHostVersionIdentifier AUHostVersionIdentifier;
 #[repr(C)]
 pub struct AUHostVersionIdentifier {
-    	// CFStringRef 		hostName;
-    	// UInt32				hostVersion;
+    // CFStringRef 		hostName;
+// UInt32				hostVersion;
 }
 // #endif //!TARGET_OS_IPHONE
 
@@ -1348,9 +1348,7 @@ pub struct AUHostVersionIdentifier {
 // 						const struct MIDIPacketList *	pktlist);
 
 // todo
-pub struct MIDIPacketList {
-
-}
+pub struct MIDIPacketList {}
 
 pub type AUMIDIOutputCallback = extern "C" fn(
     user_data: *const std::ffi::c_void,
@@ -1371,8 +1369,8 @@ pub type AUMIDIOutputCallback = extern "C" fn(
 // typedef struct AUMIDIOutputCallbackStruct AUMIDIOutputCallbackStruct;
 #[repr(C)]
 pub struct AUMIDIOutputCallbackStruct {
-	pub midi_output_callback: AUMIDIOutputCallback,
-	// pub user_data: void * __nullable	,
+    pub midi_output_callback: AUMIDIOutputCallback,
+    // pub user_data: void * __nullable	,
 }
 // /*!
 // 	@struct			AUInputSamplesInOutputCallbackStruct
@@ -1387,8 +1385,8 @@ pub struct AUMIDIOutputCallbackStruct {
 
 #[repr(C)]
 struct AUInputSamplesInOutputCallbackStruct {
-	// pub input_to_output_callback: AUInputSamplesInOutputCallback,
-	// pub user_data: void * __nullable,
+    // pub input_to_output_callback: AUInputSamplesInOutputCallback,
+// pub user_data: void * __nullable,
 }
 
 // /*!
@@ -3954,6 +3952,14 @@ pub struct AUNumVersion {
 // 	AudioUnitParameterID	parameter;
 // } AudioUnitMIDIControlMapping;
 
+pub struct AudioUnitMIDIControlMapping {
+    pub midi_nrpn: u16,
+    pub midi_control: u8,
+    pub scope: u8,
+    pub element: AudioUnitElement,
+    pub parameter: AudioUnitParameterID,
+}
+
 // // Deprecated. See AudioUnitParameterStringFromValue for equivalent structure, but with clearer field names
 // typedef struct AudioUnitParameterValueName {
 // 	AudioUnitParameterID		inParamID;
@@ -3995,6 +4001,14 @@ pub struct AUNumVersion {
 // 	UInt8					presetID;
 // 	UInt8					reserved;
 // } AUSamplerBankPresetData;
+
+pub struct AUSamplerBankPresetData {
+    // pub bankURL: CFURLRef,
+    pub bank_msb: u8,
+    pub bank_lsb: u8,
+    pub preset_id: u8,
+    pub reserved: u8,
+}
 
 // CF_ENUM(AudioUnitPropertyID) {
 // 	kAUSamplerProperty_LoadPresetFromBank			= 4100,
