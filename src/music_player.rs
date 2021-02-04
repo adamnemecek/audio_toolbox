@@ -1,3 +1,5 @@
+use core_audio::OSStatus;
+
 // /*!
 // 	@file		MusicPlayer.h
 // 	@framework	AudioToolbox.framework
@@ -331,6 +333,14 @@ pub struct MusicPlayer(*const std::ffi::c_void);
 
 // typedef struct OpaqueMusicSequence		*MusicSequence;
 pub struct MusicSequence(*const std::ffi::c_void);
+
+impl MusicSequence {
+    pub fn new() -> Self {
+        
+        Self(std::ptr::null())
+    }
+}
+
 // typedef struct OpaqueMusicTrack			*MusicTrack;
 pub struct MusicTrack(*const std::ffi::c_void);
 
@@ -348,6 +358,8 @@ pub struct MusicEventIterator(*const std::ffi::c_void);
 // 											const MusicEventUserData *	inEventData,
 // 											MusicTimeStamp				inStartSliceBeat,
 // 											MusicTimeStamp				inEndSliceBeat);
+
+pub type MusicSequenceUserCallback = extern "C" fn();
 
 // /*!
 // 	enum MusicPlayerErrors
@@ -472,6 +484,10 @@ pub struct MusicEventIterator(*const std::ffi::c_void);
 // */
 // extern OSStatus
 // NewMusicPlayer(			MusicPlayer	__nullable * __nonnull outPlayer)			API_AVAILABLE(macos(10.0), ios(5.0), watchos(2.0), tvos(9.0));
+
+extern "C" {
+    fn NewMusicPlayer(_: *mut std::ffi::c_void) -> OSStatus;
+}
 
 // /*!
 // 	@function	DisposeMusicPlayer
@@ -653,6 +669,9 @@ pub struct MusicEventIterator(*const std::ffi::c_void);
 // */
 // extern OSStatus
 // NewMusicSequence(	MusicSequence __nullable * __nonnull outSequence)			API_AVAILABLE(macos(10.0), ios(5.0), watchos(2.0), tvos(9.0));
+extern "C" {
+    fn NewMusicSequence(_: *mut std::ffi::c_void) -> OSStatus;
+}
 
 // /*!
 // 	@function	DisposeMusicSequence
