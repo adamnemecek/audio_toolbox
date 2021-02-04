@@ -516,7 +516,7 @@ extern "C" {
     // extern OSStatus
     // MusicPlayerSetSequence(	MusicPlayer 	inPlayer,
     // 						MusicSequence __nullable inSequence)					API_AVAILABLE(macos(10.0), ios(5.0), watchos(2.0), tvos(9.0));
-    // fn MusicPlayerSetSequence(_: *mut std::ffi::c_void, ) -> OSStatus;
+    fn MusicPlayerSetSequence(_: *mut std::ffi::c_void, ) -> OSStatus;
     // /*!
     // 	@function	MusicPlayerGetSequence
     // 	@abstract	Get the sequence attached to a player
@@ -528,7 +528,7 @@ extern "C" {
     // extern OSStatus
     // MusicPlayerGetSequence(	MusicPlayer 	inPlayer,
     // 						MusicSequence __nullable * __nonnull outSequence)		API_AVAILABLE(macos(10.3), ios(5.0), watchos(2.0), tvos(9.0));
-
+    fn MusicPlayerGetSequence(_: *mut std::ffi::c_void) -> OSStatus;
     // /*!
     // 	@function	MusicPlayerSetTime
     // 	@abstract	Set the current time on the player
@@ -542,7 +542,7 @@ extern "C" {
     // extern OSStatus
     // MusicPlayerSetTime(		MusicPlayer 	inPlayer,
     // 						MusicTimeStamp 	inTime)									API_AVAILABLE(macos(10.0), ios(5.0), watchos(2.0), tvos(9.0));
-
+    fn MusicPlayerSetTime(_: *mut std::ffi::c_void) -> OSStatus;
     // /*!
     // 	@function	MusicPlayerGetTime
     // 	@abstract	Get the current time of the player
@@ -554,7 +554,7 @@ extern "C" {
     // extern OSStatus
     // MusicPlayerGetTime(		MusicPlayer 	inPlayer,
     // 						MusicTimeStamp	*outTime)								API_AVAILABLE(macos(10.0), ios(5.0), watchos(2.0), tvos(9.0));
-
+    fn MusicPlayerGetTime(_: *mut std::ffi::c_void) -> OSStatus;
     // /*!
     // 	@function	MusicPlayerGetHostTimeForBeats
     // 	@abstract	Returns the host time that will be (or was) played at the specified beat.
@@ -572,7 +572,7 @@ extern "C" {
     // MusicPlayerGetHostTimeForBeats(	MusicPlayer 	inPlayer,
     // 								MusicTimeStamp	inBeats,
     // 								UInt64 *		outHostTime)					API_AVAILABLE(macos(10.2), ios(5.0), watchos(2.0), tvos(9.0));
-
+    fn MusicPlayerGetHostTimeForBeats(_: *mut std::ffi::c_void) -> OSStatus;
     // /*!
     // 	@function	MusicPlayerGetBeatsForHostTime
     // 	@abstract	Returns the beat that will be (or was) played at the specified host time.
@@ -611,7 +611,7 @@ extern "C" {
     // */
     // extern OSStatus
     // MusicPlayerStart(		MusicPlayer 	inPlayer)								API_AVAILABLE(macos(10.0), ios(5.0), watchos(2.0), tvos(9.0));
-
+    fn MusicPlayerStart(_: *mut std::ffi::c_void) -> OSStatus;
     // /*!
     // 	@function	MusicPlayerStop
     // 	@abstract	Stop the player
@@ -619,7 +619,7 @@ extern "C" {
     // */
     // extern OSStatus
     // MusicPlayerStop(		MusicPlayer 	inPlayer)								API_AVAILABLE(macos(10.0), ios(5.0), watchos(2.0), tvos(9.0));
-
+    fn MusicPlayerStop(_: *mut std::ffi::c_void) -> OSStatus;
     // //
     // /*!
     // 	@function	MusicPlayerIsPlaying
@@ -634,7 +634,7 @@ extern "C" {
     // extern OSStatus
     // MusicPlayerIsPlaying(	MusicPlayer 	inPlayer,
     // 						Boolean *		outIsPlaying)							API_AVAILABLE(macos(10.2), ios(5.0), watchos(2.0), tvos(9.0));
-
+    fn MusicPlayerIsPlaying(_: *mut std::ffi::c_void) -> OSStatus;
     // /*!
     // 	@function	MusicPlayerSetPlayRateScalar
     // 	@abstract	Scale the playback rate of the player
@@ -645,7 +645,7 @@ extern "C" {
     // extern OSStatus
     // MusicPlayerSetPlayRateScalar(	MusicPlayer		inPlayer,
     // 								Float64			inScaleRate)					API_AVAILABLE(macos(10.3), ios(5.0), watchos(2.0), tvos(9.0));
-
+    fn MusicPlayerSetPlayRateScalar(_: *mut std::ffi::c_void) -> OSStatus;
     // /*!
     // 	@function	MusicPlayerGetPlayRateScalar
     // 	@abstract	Get the playback rate scalar of the player
@@ -655,7 +655,7 @@ extern "C" {
     // extern OSStatus
     // MusicPlayerGetPlayRateScalar(	MusicPlayer		inPlayer,
     // 								Float64 *		outScaleRate)					API_AVAILABLE(macos(10.3), ios(5.0), watchos(2.0), tvos(9.0));
-
+    fn MusicPlayerGetPlayRateScalar(_: *mut std::ffi::c_void) -> OSStatus;
     // //=====================================================================================================================
     // #pragma mark -
 
