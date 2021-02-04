@@ -98,7 +98,6 @@ use core_audio::OSStatus;
 // typedef UInt32		MusicEventType;
 pub type MusicEventType = u32;
 
-
 // /*!
 // 	@enum MusicSequenceLoadFlags
 // 	@abstract Flags used to customise loading behaviour
@@ -342,9 +341,7 @@ impl MusicSequence {
         Self(std::ptr::null())
     }
 
-    pub fn dispose(&self) {
-
-    }
+    pub fn dispose(&self) {}
 }
 
 // typedef struct OpaqueMusicTrack			*MusicTrack;
@@ -480,412 +477,411 @@ pub struct MusicTrackLoopInfo {
 
 // //=====================================================================================================================
 // #pragma mark -
-
-// //=====================================================================================================================
-// #pragma mark Music Player
-// /*!
-// 	@functiongroup Music Player
-// */
-// /*!
-// 	@function	NewMusicPlayer
-// 	@abstract	Create a new music player
-// 	@discussion	A music player is used to play a sequence back. This call is used to create a player
-// 				When a sequence is to be played by a player, it can play to either an AUGraph, a MIDI Destination or a
-// 				mixture/combination of both.
-// 	@param		outPlayer	the newly created player
-// */
-// extern OSStatus
-// NewMusicPlayer(			MusicPlayer	__nullable * __nonnull outPlayer)			API_AVAILABLE(macos(10.0), ios(5.0), watchos(2.0), tvos(9.0));
-
 extern "C" {
+    // //=====================================================================================================================
+    // #pragma mark Music Player
+    // /*!
+    // 	@functiongroup Music Player
+    // */
+    // /*!
+    // 	@function	NewMusicPlayer
+    // 	@abstract	Create a new music player
+    // 	@discussion	A music player is used to play a sequence back. This call is used to create a player
+    // 				When a sequence is to be played by a player, it can play to either an AUGraph, a MIDI Destination or a
+    // 				mixture/combination of both.
+    // 	@param		outPlayer	the newly created player
+    // */
+    // extern OSStatus
+    // NewMusicPlayer(			MusicPlayer	__nullable * __nonnull outPlayer)			API_AVAILABLE(macos(10.0), ios(5.0), watchos(2.0), tvos(9.0));
+
     fn NewMusicPlayer(_: *mut std::ffi::c_void) -> OSStatus;
-}
 
-// /*!
-// 	@function	DisposeMusicPlayer
-// 	@abstract	Dispose a music player
-// 	@param		inPlayer	the player to dispose
-// */
-// extern OSStatus
-// DisposeMusicPlayer(		MusicPlayer		inPlayer)								API_AVAILABLE(macos(10.0), ios(5.0), watchos(2.0), tvos(9.0));
+    // /*!
+    // 	@function	DisposeMusicPlayer
+    // 	@abstract	Dispose a music player
+    // 	@param		inPlayer	the player to dispose
+    // */
+    // extern OSStatus
+    // DisposeMusicPlayer(		MusicPlayer		inPlayer)								API_AVAILABLE(macos(10.0), ios(5.0), watchos(2.0), tvos(9.0));
+    fn DisposeMusicPlayer(_: *mut std::ffi::c_void) -> OSStatus;
 
-// /*!
-// 	@function	MusicPlayerSetSequence
-// 	@abstract	Set the sequence for the player to play
-// 	@discussion A Sequence cannot be set on a player while it is playing. Setting a sequence
-// 				will overide the currently set sequence.
-// 	@param		inPlayer	the player
-// 	@param		inSequence	the sequence for the player to play
-// */
-// extern OSStatus
-// MusicPlayerSetSequence(	MusicPlayer 	inPlayer,
-// 						MusicSequence __nullable inSequence)					API_AVAILABLE(macos(10.0), ios(5.0), watchos(2.0), tvos(9.0));
+    // /*!
+    // 	@function	MusicPlayerSetSequence
+    // 	@abstract	Set the sequence for the player to play
+    // 	@discussion A Sequence cannot be set on a player while it is playing. Setting a sequence
+    // 				will overide the currently set sequence.
+    // 	@param		inPlayer	the player
+    // 	@param		inSequence	the sequence for the player to play
+    // */
+    // extern OSStatus
+    // MusicPlayerSetSequence(	MusicPlayer 	inPlayer,
+    // 						MusicSequence __nullable inSequence)					API_AVAILABLE(macos(10.0), ios(5.0), watchos(2.0), tvos(9.0));
+    // fn MusicPlayerSetSequence(_: *mut std::ffi::c_void, ) -> OSStatus;
+    // /*!
+    // 	@function	MusicPlayerGetSequence
+    // 	@abstract	Get the sequence attached to a player
+    // 	@discussion If the player does not have a sequence set, this will return the _NoSequence error
+    // 	@param		inPlayer	the player
+    // 	@param		outSequence	the sequence currently set on the player
 
-// /*!
-// 	@function	MusicPlayerGetSequence
-// 	@abstract	Get the sequence attached to a player
-// 	@discussion If the player does not have a sequence set, this will return the _NoSequence error
-// 	@param		inPlayer	the player
-// 	@param		outSequence	the sequence currently set on the player
+    // */
+    // extern OSStatus
+    // MusicPlayerGetSequence(	MusicPlayer 	inPlayer,
+    // 						MusicSequence __nullable * __nonnull outSequence)		API_AVAILABLE(macos(10.3), ios(5.0), watchos(2.0), tvos(9.0));
 
-// */
-// extern OSStatus
-// MusicPlayerGetSequence(	MusicPlayer 	inPlayer,
-// 						MusicSequence __nullable * __nonnull outSequence)		API_AVAILABLE(macos(10.3), ios(5.0), watchos(2.0), tvos(9.0));
+    // /*!
+    // 	@function	MusicPlayerSetTime
+    // 	@abstract	Set the current time on the player
+    // 	@discussion The Get and Set Time calls take a specification of time as beats. This positions the player
+    // 				to the specified time based on the currently set sequence. No range checking on the time value
+    // 				is done. This can be set on a playing player (in which case playing will be resumed from the
+    // 				new time).
+    // 	@param		inPlayer	the player
+    // 	@param		inTime		the new time value
+    // */
+    // extern OSStatus
+    // MusicPlayerSetTime(		MusicPlayer 	inPlayer,
+    // 						MusicTimeStamp 	inTime)									API_AVAILABLE(macos(10.0), ios(5.0), watchos(2.0), tvos(9.0));
 
-// /*!
-// 	@function	MusicPlayerSetTime
-// 	@abstract	Set the current time on the player
-// 	@discussion The Get and Set Time calls take a specification of time as beats. This positions the player
-// 				to the specified time based on the currently set sequence. No range checking on the time value
-// 				is done. This can be set on a playing player (in which case playing will be resumed from the
-// 				new time).
-// 	@param		inPlayer	the player
-// 	@param		inTime		the new time value
-// */
-// extern OSStatus
-// MusicPlayerSetTime(		MusicPlayer 	inPlayer,
-// 						MusicTimeStamp 	inTime)									API_AVAILABLE(macos(10.0), ios(5.0), watchos(2.0), tvos(9.0));
+    // /*!
+    // 	@function	MusicPlayerGetTime
+    // 	@abstract	Get the current time of the player
+    // 	@discussion The Get and Set Time calls take a specification of time as beats. This retrieves the player's
+    // 				current time. If it is playing this time is the time of the player at the time the call was made.
+    // 	@param		inPlayer	the player
+    // 	@param		outTime		the current time value
+    // */
+    // extern OSStatus
+    // MusicPlayerGetTime(		MusicPlayer 	inPlayer,
+    // 						MusicTimeStamp	*outTime)								API_AVAILABLE(macos(10.0), ios(5.0), watchos(2.0), tvos(9.0));
 
-// /*!
-// 	@function	MusicPlayerGetTime
-// 	@abstract	Get the current time of the player
-// 	@discussion The Get and Set Time calls take a specification of time as beats. This retrieves the player's
-// 				current time. If it is playing this time is the time of the player at the time the call was made.
-// 	@param		inPlayer	the player
-// 	@param		outTime		the current time value
-// */
-// extern OSStatus
-// MusicPlayerGetTime(		MusicPlayer 	inPlayer,
-// 						MusicTimeStamp	*outTime)								API_AVAILABLE(macos(10.0), ios(5.0), watchos(2.0), tvos(9.0));
+    // /*!
+    // 	@function	MusicPlayerGetHostTimeForBeats
+    // 	@abstract	Returns the host time that will be (or was) played at the specified beat.
+    // 	@discussion This call is only valid if the player is playing and will return an error if the player is not playing
+    // 				or if the starting position of the player (its "starting beat") was after the specified beat.
+    // 				For general translation of beats to time in a sequence, see the MusicSequence calls for beat<->seconds.
 
-// /*!
-// 	@function	MusicPlayerGetHostTimeForBeats
-// 	@abstract	Returns the host time that will be (or was) played at the specified beat.
-// 	@discussion This call is only valid if the player is playing and will return an error if the player is not playing
-// 				or if the starting position of the player (its "starting beat") was after the specified beat.
-// 				For general translation of beats to time in a sequence, see the MusicSequence calls for beat<->seconds.
+    // 				The call uses the player's sequence's tempo map to translate a beat time from the starting time and beat
+    // 				of the player.
+    // 	@param		inPlayer	the player
+    // 	@param		inBeats		the specified beat-time value
+    // 	@param		outHostTime the corresponding host time
+    // */
+    // extern OSStatus
+    // MusicPlayerGetHostTimeForBeats(	MusicPlayer 	inPlayer,
+    // 								MusicTimeStamp	inBeats,
+    // 								UInt64 *		outHostTime)					API_AVAILABLE(macos(10.2), ios(5.0), watchos(2.0), tvos(9.0));
 
-// 				The call uses the player's sequence's tempo map to translate a beat time from the starting time and beat
-// 				of the player.
-// 	@param		inPlayer	the player
-// 	@param		inBeats		the specified beat-time value
-// 	@param		outHostTime the corresponding host time
-// */
-// extern OSStatus
-// MusicPlayerGetHostTimeForBeats(	MusicPlayer 	inPlayer,
-// 								MusicTimeStamp	inBeats,
-// 								UInt64 *		outHostTime)					API_AVAILABLE(macos(10.2), ios(5.0), watchos(2.0), tvos(9.0));
+    // /*!
+    // 	@function	MusicPlayerGetBeatsForHostTime
+    // 	@abstract	Returns the beat that will be (or was) played at the specified host time.
+    // 	@discussion This call is only valid if the player is playing and will return an error if the player is not playing
+    // 				or if the starting time of the player was after the specified host time.
+    // 				For general translation of beats to time in a sequence, see the MusicSequence calls for beat<->seconds.
 
-// /*!
-// 	@function	MusicPlayerGetBeatsForHostTime
-// 	@abstract	Returns the beat that will be (or was) played at the specified host time.
-// 	@discussion This call is only valid if the player is playing and will return an error if the player is not playing
-// 				or if the starting time of the player was after the specified host time.
-// 				For general translation of beats to time in a sequence, see the MusicSequence calls for beat<->seconds.
+    // 				The call uses the player's sequence's tempo map to retrieve a beat time from the starting and specified host time.
 
-// 				The call uses the player's sequence's tempo map to retrieve a beat time from the starting and specified host time.
+    // 	@param		inPlayer	the player
+    // 	@param		inHostTime	the specified host time value
+    // 	@param		outBeats	the corresponding beat time
+    // */
+    // extern OSStatus
+    // MusicPlayerGetBeatsForHostTime(	MusicPlayer 	inPlayer,
+    // 								UInt64			inHostTime,
+    // 								MusicTimeStamp *outBeats)						API_AVAILABLE(macos(10.2), ios(5.0), watchos(2.0), tvos(9.0));
+    fn MusicPlayerGetBeatsForHostTime(_: *const std::ffi::c_void) -> OSStatus;
 
-// 	@param		inPlayer	the player
-// 	@param		inHostTime	the specified host time value
-// 	@param		outBeats	the corresponding beat time
-// */
-// extern OSStatus
-// MusicPlayerGetBeatsForHostTime(	MusicPlayer 	inPlayer,
-// 								UInt64			inHostTime,
-// 								MusicTimeStamp *outBeats)						API_AVAILABLE(macos(10.2), ios(5.0), watchos(2.0), tvos(9.0));
+    // /*!
+    // 	@function	MusicPlayerPreroll
+    // 	@abstract	Prepare the player for playing
+    // 	@discussion Allows the player to prepare its state so that starting is has a lower latency. If a player is started without
+    // 				being prerolled, the player will pre-roll itself and then start.
+    // 	@param		inPlayer	the player
+    // */
+    // extern OSStatus
+    // MusicPlayerPreroll(		MusicPlayer 	inPlayer)								API_AVAILABLE(macos(10.0), ios(5.0), watchos(2.0), tvos(9.0));
+    fn MusicPlayerPreroll(_: *const std::ffi::c_void) -> OSStatus;
 
-// /*!
-// 	@function	MusicPlayerPreroll
-// 	@abstract	Prepare the player for playing
-// 	@discussion Allows the player to prepare its state so that starting is has a lower latency. If a player is started without
-// 				being prerolled, the player will pre-roll itself and then start.
-// 	@param		inPlayer	the player
-// */
-// extern OSStatus
-// MusicPlayerPreroll(		MusicPlayer 	inPlayer)								API_AVAILABLE(macos(10.0), ios(5.0), watchos(2.0), tvos(9.0));
+    // /*!
+    // 	@function	MusicPlayerStart
+    // 	@abstract	Start the player
+    // 	@discussion If the player has not been prerolled, it will pre-roll itself and then start.
+    // 	@param		inPlayer	the player
+    // */
+    // extern OSStatus
+    // MusicPlayerStart(		MusicPlayer 	inPlayer)								API_AVAILABLE(macos(10.0), ios(5.0), watchos(2.0), tvos(9.0));
 
-// /*!
-// 	@function	MusicPlayerStart
-// 	@abstract	Start the player
-// 	@discussion If the player has not been prerolled, it will pre-roll itself and then start.
-// 	@param		inPlayer	the player
-// */
-// extern OSStatus
-// MusicPlayerStart(		MusicPlayer 	inPlayer)								API_AVAILABLE(macos(10.0), ios(5.0), watchos(2.0), tvos(9.0));
+    // /*!
+    // 	@function	MusicPlayerStop
+    // 	@abstract	Stop the player
+    // 	@param		inPlayer	the player
+    // */
+    // extern OSStatus
+    // MusicPlayerStop(		MusicPlayer 	inPlayer)								API_AVAILABLE(macos(10.0), ios(5.0), watchos(2.0), tvos(9.0));
 
-// /*!
-// 	@function	MusicPlayerStop
-// 	@abstract	Stop the player
-// 	@param		inPlayer	the player
-// */
-// extern OSStatus
-// MusicPlayerStop(		MusicPlayer 	inPlayer)								API_AVAILABLE(macos(10.0), ios(5.0), watchos(2.0), tvos(9.0));
+    // //
+    // /*!
+    // 	@function	MusicPlayerIsPlaying
+    // 	@abstract	Returns the playing state of the player. "Is it playing?"
+    // 	@discussion This call returns a non-zero value in outIsPlaying if the player has been
+    // 				started and not stopped. It may have "played" past the events of the attached
+    // 				MusicSequence, but it is still considered to be playing (and its time value increasing)
+    // 				until it is explicitly stopped
+    // 	@param		inPlayer		the player
+    // 	@param		outIsPlaying	false if not, true (non-zero) if is playing
+    // */
+    // extern OSStatus
+    // MusicPlayerIsPlaying(	MusicPlayer 	inPlayer,
+    // 						Boolean *		outIsPlaying)							API_AVAILABLE(macos(10.2), ios(5.0), watchos(2.0), tvos(9.0));
 
-// //
-// /*!
-// 	@function	MusicPlayerIsPlaying
-// 	@abstract	Returns the playing state of the player. "Is it playing?"
-// 	@discussion This call returns a non-zero value in outIsPlaying if the player has been
-// 				started and not stopped. It may have "played" past the events of the attached
-// 				MusicSequence, but it is still considered to be playing (and its time value increasing)
-// 				until it is explicitly stopped
-// 	@param		inPlayer		the player
-// 	@param		outIsPlaying	false if not, true (non-zero) if is playing
-// */
-// extern OSStatus
-// MusicPlayerIsPlaying(	MusicPlayer 	inPlayer,
-// 						Boolean *		outIsPlaying)							API_AVAILABLE(macos(10.2), ios(5.0), watchos(2.0), tvos(9.0));
+    // /*!
+    // 	@function	MusicPlayerSetPlayRateScalar
+    // 	@abstract	Scale the playback rate of the player
+    // 	@param		inPlayer	the player
+    // 	@param		inScaleRate	a scalar that will be applied to the playback rate. If 2, playback is twice as fast, if
+    // 				0.5 it is half as fast. As a scalar, the value must be greater than zero.
+    // */
+    // extern OSStatus
+    // MusicPlayerSetPlayRateScalar(	MusicPlayer		inPlayer,
+    // 								Float64			inScaleRate)					API_AVAILABLE(macos(10.3), ios(5.0), watchos(2.0), tvos(9.0));
 
-// /*!
-// 	@function	MusicPlayerSetPlayRateScalar
-// 	@abstract	Scale the playback rate of the player
-// 	@param		inPlayer	the player
-// 	@param		inScaleRate	a scalar that will be applied to the playback rate. If 2, playback is twice as fast, if
-// 				0.5 it is half as fast. As a scalar, the value must be greater than zero.
-// */
-// extern OSStatus
-// MusicPlayerSetPlayRateScalar(	MusicPlayer		inPlayer,
-// 								Float64			inScaleRate)					API_AVAILABLE(macos(10.3), ios(5.0), watchos(2.0), tvos(9.0));
+    // /*!
+    // 	@function	MusicPlayerGetPlayRateScalar
+    // 	@abstract	Get the playback rate scalar of the player
+    // 	@param		inPlayer		the player
+    // 	@param		outScaleRate	the current scalar being applied to the player. Default value is 1.0
+    // */
+    // extern OSStatus
+    // MusicPlayerGetPlayRateScalar(	MusicPlayer		inPlayer,
+    // 								Float64 *		outScaleRate)					API_AVAILABLE(macos(10.3), ios(5.0), watchos(2.0), tvos(9.0));
 
-// /*!
-// 	@function	MusicPlayerGetPlayRateScalar
-// 	@abstract	Get the playback rate scalar of the player
-// 	@param		inPlayer		the player
-// 	@param		outScaleRate	the current scalar being applied to the player. Default value is 1.0
-// */
-// extern OSStatus
-// MusicPlayerGetPlayRateScalar(	MusicPlayer		inPlayer,
-// 								Float64 *		outScaleRate)					API_AVAILABLE(macos(10.3), ios(5.0), watchos(2.0), tvos(9.0));
+    // //=====================================================================================================================
+    // #pragma mark -
 
-// //=====================================================================================================================
-// #pragma mark -
+    // //=====================================================================================================================
+    // #pragma mark Music Sequence
+    // /*!
+    // 	@functiongroup Music Sequence
+    // */
+    // /*!
+    // 	@function	NewMusicSequence
+    // 	@abstract	Create a new empty sequence
+    // 	@discussion	A new music sequence will only have a tempo track (with a default tempo of 120 bpm),
+    // 				and the default type is beat based.
 
-// //=====================================================================================================================
-// #pragma mark Music Sequence
-// /*!
-// 	@functiongroup Music Sequence
-// */
-// /*!
-// 	@function	NewMusicSequence
-// 	@abstract	Create a new empty sequence
-// 	@discussion	A new music sequence will only have a tempo track (with a default tempo of 120 bpm),
-// 				and the default type is beat based.
+    // 				When a sequence is to be played by a player, it can play to either an AUGraph, a MIDI Destination or a
+    // 				mixture/combination of both. See MusicSequenceSetAUGraph and MusicSequenceSetMIDIEndpoint for the generic
+    // 				destination assignments. Specific tracks can also be assigned nodes of a graph or a MIDI endpoint as targets
+    // 				for the events that they contain; see MusicTrackSetDestNode and MusicTrackSetDestMIDIEndpoint.
 
-// 				When a sequence is to be played by a player, it can play to either an AUGraph, a MIDI Destination or a
-// 				mixture/combination of both. See MusicSequenceSetAUGraph and MusicSequenceSetMIDIEndpoint for the generic
-// 				destination assignments. Specific tracks can also be assigned nodes of a graph or a MIDI endpoint as targets
-// 				for the events that they contain; see MusicTrackSetDestNode and MusicTrackSetDestMIDIEndpoint.
-
-// 	@param		outSequence		the new sequence
-// */
-// extern OSStatus
-// NewMusicSequence(	MusicSequence __nullable * __nonnull outSequence)			API_AVAILABLE(macos(10.0), ios(5.0), watchos(2.0), tvos(9.0));
-extern "C" {
+    // 	@param		outSequence		the new sequence
+    // */
+    // extern OSStatus
+    // NewMusicSequence(	MusicSequence __nullable * __nonnull outSequence)			API_AVAILABLE(macos(10.0), ios(5.0), watchos(2.0), tvos(9.0));
     fn NewMusicSequence(_: *mut std::ffi::c_void) -> OSStatus;
+
+    // /*!
+    // 	@function	DisposeMusicSequence
+    // 	@abstract	Dispose the sequence
+    // 	@discussion	 A sequence cannot be disposed while a MusicPlayer has it.
+    // 	@param		inSequence		the sequence
+    // */
+    // extern OSStatus
+    // DisposeMusicSequence(		MusicSequence		inSequence)						API_AVAILABLE(macos(10.0), ios(5.0), watchos(2.0), tvos(9.0));
+
+    // /*!
+    // 	@function	MusicSequenceNewTrack
+    // 	@abstract	Add a new (empty) track to the sequence
+    // 	@param		inSequence		the sequence
+    // 	@param		outTrack		the new track (it is always appended to any existing tracks)
+    // */
+    // extern OSStatus
+    // MusicSequenceNewTrack(		MusicSequence 		inSequence,
+    // 							MusicTrack __nullable * __nonnull outTrack)			API_AVAILABLE(macos(10.0), ios(5.0), watchos(2.0), tvos(9.0));
+
+    // /*!
+    // 	@function	MusicSequenceDisposeTrack
+    // 	@abstract	Remove and dispose a track from a sequence
+    // 	@param		inSequence		the sequence
+    // 	@param		inTrack			the track to remove and dispose
+    // */
+    // extern OSStatus
+    // MusicSequenceDisposeTrack(	MusicSequence 		inSequence,
+    // 							MusicTrack 			inTrack)						API_AVAILABLE(macos(10.0), ios(5.0), watchos(2.0), tvos(9.0));
+
+    // /*!
+    // 	@function	MusicSequenceGetTrackCount
+    // 	@abstract	The number of tracks in a sequence.
+    // 				The track count and accessors exclude the tempo track (which is treated as a special case)
+    // 	@param		inSequence			the sequence
+    // 	@param		outNumberOfTracks	the number of tracks
+    // */
+    // extern OSStatus
+    // MusicSequenceGetTrackCount(	MusicSequence 		inSequence,
+    // 							UInt32 				*outNumberOfTracks)				API_AVAILABLE(macos(10.0), ios(5.0), watchos(2.0), tvos(9.0));
+
+    // /*!
+    // 	@function	MusicSequenceGetIndTrack
+    // 	@abstract	Get a track at the specified index
+    // 	@discussion Index is zero based. It will return kAudio_ParamError if index is not in the range: 0 < TrackCount
+    // 				The track count and accessors exclude the tempo track (which is treated as a special case)
+    // 	@param		inSequence		the sequence
+    // 	@param		inTrackIndex	the index
+    // 	@param		outTrack		the track at that index
+    // */
+    // extern OSStatus
+    // MusicSequenceGetIndTrack(	MusicSequence 						inSequence,
+    // 							UInt32 								inTrackIndex,
+    // 							MusicTrack __nullable * __nonnull	outTrack)		API_AVAILABLE(macos(10.0), ios(5.0), watchos(2.0), tvos(9.0));
+
+    // /*!
+    // 	@function	MusicSequenceGetTrackIndex
+    // 	@abstract	Get the index for a specific track
+    // 	@discussion Index is zero based. It will return an error if the track is not a member of the sequence.
+    // 				The track count and accessors exclude the tempo track (which is treated as a special case)
+    // 	@param		inSequence		the sequence
+    // 	@param		inTrack			the track
+    // 	@param		outTrackIndex	the index of the track
+    // */
+    // extern OSStatus
+    // MusicSequenceGetTrackIndex(	MusicSequence 		inSequence,
+    // 							MusicTrack 			inTrack,
+    // 							UInt32				*outTrackIndex)					API_AVAILABLE(macos(10.0), ios(5.0), watchos(2.0), tvos(9.0));
+
+    // /*!
+    // 	@function	MusicSequenceGetTempoTrack
+    // 	@abstract	Get the tempo track of the sequence
+    // 	@discussion	Each sequence has a single tempo track. All tempo events are placed into this tempo track (as well
+    // 				as other appropriate events (time sig for instance from a MIDI file). The tempo track, once retrieved
+    // 				can be edited and iterated upon as any other track. Non-tempo events in a tempo track are ignored.
+    // 	@param		inSequence		the sequence
+    // 	@param		outTrack		the tempo track of the sequence
+    // */
+    // extern OSStatus
+    // MusicSequenceGetTempoTrack(	MusicSequence						inSequence,
+    // 							MusicTrack __nullable * __nonnull	outTrack)		API_AVAILABLE(macos(10.1), ios(5.0), watchos(2.0), tvos(9.0));
+
+    // /*!
+    // 	@function	MusicSequenceSetAUGraph
+    // 	@abstract	Set the graph to be associated with the sequence
+    // 	@discussion	A sequence can be associated with an AUGraph and this graph will be used to render the events as
+    // 				controlled by the sequence when it is played. By default, all of the tracks of a sequence will
+    // 				find the first AUNode that is an instance of an Apple MusicDevice audio unit (see MusicSequenceGetAUGraph).
+    // 				Specific nodes of the graph can be targeted for different tracks (see MusicTrackSetDestNode).  To render a
+    //  				multi-track GM MIDI sequence on iOS, create a custom graph with a MIDISynth audio unit as the MusicDevice.
+    //  				If inGraph is set to NULL, the sequence will reset to use the default graph.
+    // 	@param		inSequence		the sequence
+    // 	@param		inGraph			the graph
+    // */
+    // extern OSStatus
+    // MusicSequenceSetAUGraph(	MusicSequence 	   inSequence,
+    // 							AUGraph __nullable inGraph)							API_AVAILABLE(macos(10.0), ios(5.0), watchos(2.0), tvos(9.0));
+
+    // /*!
+    // 	@function	MusicSequenceGetAUGraph
+    // 	@abstract	Gets the graph currently associated with a sequence
+    // 	@discussion	By default if no graph is assigned to a sequence then the sequence will create a default graph.
+    // 				This default graph contains a MusicDevice and a DynamicsProcessor and all tracks will be targeted
+    // 				to the MusicDevice.  On macOS, this MusicDevice is an instance of a software synthesizer that is
+    // 				compatible with the GM and GS MIDI standards.  On iOS, it is an instance of a monotimbral software
+    // 				synthesizer designed to render events from a single MIDI channel.  To render multi-track GM MIDI
+    //  				sequences on iOS, create a custom graph with a MIDISynth audio unit as the MusicDevice.
+
+    // 				This call will thus either return the graph as set by the user, or this default graph.
+    // 	@param		inSequence		the sequence
+    // 	@param		outGraph		the graph
+    // */
+    // extern OSStatus
+    // MusicSequenceGetAUGraph(	MusicSequence 					inSequence,
+    // 							AUGraph __nullable * __nonnull	outGraph)			API_AVAILABLE(macos(10.0), ios(5.0), watchos(2.0), tvos(9.0));
+
+    // /*!
+    // 	@function	MusicSequenceSetMIDIEndpoint
+    // 	@abstract	Makes the target of all of the tracks in the sequence a MIDI endpoint
+    // 	@discussion	This is a convenience function, and is equivalent to iterating through all of the tracks in a sequence
+    // 				and targeting each track to the MIDI endpoint
+
+    // 	@param		inSequence		the sequence
+    // 	@param		inEndpoint		the MIDI endpoint
+    // */
+    // extern OSStatus
+    // MusicSequenceSetMIDIEndpoint(	MusicSequence 	inSequence,
+    // 								MIDIEndpointRef	inEndpoint)						API_AVAILABLE(macos(10.1), ios(5.0), tvos(12.0)) __WATCHOS_PROHIBITED;
+
+    // /*!
+    // 	@function	MusicSequenceSetSequenceType
+    // 	@abstract	Set the sequence type (the default is beats)
+    // 	@discussion
+    // 				These two calls allow you to get and set a MusicSequence type; specifying
+    // 					kMusicSequenceType_Beats		= 'beat',
+    // 					kMusicSequenceType_Seconds		= 'secs',
+    // 					kMusicSequenceType_Samples		= 'samp'
+
+    // 				The sequence type can be set to beats at any time. The sequence type can only be set to
+    // 				seconds or samples if there are NO tempo events already in the sequence.
+
+    // 				For beats - it can have as many tempo events as you want
+    // 				For Samples and Seconds - you should add a single tempo event after setting the type
+    // 					Samples - the tempo is the desired sample rate - e.g. 44100 and each "beat" in the sequence will be
+    // 						interpreted as a sample count at that sample rate (so beat == 44100 is a second)
+    // 					Seconds - the tempo should be set to 60 - a beat is a second.
+
+    // 				Beats is the default (and is the behaviour on pre 10.5 systems)
+
+    // 				A meta event of interest for Seconds based MIDI files is the SMPTE Offset meta event - stored in the tempo track.
+    // 				The sequence doesn't do anything with this event (except store/write it)
+    // 	@param		inSequence	the sequence
+    // 	@param		inType		the sequence type
+    // */
+    // extern OSStatus
+    // MusicSequenceSetSequenceType(	MusicSequence		inSequence,
+    // 							MusicSequenceType		inType)						API_AVAILABLE(macos(10.5), ios(5.0), watchos(2.0), tvos(9.0));
+
+    // /*!
+    // 	@function	MusicSequenceGetSequenceType
+    // 	@abstract	Get the sequence type
+    // 	@discussion	See SetSequence for a full description
+    // 	@param		inSequence		the sequence
+    // 	@param		outType			the type
+    // */
+    // extern OSStatus
+    // MusicSequenceGetSequenceType(	MusicSequence		inSequence,
+    // 							MusicSequenceType * 	outType)					API_AVAILABLE(macos(10.5), ios(5.0), watchos(2.0), tvos(9.0));
+
+    // /*!
+    // 	@function	MusicSequenceFileLoad
+    // 	@abstract	Load the data contained within the referenced file to the sequence
+    // 	@discussion	This function will parse the file referenced by the URL and add the events to the sequence.
+    // 	@param		inSequence		the sequence
+    // 	@param		inFileRef		a file:// URL that references a file
+    // 	@param		inFileTypeHint	provides a hint to the sequence on the file type being imported. Can be zero in many cases.
+    // 	@param		inFlags			flags that can control how the data is parsed in the file and laid out in the tracks
+    // 								that will be created and added to the sequence in this operation
+    // */
+    // extern OSStatus
+    // MusicSequenceFileLoad(MusicSequence					inSequence,
+    // 						CFURLRef					inFileRef,
+    // 						MusicSequenceFileTypeID		inFileTypeHint,
+    // 						MusicSequenceLoadFlags		inFlags)					API_AVAILABLE(macos(10.5), ios(5.0), watchos(2.0), tvos(9.0));
+
+    // /*!
+    // 	@function	MusicSequenceFileLoadData
+    // 	@abstract	Load the data to the sequence
+    // 	@discussion	This function will parse the data and add the events to the sequence. The data provided needs to
+    // 				be of a particular file type as specified by the fileTypeHint.
+    // 	@param		inSequence		the sequence
+    // 	@param		inData			the contents of a valid file loaded into a CFData object
+    // 	@param		inFileTypeHint	provides a hint to the sequence on the file type being imported. Can be zero in many cases.
+    // 	@param		inFlags			flags that can control how the data is parsed in the file and laid out in the tracks
+    // 								that will be created and added to the sequence in this operation
+    // */
+    // extern OSStatus
+    // MusicSequenceFileLoadData(MusicSequence				inSequence,
+    // 						CFDataRef					inData,
+    // 						MusicSequenceFileTypeID		inFileTypeHint,
+    // 						MusicSequenceLoadFlags		inFlags)					API_AVAILABLE(macos(10.5), ios(5.0), watchos(2.0), tvos(9.0));
 }
-
-// /*!
-// 	@function	DisposeMusicSequence
-// 	@abstract	Dispose the sequence
-// 	@discussion	 A sequence cannot be disposed while a MusicPlayer has it.
-// 	@param		inSequence		the sequence
-// */
-// extern OSStatus
-// DisposeMusicSequence(		MusicSequence		inSequence)						API_AVAILABLE(macos(10.0), ios(5.0), watchos(2.0), tvos(9.0));
-
-// /*!
-// 	@function	MusicSequenceNewTrack
-// 	@abstract	Add a new (empty) track to the sequence
-// 	@param		inSequence		the sequence
-// 	@param		outTrack		the new track (it is always appended to any existing tracks)
-// */
-// extern OSStatus
-// MusicSequenceNewTrack(		MusicSequence 		inSequence,
-// 							MusicTrack __nullable * __nonnull outTrack)			API_AVAILABLE(macos(10.0), ios(5.0), watchos(2.0), tvos(9.0));
-
-// /*!
-// 	@function	MusicSequenceDisposeTrack
-// 	@abstract	Remove and dispose a track from a sequence
-// 	@param		inSequence		the sequence
-// 	@param		inTrack			the track to remove and dispose
-// */
-// extern OSStatus
-// MusicSequenceDisposeTrack(	MusicSequence 		inSequence,
-// 							MusicTrack 			inTrack)						API_AVAILABLE(macos(10.0), ios(5.0), watchos(2.0), tvos(9.0));
-
-// /*!
-// 	@function	MusicSequenceGetTrackCount
-// 	@abstract	The number of tracks in a sequence.
-// 				The track count and accessors exclude the tempo track (which is treated as a special case)
-// 	@param		inSequence			the sequence
-// 	@param		outNumberOfTracks	the number of tracks
-// */
-// extern OSStatus
-// MusicSequenceGetTrackCount(	MusicSequence 		inSequence,
-// 							UInt32 				*outNumberOfTracks)				API_AVAILABLE(macos(10.0), ios(5.0), watchos(2.0), tvos(9.0));
-
-// /*!
-// 	@function	MusicSequenceGetIndTrack
-// 	@abstract	Get a track at the specified index
-// 	@discussion Index is zero based. It will return kAudio_ParamError if index is not in the range: 0 < TrackCount
-// 				The track count and accessors exclude the tempo track (which is treated as a special case)
-// 	@param		inSequence		the sequence
-// 	@param		inTrackIndex	the index
-// 	@param		outTrack		the track at that index
-// */
-// extern OSStatus
-// MusicSequenceGetIndTrack(	MusicSequence 						inSequence,
-// 							UInt32 								inTrackIndex,
-// 							MusicTrack __nullable * __nonnull	outTrack)		API_AVAILABLE(macos(10.0), ios(5.0), watchos(2.0), tvos(9.0));
-
-// /*!
-// 	@function	MusicSequenceGetTrackIndex
-// 	@abstract	Get the index for a specific track
-// 	@discussion Index is zero based. It will return an error if the track is not a member of the sequence.
-// 				The track count and accessors exclude the tempo track (which is treated as a special case)
-// 	@param		inSequence		the sequence
-// 	@param		inTrack			the track
-// 	@param		outTrackIndex	the index of the track
-// */
-// extern OSStatus
-// MusicSequenceGetTrackIndex(	MusicSequence 		inSequence,
-// 							MusicTrack 			inTrack,
-// 							UInt32				*outTrackIndex)					API_AVAILABLE(macos(10.0), ios(5.0), watchos(2.0), tvos(9.0));
-
-// /*!
-// 	@function	MusicSequenceGetTempoTrack
-// 	@abstract	Get the tempo track of the sequence
-// 	@discussion	Each sequence has a single tempo track. All tempo events are placed into this tempo track (as well
-// 				as other appropriate events (time sig for instance from a MIDI file). The tempo track, once retrieved
-// 				can be edited and iterated upon as any other track. Non-tempo events in a tempo track are ignored.
-// 	@param		inSequence		the sequence
-// 	@param		outTrack		the tempo track of the sequence
-// */
-// extern OSStatus
-// MusicSequenceGetTempoTrack(	MusicSequence						inSequence,
-// 							MusicTrack __nullable * __nonnull	outTrack)		API_AVAILABLE(macos(10.1), ios(5.0), watchos(2.0), tvos(9.0));
-
-// /*!
-// 	@function	MusicSequenceSetAUGraph
-// 	@abstract	Set the graph to be associated with the sequence
-// 	@discussion	A sequence can be associated with an AUGraph and this graph will be used to render the events as
-// 				controlled by the sequence when it is played. By default, all of the tracks of a sequence will
-// 				find the first AUNode that is an instance of an Apple MusicDevice audio unit (see MusicSequenceGetAUGraph).
-// 				Specific nodes of the graph can be targeted for different tracks (see MusicTrackSetDestNode).  To render a
-//  				multi-track GM MIDI sequence on iOS, create a custom graph with a MIDISynth audio unit as the MusicDevice.
-//  				If inGraph is set to NULL, the sequence will reset to use the default graph.
-// 	@param		inSequence		the sequence
-// 	@param		inGraph			the graph
-// */
-// extern OSStatus
-// MusicSequenceSetAUGraph(	MusicSequence 	   inSequence,
-// 							AUGraph __nullable inGraph)							API_AVAILABLE(macos(10.0), ios(5.0), watchos(2.0), tvos(9.0));
-
-// /*!
-// 	@function	MusicSequenceGetAUGraph
-// 	@abstract	Gets the graph currently associated with a sequence
-// 	@discussion	By default if no graph is assigned to a sequence then the sequence will create a default graph.
-// 				This default graph contains a MusicDevice and a DynamicsProcessor and all tracks will be targeted
-// 				to the MusicDevice.  On macOS, this MusicDevice is an instance of a software synthesizer that is
-// 				compatible with the GM and GS MIDI standards.  On iOS, it is an instance of a monotimbral software
-// 				synthesizer designed to render events from a single MIDI channel.  To render multi-track GM MIDI
-//  				sequences on iOS, create a custom graph with a MIDISynth audio unit as the MusicDevice.
-
-// 				This call will thus either return the graph as set by the user, or this default graph.
-// 	@param		inSequence		the sequence
-// 	@param		outGraph		the graph
-// */
-// extern OSStatus
-// MusicSequenceGetAUGraph(	MusicSequence 					inSequence,
-// 							AUGraph __nullable * __nonnull	outGraph)			API_AVAILABLE(macos(10.0), ios(5.0), watchos(2.0), tvos(9.0));
-
-// /*!
-// 	@function	MusicSequenceSetMIDIEndpoint
-// 	@abstract	Makes the target of all of the tracks in the sequence a MIDI endpoint
-// 	@discussion	This is a convenience function, and is equivalent to iterating through all of the tracks in a sequence
-// 				and targeting each track to the MIDI endpoint
-
-// 	@param		inSequence		the sequence
-// 	@param		inEndpoint		the MIDI endpoint
-// */
-// extern OSStatus
-// MusicSequenceSetMIDIEndpoint(	MusicSequence 	inSequence,
-// 								MIDIEndpointRef	inEndpoint)						API_AVAILABLE(macos(10.1), ios(5.0), tvos(12.0)) __WATCHOS_PROHIBITED;
-
-// /*!
-// 	@function	MusicSequenceSetSequenceType
-// 	@abstract	Set the sequence type (the default is beats)
-// 	@discussion
-// 				These two calls allow you to get and set a MusicSequence type; specifying
-// 					kMusicSequenceType_Beats		= 'beat',
-// 					kMusicSequenceType_Seconds		= 'secs',
-// 					kMusicSequenceType_Samples		= 'samp'
-
-// 				The sequence type can be set to beats at any time. The sequence type can only be set to
-// 				seconds or samples if there are NO tempo events already in the sequence.
-
-// 				For beats - it can have as many tempo events as you want
-// 				For Samples and Seconds - you should add a single tempo event after setting the type
-// 					Samples - the tempo is the desired sample rate - e.g. 44100 and each "beat" in the sequence will be
-// 						interpreted as a sample count at that sample rate (so beat == 44100 is a second)
-// 					Seconds - the tempo should be set to 60 - a beat is a second.
-
-// 				Beats is the default (and is the behaviour on pre 10.5 systems)
-
-// 				A meta event of interest for Seconds based MIDI files is the SMPTE Offset meta event - stored in the tempo track.
-// 				The sequence doesn't do anything with this event (except store/write it)
-// 	@param		inSequence	the sequence
-// 	@param		inType		the sequence type
-// */
-// extern OSStatus
-// MusicSequenceSetSequenceType(	MusicSequence		inSequence,
-// 							MusicSequenceType		inType)						API_AVAILABLE(macos(10.5), ios(5.0), watchos(2.0), tvos(9.0));
-
-// /*!
-// 	@function	MusicSequenceGetSequenceType
-// 	@abstract	Get the sequence type
-// 	@discussion	See SetSequence for a full description
-// 	@param		inSequence		the sequence
-// 	@param		outType			the type
-// */
-// extern OSStatus
-// MusicSequenceGetSequenceType(	MusicSequence		inSequence,
-// 							MusicSequenceType * 	outType)					API_AVAILABLE(macos(10.5), ios(5.0), watchos(2.0), tvos(9.0));
-
-// /*!
-// 	@function	MusicSequenceFileLoad
-// 	@abstract	Load the data contained within the referenced file to the sequence
-// 	@discussion	This function will parse the file referenced by the URL and add the events to the sequence.
-// 	@param		inSequence		the sequence
-// 	@param		inFileRef		a file:// URL that references a file
-// 	@param		inFileTypeHint	provides a hint to the sequence on the file type being imported. Can be zero in many cases.
-// 	@param		inFlags			flags that can control how the data is parsed in the file and laid out in the tracks
-// 								that will be created and added to the sequence in this operation
-// */
-// extern OSStatus
-// MusicSequenceFileLoad(MusicSequence					inSequence,
-// 						CFURLRef					inFileRef,
-// 						MusicSequenceFileTypeID		inFileTypeHint,
-// 						MusicSequenceLoadFlags		inFlags)					API_AVAILABLE(macos(10.5), ios(5.0), watchos(2.0), tvos(9.0));
-
-// /*!
-// 	@function	MusicSequenceFileLoadData
-// 	@abstract	Load the data to the sequence
-// 	@discussion	This function will parse the data and add the events to the sequence. The data provided needs to
-// 				be of a particular file type as specified by the fileTypeHint.
-// 	@param		inSequence		the sequence
-// 	@param		inData			the contents of a valid file loaded into a CFData object
-// 	@param		inFileTypeHint	provides a hint to the sequence on the file type being imported. Can be zero in many cases.
-// 	@param		inFlags			flags that can control how the data is parsed in the file and laid out in the tracks
-// 								that will be created and added to the sequence in this operation
-// */
-// extern OSStatus
-// MusicSequenceFileLoadData(MusicSequence				inSequence,
-// 						CFDataRef					inData,
-// 						MusicSequenceFileTypeID		inFileTypeHint,
-// 						MusicSequenceLoadFlags		inFlags)					API_AVAILABLE(macos(10.5), ios(5.0), watchos(2.0), tvos(9.0));
-
 // /*!
 // 	@function	MusicSequenceSetSMPTEResolution
 // 	@abstract	Helper function to establish the SMPTE based MIDI file resolution for the specified ticks
