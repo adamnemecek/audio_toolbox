@@ -336,12 +336,26 @@ pub struct MusicPlayer(*const std::ffi::c_void);
 // typedef struct OpaqueMusicSequence		*MusicSequence;
 pub struct MusicSequence(*const std::ffi::c_void);
 
+pub fn OSAssert(status: OSStatus) {
+    assert_eq!(status, 0);
+}
+
 impl MusicSequence {
     pub fn new() -> Self {
-        Self(std::ptr::null())
+        let ptr = std::ptr::null_mut();
+        unsafe {
+            OSAssert(NewMusicSequence(ptr));
+            Self(*ptr)
+        }
     }
+}
 
-    pub fn dispose(&self) {}
+impl std::ops::Drop for MusicSequence {
+    fn drop(&mut self) {
+        unsafe {
+            OSAssert(DisposeMusicSequence(self.0));
+        }
+    }
 }
 
 // typedef struct OpaqueMusicTrack			*MusicTrack;
@@ -679,7 +693,7 @@ extern "C" {
     // */
     // extern OSStatus
     // NewMusicSequence(	MusicSequence __nullable * __nonnull outSequence)			API_AVAILABLE(macos(10.0), ios(5.0), watchos(2.0), tvos(9.0));
-    fn NewMusicSequence(_: *mut std::ffi::c_void) -> OSStatus;
+    fn NewMusicSequence(_: *mut *mut std::ffi::c_void) -> OSStatus;
 
     // /*!
     // 	@function	DisposeMusicSequence
@@ -689,7 +703,7 @@ extern "C" {
     // */
     // extern OSStatus
     // DisposeMusicSequence(		MusicSequence		inSequence)						API_AVAILABLE(macos(10.0), ios(5.0), watchos(2.0), tvos(9.0));
-
+    fn DisposeMusicSequence(_: *const std::ffi::c_void) -> OSStatus;
     // /*!
     // 	@function	MusicSequenceNewTrack
     // 	@abstract	Add a new (empty) track to the sequence
@@ -699,7 +713,7 @@ extern "C" {
     // extern OSStatus
     // MusicSequenceNewTrack(		MusicSequence 		inSequence,
     // 							MusicTrack __nullable * __nonnull outTrack)			API_AVAILABLE(macos(10.0), ios(5.0), watchos(2.0), tvos(9.0));
-
+    fn MusicSequenceNewTrack(_: *const std::ffi::c_void) -> OSStatus;
     // /*!
     // 	@function	MusicSequenceDisposeTrack
     // 	@abstract	Remove and dispose a track from a sequence
@@ -709,7 +723,7 @@ extern "C" {
     // extern OSStatus
     // MusicSequenceDisposeTrack(	MusicSequence 		inSequence,
     // 							MusicTrack 			inTrack)						API_AVAILABLE(macos(10.0), ios(5.0), watchos(2.0), tvos(9.0));
-
+    fn MusicSequenceDisposeTrack(_: *const std::ffi::c_void) -> OSStatus;
     // /*!
     // 	@function	MusicSequenceGetTrackCount
     // 	@abstract	The number of tracks in a sequence.
@@ -720,7 +734,7 @@ extern "C" {
     // extern OSStatus
     // MusicSequenceGetTrackCount(	MusicSequence 		inSequence,
     // 							UInt32 				*outNumberOfTracks)				API_AVAILABLE(macos(10.0), ios(5.0), watchos(2.0), tvos(9.0));
-
+    fn MusicSequenceGetTrackCount(_: *const std::ffi::c_void) -> OSStatus;
     // /*!
     // 	@function	MusicSequenceGetIndTrack
     // 	@abstract	Get a track at the specified index
@@ -734,7 +748,7 @@ extern "C" {
     // MusicSequenceGetIndTrack(	MusicSequence 						inSequence,
     // 							UInt32 								inTrackIndex,
     // 							MusicTrack __nullable * __nonnull	outTrack)		API_AVAILABLE(macos(10.0), ios(5.0), watchos(2.0), tvos(9.0));
-
+    fn MusicSequenceGetIndTrack(_: *const std::ffi::c_void) -> OSStatus;
     // /*!
     // 	@function	MusicSequenceGetTrackIndex
     // 	@abstract	Get the index for a specific track
