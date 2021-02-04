@@ -96,6 +96,8 @@ use core_audio::OSStatus;
 // 	kMusicEventType_AUPreset				= 10
 // };
 // typedef UInt32		MusicEventType;
+pub type MusicEventType = u32;
+
 
 // /*!
 // 	@enum MusicSequenceLoadFlags
@@ -176,6 +178,7 @@ use core_audio::OSStatus;
 // 	@abstract	The type used to refer to time values in a music sequence
 // */
 // typedef Float64		MusicTimeStamp;
+pub type MusicTimeStamp = f64;
 
 // /*!
 // 	@struct		kMusicTimeStamp_EndOfTrack
@@ -336,8 +339,11 @@ pub struct MusicSequence(*const std::ffi::c_void);
 
 impl MusicSequence {
     pub fn new() -> Self {
-        
         Self(std::ptr::null())
+    }
+
+    pub fn dispose(&self) {
+
     }
 }
 
@@ -465,6 +471,12 @@ pub type MusicSequenceUserCallback = extern "C" fn();
 // 	MusicTimeStamp		loopDuration;
 // 	SInt32				numberOfLoops;
 // } MusicTrackLoopInfo;
+
+#[derive(Clone, Copy, PartialEq)]
+pub struct MusicTrackLoopInfo {
+    pub loop_duration: MusicTimeStamp,
+    pub number_of_loop: i32,
+}
 
 // //=====================================================================================================================
 // #pragma mark -
