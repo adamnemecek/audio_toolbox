@@ -151,6 +151,8 @@ pub type AUParameterListenerBlock =
 //                                             UInt64                      inEventHostTime,
 //                                             AudioUnitParameterValue     inParameterValue);
 // #endif
+pub type AUEventListenerBlock =
+    block::RcBlock<(*mut std::ffi::c_void, *const AudioUnitParameter), ()>;
 
 // /*!
 //     @typedef    AUParameterListenerProc
@@ -168,6 +170,8 @@ pub type AUParameterListenerBlock =
 //                                             void * __nullable           inObject,
 //                                             const AudioUnitParameter *  inParameter,
 //                                             AudioUnitParameterValue     inValue);
+pub type AUParameterListenerProc =
+    block::RcBlock<(*mut std::ffi::c_void, *const AudioUnitParameter), ()>;
 
 // /*!
 //     @typedef    AUEventListenerProc
@@ -188,7 +192,7 @@ pub type AUParameterListenerBlock =
 //                                     const AudioUnitEvent *      inEvent,
 //                                     UInt64                      inEventHostTime,
 //                                     AudioUnitParameterValue     inParameterValue);
-
+pub type AUEventListenerProc = extern "C" fn();
 // /* ============================================================================= */
 // /*!
 //     @functiongroup  AUListener
@@ -221,7 +225,7 @@ pub type AUParameterListenerBlock =
 //                                     dispatch_queue_t                              inDispatchQueue,
 //                                     AUParameterListenerBlock                      inBlock)        API_AVAILABLE(macos(10.6), ios(6.0), watchos(2.0), tvos(9.0));
 // #endif
-
+pub type AUListenerCreateWithDispatchQueue = extern "C" fn();
 // /*!
 //     @function   AUListenerCreate
 //     @abstract   Create an object for fielding notifications when AudioUnit parameter values change.
@@ -257,6 +261,7 @@ pub type AUParameterListenerBlock =
 //                                     Float32                         inNotificationInterval,
 //                                     AUParameterListenerRef __nullable * __nonnull outListener)    API_AVAILABLE(macos(10.2), ios(6.0), watchos(2.0), tvos(9.0));
 
+pub type AUListenerCreate = extern "C" fn();
 // /*!
 //     @function   AUListenerDispose
 //     @abstract   Dispose a parameter listener object.
@@ -266,6 +271,7 @@ pub type AUParameterListenerBlock =
 // extern OSStatus
 // AUListenerDispose(                  AUParameterListenerRef          inListener)     API_AVAILABLE(macos(10.2), ios(6.0), watchos(2.0), tvos(9.0));
 
+pub type AUListenerDispose = extern "C" fn();
 // /*!
 //     @function   AUListenerAddParameter
 //     @abstract   Connect a parameter to a listener.
@@ -286,7 +292,7 @@ pub type AUParameterListenerBlock =
 // AUListenerAddParameter(             AUParameterListenerRef          inListener,
 //                                     void * __nullable               inObject,
 //                                     const AudioUnitParameter *      inParameter)    API_AVAILABLE(macos(10.2), ios(6.0), watchos(2.0), tvos(9.0));
-
+pub type AUListenerAddParameter = extern "C" fn();
 // /*!
 //     @function   AUListenerRemoveParameter
 //     @abstract   Remove a parameter/listener connection.
@@ -301,7 +307,7 @@ pub type AUParameterListenerBlock =
 // AUListenerRemoveParameter(          AUParameterListenerRef          inListener,
 //                                     void * __nullable               inObject,
 //                                     const AudioUnitParameter *      inParameter)    API_AVAILABLE(macos(10.2), ios(6.0), watchos(2.0), tvos(9.0));
-
+pub type AUListenerRemoveParameter = extern "C" fn();
 // /*!
 //     @function   AUParameterSet
 //     @abstract   Set an AudioUnit parameter value and notify listeners.
@@ -332,7 +338,7 @@ pub type AUParameterListenerBlock =
 //                                     AudioUnitParameterValue           inValue,
 //                                     UInt32                            inBufferOffsetInFrames)
 //                                                                                     API_AVAILABLE(macos(10.2), ios(6.0), watchos(2.0), tvos(9.0));
-
+pub type AUParameterSet = extern "C" fn();
 // /*!
 //     @function   AUParameterListenerNotify
 //     @abstract   Notify listeners of a past parameter change.
@@ -363,7 +369,7 @@ pub type AUParameterListenerBlock =
 // AUParameterListenerNotify(          AUParameterListenerRef __nullable inSendingListener,
 //                                     void * __nullable                 inSendingObject,
 //                                     const AudioUnitParameter *        inParameter)    API_AVAILABLE(macos(10.2), ios(6.0), watchos(2.0), tvos(9.0));
-
+pub type AUParameterListenerNotify = extern "C" fn();
 // /* ============================================================================= */
 // /*!
 //     @functiongroup  AUEventListener

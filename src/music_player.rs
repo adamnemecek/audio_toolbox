@@ -327,9 +327,15 @@
 // typedef struct CABarBeatTime CABarBeatTime;
 
 // typedef struct OpaqueMusicPlayer		*MusicPlayer;
+pub struct MusicPlayer(*const std::ffi::c_void);
+
 // typedef struct OpaqueMusicSequence		*MusicSequence;
+pub struct MusicSequence(*const std::ffi::c_void);
 // typedef struct OpaqueMusicTrack			*MusicTrack;
+pub struct MusicTrack(*const std::ffi::c_void);
+
 // typedef struct OpaqueMusicEventIterator *MusicEventIterator;
+pub struct MusicEventIterator(*const std::ffi::c_void);
 
 // /*!
 // 	@typedef MusicSequenceUserCallback
