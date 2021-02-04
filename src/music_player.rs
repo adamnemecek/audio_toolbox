@@ -530,7 +530,7 @@ extern "C" {
     // extern OSStatus
     // MusicPlayerSetSequence(	MusicPlayer 	inPlayer,
     // 						MusicSequence __nullable inSequence)					API_AVAILABLE(macos(10.0), ios(5.0), watchos(2.0), tvos(9.0));
-    fn MusicPlayerSetSequence(_: *mut std::ffi::c_void, ) -> OSStatus;
+    fn MusicPlayerSetSequence(_: *mut std::ffi::c_void) -> OSStatus;
     // /*!
     // 	@function	MusicPlayerGetSequence
     // 	@abstract	Get the sequence attached to a player
@@ -762,7 +762,7 @@ extern "C" {
     // MusicSequenceGetTrackIndex(	MusicSequence 		inSequence,
     // 							MusicTrack 			inTrack,
     // 							UInt32				*outTrackIndex)					API_AVAILABLE(macos(10.0), ios(5.0), watchos(2.0), tvos(9.0));
-
+    fn MusicSequenceGetTrackIndex(_: *const std::ffi::c_void) -> OSStatus;
     // /*!
     // 	@function	MusicSequenceGetTempoTrack
     // 	@abstract	Get the tempo track of the sequence
@@ -775,7 +775,7 @@ extern "C" {
     // extern OSStatus
     // MusicSequenceGetTempoTrack(	MusicSequence						inSequence,
     // 							MusicTrack __nullable * __nonnull	outTrack)		API_AVAILABLE(macos(10.1), ios(5.0), watchos(2.0), tvos(9.0));
-
+    fn MusicSequenceGetTempoTrack(_: *const std::ffi::c_void) -> OSStatus;
     // /*!
     // 	@function	MusicSequenceSetAUGraph
     // 	@abstract	Set the graph to be associated with the sequence
@@ -791,7 +791,7 @@ extern "C" {
     // extern OSStatus
     // MusicSequenceSetAUGraph(	MusicSequence 	   inSequence,
     // 							AUGraph __nullable inGraph)							API_AVAILABLE(macos(10.0), ios(5.0), watchos(2.0), tvos(9.0));
-
+    fn MusicSequenceSetAUGraph(_: *const std::ffi::c_void) -> OSStatus;
     // /*!
     // 	@function	MusicSequenceGetAUGraph
     // 	@abstract	Gets the graph currently associated with a sequence
@@ -809,7 +809,7 @@ extern "C" {
     // extern OSStatus
     // MusicSequenceGetAUGraph(	MusicSequence 					inSequence,
     // 							AUGraph __nullable * __nonnull	outGraph)			API_AVAILABLE(macos(10.0), ios(5.0), watchos(2.0), tvos(9.0));
-
+    fn MusicSequenceGetAUGraph(_: *const std::ffi::c_void) -> OSStatus;
     // /*!
     // 	@function	MusicSequenceSetMIDIEndpoint
     // 	@abstract	Makes the target of all of the tracks in the sequence a MIDI endpoint
@@ -822,7 +822,7 @@ extern "C" {
     // extern OSStatus
     // MusicSequenceSetMIDIEndpoint(	MusicSequence 	inSequence,
     // 								MIDIEndpointRef	inEndpoint)						API_AVAILABLE(macos(10.1), ios(5.0), tvos(12.0)) __WATCHOS_PROHIBITED;
-
+    fn MusicSequenceSetMIDIEndpoint(_: *const std::ffi::c_void) -> OSStatus;
     // /*!
     // 	@function	MusicSequenceSetSequenceType
     // 	@abstract	Set the sequence type (the default is beats)
@@ -851,7 +851,7 @@ extern "C" {
     // extern OSStatus
     // MusicSequenceSetSequenceType(	MusicSequence		inSequence,
     // 							MusicSequenceType		inType)						API_AVAILABLE(macos(10.5), ios(5.0), watchos(2.0), tvos(9.0));
-
+    fn MusicSequenceSetSequenceType(_: *const std::ffi::c_void) -> OSStatus;
     // /*!
     // 	@function	MusicSequenceGetSequenceType
     // 	@abstract	Get the sequence type
@@ -862,7 +862,7 @@ extern "C" {
     // extern OSStatus
     // MusicSequenceGetSequenceType(	MusicSequence		inSequence,
     // 							MusicSequenceType * 	outType)					API_AVAILABLE(macos(10.5), ios(5.0), watchos(2.0), tvos(9.0));
-
+    fn MusicSequenceGetSequenceType(_: *const std::ffi::c_void) -> OSStatus;
     // /*!
     // 	@function	MusicSequenceFileLoad
     // 	@abstract	Load the data contained within the referenced file to the sequence
@@ -878,7 +878,7 @@ extern "C" {
     // 						CFURLRef					inFileRef,
     // 						MusicSequenceFileTypeID		inFileTypeHint,
     // 						MusicSequenceLoadFlags		inFlags)					API_AVAILABLE(macos(10.5), ios(5.0), watchos(2.0), tvos(9.0));
-
+    fn MusicSequenceFileLoad(_: *const std::ffi::c_void) -> OSStatus;
     // /*!
     // 	@function	MusicSequenceFileLoadData
     // 	@abstract	Load the data to the sequence
