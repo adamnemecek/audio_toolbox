@@ -1,3 +1,4 @@
+use cc4::four_cc;
 // #if (defined(__USE_PUBLIC_HEADERS__) && __USE_PUBLIC_HEADERS__) || (defined(USE_AUDIOTOOLBOX_PUBLIC_HEADERS) && USE_AUDIOTOOLBOX_PUBLIC_HEADERS) || !__has_include(<AudioToolboxCore/AUComponent.h>)
 // /*!
 // 	@file		AUComponent.h
@@ -235,6 +236,26 @@
 //     kAudioUnitType_RemoteMusicEffect    = 'aurm'
 // };
 // #endif
+
+#[repr(u32)]
+#[derive(Clone, Copy, PartialEq, Eq)]
+pub enum AudioUnitType {
+    Output					= four_cc(b"auou"),
+    MusicDevice				= four_cc(b"aumu"),
+    MusicEffect				= four_cc(b"aumf"),
+    FormatConverter			= four_cc(b"aufc"),
+    Effect					= four_cc(b"aufx"),
+    Mixer					= four_cc(b"aumx"),
+    Panner					= four_cc(b"aupn"),
+    Generator				= four_cc(b"augn"),
+    OfflineEffect			= four_cc(b"auol"),
+    MIDIProcessor			= four_cc(b"aumi"),
+
+    RemoteEffect         = four_cc(b"aurx"),
+    RemoteGenerator      = four_cc(b"aurg"),
+    RemoteInstrument     = four_cc(b"auri"),
+    RemoteMusicEffect    = four_cc(b"aurm"),
+}
 
 // //================================================================================================
 // #pragma mark -
