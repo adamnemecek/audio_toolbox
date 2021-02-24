@@ -96,7 +96,20 @@ use core_audio::OSStatus;
 // 	kMusicEventType_AUPreset				= 10
 // };
 // typedef UInt32		MusicEventType;
-pub type MusicEventType = u32;
+#[repr(u32)]
+#[derive(Clone, Copy, PartialEq, Eq)]
+pub enum MusicEventType {
+    NULL = 0,
+    ExtendedNote = 1,
+    ExtendedTempo = 3,
+    User = 4,
+    Meta = 5,
+    MIDINoteMessage = 6,
+    MIDIChannelMessage = 7,
+    MIDIRawData = 8,
+    Parameter = 9,
+    AUPreset = 10,
+}
 
 // /*!
 // 	@enum MusicSequenceLoadFlags

@@ -240,21 +240,21 @@ use cc4::four_cc;
 #[repr(u32)]
 #[derive(Clone, Copy, PartialEq, Eq)]
 pub enum AudioUnitType {
-    Output					= four_cc(b"auou"),
-    MusicDevice				= four_cc(b"aumu"),
-    MusicEffect				= four_cc(b"aumf"),
-    FormatConverter			= four_cc(b"aufc"),
-    Effect					= four_cc(b"aufx"),
-    Mixer					= four_cc(b"aumx"),
-    Panner					= four_cc(b"aupn"),
-    Generator				= four_cc(b"augn"),
-    OfflineEffect			= four_cc(b"auol"),
-    MIDIProcessor			= four_cc(b"aumi"),
+    Output = four_cc(b"auou"),
+    MusicDevice = four_cc(b"aumu"),
+    MusicEffect = four_cc(b"aumf"),
+    FormatConverter = four_cc(b"aufc"),
+    Effect = four_cc(b"aufx"),
+    Mixer = four_cc(b"aumx"),
+    Panner = four_cc(b"aupn"),
+    Generator = four_cc(b"augn"),
+    OfflineEffect = four_cc(b"auol"),
+    MIDIProcessor = four_cc(b"aumi"),
 
-    RemoteEffect         = four_cc(b"aurx"),
-    RemoteGenerator      = four_cc(b"aurg"),
-    RemoteInstrument     = four_cc(b"auri"),
-    RemoteMusicEffect    = four_cc(b"aurm"),
+    RemoteEffect = four_cc(b"aurx"),
+    RemoteGenerator = four_cc(b"aurg"),
+    RemoteInstrument = four_cc(b"auri"),
+    RemoteMusicEffect = four_cc(b"aurm"),
 }
 
 // //================================================================================================
