@@ -1,3 +1,4 @@
+use cc4::four_cc;
 use core_audio::OSStatus;
 
 // /*!
@@ -155,6 +156,14 @@ pub enum MusicEventType {
 // 	kMusicSequenceType_Samples		= 'samp'
 // };
 
+#[repr(u32)]
+#[derive(Clone, Copy, PartialEq, Eq)]
+pub enum MusicSequenceType {
+    Beats = four_cc(b"beat"),
+    Seconds = four_cc(b"secs"),
+    Samples = four_cc(b"samp"),
+}
+
 // /*!
 // 	@enum MusicSequenceFileTypeID
 // 	@abstract	describes different types of files that can be parsed by a music sequence
@@ -214,6 +223,14 @@ pub type MusicTimeStamp = f64;
 // 	Float32		duration;
 // } MIDINoteMessage;
 
+struct MIDINoteMessage {
+    pub channel: u8,
+    pub note: u8,
+    pub velocity: u8,
+    pub releaseVelocity: u8, // was "reserved". 0 is the correct value when you don't know.
+    pub duration: f32,
+}
+
 // /*!
 // 	@struct		MIDIChannelMessage
 // 	@discussion	The parameters to specify a MIDI channel message
@@ -227,6 +244,14 @@ pub type MusicTimeStamp = f64;
 // 	UInt8		data2;
 // 	UInt8		reserved;
 // } MIDIChannelMessage;
+struct MIDIChannelMessage {
+    status: u8, // contains message and channel
+
+    // message specific data
+    pub data1: u8,
+    pub data2: u8,
+    pub reserved: u8,
+}
 
 // /*!
 // 	@struct		MIDIRawData
