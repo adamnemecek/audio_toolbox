@@ -245,7 +245,7 @@ struct MIDINoteMessage {
 // 	UInt8		reserved;
 // } MIDIChannelMessage;
 struct MIDIChannelMessage {
-    status: u8, // contains message and channel
+    pub status: u8, // contains message and channel
 
     // message specific data
     pub data1: u8,
@@ -368,9 +368,19 @@ struct MIDIChannelMessage {
 // };
 // typedef struct CABarBeatTime CABarBeatTime;
 
+pub struct CABarBeatTime {
+    pub bar: i32,
+    pub beat: u16,
+    pub subbeat: u16,
+    pub subbeat_divisor: u16,
+    pub reserved: u16,
+}
+
 // typedef struct OpaqueMusicPlayer		*MusicPlayer;
+#[repr(transparent)]
 pub struct MusicPlayer(*const std::ffi::c_void);
 
+#[repr(transparent)]
 // typedef struct OpaqueMusicSequence		*MusicSequence;
 pub struct MusicSequence(*const std::ffi::c_void);
 
@@ -510,6 +520,20 @@ pub type MusicSequenceUserCallback = extern "C" fn();
 // 	// added in 10.5
 // 	kSequenceTrackProperty_TimeResolution = 6
 // };
+#[repr(u32)]
+#[derive(Clone, Copy, PartialEq, Eq)]
+pub enum SequenceTrackProperty {
+    LoopInfo = 0,
+    OffsetTime = 1,
+    MuteStatus = 2,
+    SoloStatus = 3,
+    // added in 10.2
+    AutomatedParameters = 4,
+    // added in 10.3
+    TrackLength = 5,
+    // added in 10.5
+    TimeResolution = 6,
+}
 
 // /*!
 // 	@struct		MusicTrackLoopInfo
@@ -951,6 +975,11 @@ extern "C" {
 // 	res += ticks;
 // 	return res;
 // }
+
+pub fn MusicSequenceSetSMPTEResolution(fps: i8, ticks: u8) -> i16 {
+    let res8 = -fps.abs();
+    todo!()
+}
 
 // /*!
 // 	@function	MusicSequenceGetSMPTEResolution
